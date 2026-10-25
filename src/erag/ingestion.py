@@ -27,11 +27,29 @@ STAGE_12_IDS = APPROVED_IDS | frozenset(
 )
 
 
+STAGE_13_IDS = STAGE_12_IDS | frozenset(
+    {
+        "servicebus-recovery",
+        "vault-rotation",
+        "gitops-reconciliation",
+        "patch-compliance",
+        "storage-access",
+        "disaster-recovery",
+        "logging-governance",
+        "secret-delivery",
+        "capacity-management",
+        "ingress-routing",
+    }
+)
+
+
 def approved_ids(stage: str):
     if stage == "1.1":
         return APPROVED_IDS
     if stage == "1.2":
         return STAGE_12_IDS
+    if stage == "1.3":
+        return STAGE_13_IDS
     raise ValueError("unapproved document stage")
 
 

@@ -1,0 +1,15 @@
+# Payments logging governance RB-LOG-049
+
+Owner: Observability Governance | Dataset: stage-1.3-v1 | Status: synthetic training fixture
+
+## Production retention
+
+Production payments application logs in Loki have a configured retention period of 30 days. Security audit records have a separate configured retention period of 365 days. Observability Governance approves retention changes. Neither log policy changes the immutable payment-audit export retention or the database backup policy.
+
+## Redaction policy
+
+Redact Authorization headers, database passwords and TLS private keys before log ingestion. Preserve trace IDs and UTC timestamps for investigation. A trace ID can join logs to request traces but is not a pod UID. Do not assume a redaction configuration proves that a particular log event was sanitized successfully.
+
+## Scope and evidence
+
+An archived debug environment retained application logs for 3 days. That historical debug policy is not the production Loki policy. This runbook contains no current ingestion lag, last successful redaction audit result or actual count of retained events.

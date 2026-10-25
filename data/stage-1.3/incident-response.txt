@@ -1,0 +1,19 @@
+# Payments incident coordination RB-INC-035
+
+Owner: Reliability Operations | Dataset: stage-1.2-v1 | Status: synthetic training fixture
+
+## Severity and acknowledgement
+
+For a SEV1 payments incident, the incident commander must acknowledge the page within 5 minutes. Reliability Operations assigns the incident commander. The acknowledgement target is not the same as the ten-minute PaymentLatencyHigh evaluation duration. Acknowledgement does not establish remediation or recovery.
+
+## Evidence and coordination
+
+Record a UTC incident timeline, customer impact, mitigation owner and next communication time. Post a customer-impact update every 20 minutes while the SEV1 incident remains active. Do not paste database passwords, workload identity tokens or TLS private keys into the incident timeline. Component owners retain authority for their own recovery actions.
+
+## Component escalation
+
+For suspected database restoration, obtain Database Reliability authorization. For a managed Redis service failover, contact the managed-cache team. Application Reliability owns cache client retry configuration. The security team owns certificate issuer policy; the platform team operates cert-manager. The incident commander coordinates these teams but does not replace their technical approval responsibilities.
+
+## Recovery closure
+
+Before closing a payments incident, verify successful synthetic payment checks and observe recovery for 15 minutes as defined by the observability runbook. Fresh metrics and traces must support closure. A cache read/write probe alone does not prove successful payment transactions. Record the final impact interval and any follow-up owner. This runbook contains no current incident severity, actual acknowledgement time or measured recovery result.

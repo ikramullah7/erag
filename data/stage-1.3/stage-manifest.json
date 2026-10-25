@@ -1,0 +1,37 @@
+{
+  "stage": "1.3",
+  "documents": 20,
+  "retained_from_stage_1_2": {
+    "observability.txt": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+    "certificate-management.txt": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+    "aks-platform.txt": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+    "azure-networking.txt": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+    "workload-identity.txt": "ae41d6b2359b5ad6a6f185542d3cb8cd46d81d1fa256401274bb188ade933348",
+    "release-management.txt": "b56e3b636214df117a4fed1e244bc1296386e6268670652f36aaa7fc95cd70c9",
+    "postgresql-recovery.txt": "d242838e9bb6e2360e12d8a1f0edbd4839c6f3c21113b8914f350ed5bb304672",
+    "incident-response.txt": "3f05ca6d72c0cfb977a279c2860d96f3a2dde3c047916127c22d02e6d3178602",
+    "kubernetes-troubleshooting.txt": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c",
+    "redis-availability.txt": "f28baed68afc6f99c5b14695f0fdc3c43f4e98394a5af258627ab2ba57704657"
+  },
+  "new_documents": [
+    "capacity-management",
+    "disaster-recovery",
+    "gitops-reconciliation",
+    "ingress-routing",
+    "logging-governance",
+    "patch-compliance",
+    "secret-delivery",
+    "servicebus-recovery",
+    "storage-access",
+    "vault-rotation"
+  ],
+  "generation_model": "qwen3:14b",
+  "plan": "Fixed retrieval profile and 12288 context budget before first evaluation query. Freeze fresh labels before results; agent-reviewed semantic baseline.",
+  "evaluation_hashes": {
+    "answer-evaluation-v1.json": "f33b25b8008086e63473b6d6d5c210f244ba6988e7e97f1c066b32cf1adcd915",
+    "heldout.json": "c8a30dd029f255b602885daf9e404da65f663c59dfc166bee0040c93ae0c10f1",
+    "answer-semantic-references-v1.json": "cd3093c1adaedd41ea495d5326f32204c19f47bd9482ddec7042cabbdb0cfc75",
+    "tuning.json": "aefb7693c97db40f33e7b3311b896e59bfa4f0e0b8501e4286f1f65a01828f49"
+  },
+  "label_review": "All twenty sources reviewed before rankings; selected regression questions have no new complete-answer alternatives. Quote spans and explicit reference facts checked. No actual credential or current-state value introduced."
+}

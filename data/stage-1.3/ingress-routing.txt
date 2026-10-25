@@ -1,0 +1,15 @@
+# Payments ingress routing RB-ING-046
+
+Owner: Edge Platform | Dataset: stage-1.3-v1 | Status: synthetic training fixture
+
+## Production route contract
+
+Ingress route payments-api-public serves hostname api.payments.example.test. It forwards to service payments-api-svc in namespace payments on service port 8080. The ingress request timeout is configured to 30 seconds. Edge Platform owns the ingress route configuration. The request timeout is not the Redis client retry budget or the Service Bus delivery lock duration.
+
+## Endpoint and TLS checks
+
+For HTTP 503, inspect service selector and ready EndpointSlice members before changing ingress timeouts. A route definition does not establish that a healthy backend exists. Certificate hostname validation and backend readiness are separate checks. Do not change a certificate merely because the backend endpoint list is empty.
+
+## Routing change evidence
+
+Before promotion, verify the target hostname, service name and namespace, then run a synthetic payment transaction. Record the ingress revision and the observation window. This runbook contains no currently ready endpoint count, measured request latency or actual served certificate expiry date.

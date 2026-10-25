@@ -7,7 +7,9 @@
 - [x] Document stage 1.2: 10 documents — implementation, six-strategy ranking evaluation,
       14B answers, reviewed four-metric baseline and regressions complete. Existing ranking
       targets pass; semantic findings remain recorded. Synthetic development evidence only.
-- [ ] Document stage 1.3: 20 documents (requires explicit approval).
+- [x] Document stage 1.3: 20 documents — implementation, six-strategy evaluation, fresh 14B
+      answers, reviewed baseline and regressions complete. Existing ranking targets pass;
+      semantic scope/reference findings remain explicit. Synthetic development evidence only.
 - [ ] Document stage 1.4: 50 documents (requires explicit approval).
 - [ ] Document stage 1.5: 100 documents (requires explicit approval).
 - [ ] Document stage 1.6: 200+ documents (requires explicit approval).

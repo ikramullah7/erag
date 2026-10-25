@@ -174,3 +174,31 @@ Reviewed metrics retain the earlier strict qualifier and whole-claim citation ru
 record partial reference-scope coverage in new-26 without rewriting expected facts after seeing
 answers. All next-stage documents remain unapproved. Legacy defaults/profiles remain available;
 use the explicit stage-1.2 profile for the current ten-source corpus.
+
+
+## Phase 1.3 scope and preregistered profile
+
+User authorized twenty documents, retaining all prior ten. Extend the explicit stage ID set to
+1.3; reject 1.4 and later sets. Keep ranking parameters, 20-candidate pool, chunking and model
+revisions fixed before evaluation. Raise only the new answer profile's context budget from
+8,192 to 12,288 to fit broader evidence/repair context; retain 14B, output limit, seed, temperature,
+quote alignment and one-retry policy. No old profile changes or new dependencies/downloads.
+
+Prepare ten new runbooks and freeze thirty supported questions (ten regressions, twenty fresh)
+and six unsupported questions before retrieval. Reference facts are atomic and limited to the
+question's requested information to reduce earlier compound-reference overconstraint. Source-
+review selected regression alternatives before ranks; no new complete-answer alternatives were
+introduced for those selected questions. Compare all six retrieval strategies without selecting
+on heldout. Keep local model judges excluded from semantic scoring; annotate actual answers
+against sources and required facts with reviewable reasons. Record all failures and uncertainties.
+
+
+Phase 1.3 execution: the unchanged hybrid/BGE profile passed all ranking targets on the fifteen
+supported heldout cases. Every answer was freshly generated with 14B; one bounded ownership
+retry succeeded. Do not confuse the thirty passed fact-pattern cases with semantic correctness:
+source review found unsupported qualifier/storage-scope additions and one reference-overconstraint
+caveat. Keep original outputs/sources/facts and record explicit adjudication reasons. Separate
+legacy/new question groups so larger aggregates do not hide retained findings. Exact source
+provenance remains distinct from semantic citation support. No further generation/ranking tuning
+or next-stage expansion is implied by completion. Prior stored five/ten-source indexes still
+validate under the extended configuration guard.

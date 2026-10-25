@@ -35,8 +35,8 @@ class Config:
     threads: int = 2
 
     def __post_init__(self):
-        if self.stage not in ("1.1", "1.2"):
-            raise ValueError("only approved stages 1.1 and 1.2 are supported")
+        if self.stage not in ("1.1", "1.2", "1.3"):
+            raise ValueError("only approved stages 1.1, 1.2 and 1.3 are supported")
         for name in ("max_words", "overlap_words", "candidates", "rrf_k", "threads"):
             if type(getattr(self, name)) is not int:
                 raise ValueError(f"{name} must be an integer")

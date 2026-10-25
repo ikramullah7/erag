@@ -1,3 +1,74 @@
+# Current result: Phase 1.3 implementation and evaluation complete
+
+Twenty approved documents and 82 chunks. All ten prior source bytes and 52 chunk IDs retained.
+Profiles: `config/stage-1.3.yaml`, `config/answer-stage-1.3.yaml`. Explicit guards reject stage
+1.4/unauthorized source sets. Fixed ranking/chunking parameters; only the new answer context
+budget increased to 12,288 before evaluation. Local 14B only, existing output/repair/alignment
+policy retained. No new dependencies, model downloads or service integrations.
+
+Thirty supported questions (ten regressions, twenty new) and six unsupported questions were
+frozen before retrieval. Tuning has fifteen supported; heldout fifteen supported plus six
+unsupported. All six real retrieval variants executed. Fixed hybrid+BGE heldout metrics:
+Hit@1/Hit@3/Recall@5 100%, MRR/nDCG@10 1.0. All five configured ranking targets pass. No
+ranking tuning or strategy selection on heldout results. Labels/sources are agent-authored
+synthetic development fixtures with possible fact overlap, not independent human validation.
+
+All 36 answer cases freshly generated, including one bounded validation retry (37 local API
+calls). Fact patterns 30/30, unsupported abstentions 6/6, no final invalid/provider errors.
+Generation timing is fresh; cached retrieval diagnostics reuse the actual ranking run. Do not
+interpret evaluation elapsed_ms as fresh end-to-end latency. A separate fresh twenty-document
+CLI generation for secret mount path/polling passed. No credential value was requested/returned.
+
+Direct agent-reviewed baseline: faithfulness 71/74 (95.95%), correctness macro F1 96.25%,
+semantic citation support 67/70 (95.71%), abstention 36/36 (100%). Findings: regression-03
+requested/actual certificate validity; fresh-07 unsupported Loki audit-storage assignment;
+fresh-19 conservative high-severity clock-anchor interpretation. Fresh-10 correctly answers the
+asked no-workload-stop question but misses an unasked spending-cap detail in a compound
+reference; strict reference scope is explicitly recorded rather than crediting reference text
+as answer text. Fresh-11 has a served-hostname phrasing advisory without a fact-field penalty.
+Original answers, sources and expected facts remain unchanged. Scores are reviewed development
+estimates; no new semantic threshold/production pass or independent human agreement claimed.
+
+Verification: 172 passed, two optional checks skipped (Docker server parity and historical 1.1
+strict gate). Real cached model tests executed. Stage 1.1/1.2/1.3 real stored indexes all validate.
+Ruff check/format and whitespace checks passed. Every claim, citation and required fact has a
+hash-bound annotation; replay is deterministic and requires no local model. Evidence:
+`docs/results/stage-1.3/summary.json`, sibling raw/code/test archives and `data/stage-1.3`.
+
+Requested stage complete. Next action: user review/discussion. Stage 1.4 with fifty documents
+remains unapproved. No narrative stage report generated.
+
+---
+
+## Historical work log
+
+# Current work: Phase 1.3 — twenty documents
+
+User explicitly authorized the twenty-document stage. All ten prior source files and their
+52 chunk IDs are retained unchanged. Ten added runbooks cover messaging, vault rotation,
+regional recovery, storage access, capacity, ingress, secret delivery, GitOps, logging governance
+and patch compliance. The twenty-document index has 82 chunks. No later stage is authorized.
+
+Profiles: `config/stage-1.3.yaml`, `config/answer-stage-1.3.yaml`. Retrieval parameters and pinned
+models are unchanged. Qwen3 14B only; generation context was fixed at 12,288 before first query
+to accommodate more source evidence and bounded repair feedback. Previous profiles untouched.
+No dependency, model download, external service or interface expansion.
+
+Frozen checks: ten retained regression questions, twenty new supported questions and six
+unsupported cases. Tuning has fifteen supported questions; heldout has fifteen supported plus
+six unsupported. Required facts, exact source spans and source-first labels were frozen before
+retrieval. Questions/labels are agent-authored synthetic development data, not independent
+human validation. Same source facts can appear across questions; no ranking tuning or selection
+was performed using heldout results.
+
+Completed: twenty-source isolation, retention/stable-ID, deletion/restore, stale-source and
+source-evidence tests. Real six-strategy ranking evaluation completed. Fixed hybrid+BGE heldout
+Hit@1/Hit@3/Recall@5 100%, MRR/nDCG@10 1.0; all configured ranking targets pass. Tuning nDCG@10
+.9865, other selected metrics 1.0. In progress: fresh 14B generation, direct source-reviewed
+four-metric baseline, final real-provider regressions and CLI smoke.
+
+---
+
 # Current result: Phase 1.2 implementation and evaluation complete
 
 Ten approved documents, 52 canonical chunks. The original five source bytes and their chunk

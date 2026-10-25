@@ -1,0 +1,15 @@
+# Payments Service Bus recovery RB-MSG-041
+
+Owner: Messaging Reliability | Dataset: stage-1.3-v1 | Status: synthetic training fixture
+
+## Production delivery policy
+
+Production queue payments-events-prod uses PeekLock delivery with a configured lock duration of 45 seconds. The maximum delivery count is 8. A message exceeding that count is moved to the dead-letter subqueue; it is not proof that the payment transaction failed. Consumers must use payment-event-id as the idempotency key. A successful broker delivery does not establish a successful ledger posting.
+
+## Dead-letter recovery
+
+Messaging Reliability approves dead-letter replay. Before replay, classify the dead-letter reason and verify that the consumer defect has been corrected. Replay at a maximum rate of 20 messages per second and monitor duplicate suppression. Preserve the original payment-event-id during replay; do not create a new idempotency key to bypass deduplication. Record replay batch ID and the count of successfully processed messages.
+
+## Archived staging test
+
+The archived payments-events-stage experiment used a maximum delivery count of 3. That archived value is not the production setting; payments-events-prod remains configured for 8 deliveries. This runbook contains no current queue depth, dead-letter count or latest replay outcome.

@@ -1,0 +1,15 @@
+# Payment audit storage RB-STO-044
+
+Owner: Data Platform | Dataset: stage-1.3-v1 | Status: synthetic training fixture
+
+## Production audit container
+
+Production account stpaymentsauditprod stores exports in container payment-audit. The container has a configured immutability retention period of 180 days. Data Platform approves changes to the audit retention policy. This storage retention is separate from PostgreSQL backup retention and application log retention. A configured immutability policy does not prove that a particular export exists or is complete.
+
+## Export identity and network
+
+Managed identity mi-payments-export receives Storage Blob Data Contributor scoped to container payment-audit. It does not receive account-wide Owner. The blob private DNS zone is privatelink.blob.core.windows.net. A working identity token does not establish that private DNS or the storage network path works. The vault role used by payments-api does not substitute for a storage data-plane role.
+
+## Export validation
+
+Verify the exported row count and SHA-256 manifest before declaring an export complete. Record the export batch ID and original source interval. The runbook does not contain a current signed storage URL, storage access key or latest successful export timestamp.

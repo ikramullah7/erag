@@ -1,3 +1,47 @@
+# Current stage: Phase 1.3 — twenty documents
+
+Twenty synthetic runbooks are indexed in 82 chunks. All ten prior files and 52 chunk IDs
+remain unchanged. The explicit profiles preserve earlier stages:
+
+```sh
+HF_HUB_OFFLINE=1 uv run erag --config config/stage-1.3.yaml index
+HF_HUB_OFFLINE=1 uv run erag answer 'What is the production GitOps reconciliation interval?' --answer-config config/answer-stage-1.3.yaml
+```
+
+Retrieval parameters remain fixed. Local Qwen3 14B uses a 12,288 context budget; other generation
+settings, one bounded validation retry and conservative source-fragment alignment are retained.
+All earlier configurations remain available. No new dependency, model download or service.
+
+The heldout retrieval check has fifteen supported questions plus six unsupported cases. The
+fixed hybrid+BGE profile achieves Hit@1/Hit@3/Recall@5 100%, MRR/nDCG@10 1.0, meeting all five
+existing targets. All six strategies were compared without heldout-based profile selection.
+Thirty supported and six unsupported answer cases were freshly generated (37 local model
+calls including one successful retry), with 30/30 fact-pattern checks and 6/6 correct abstentions.
+
+Agent-reviewed semantic baseline: faithfulness 95.95% (71/74 assertions), correctness mean F1
+96.25%, citation accuracy 95.71% (67/70 links), abstention accuracy 100% (36/36). Reviewed findings
+include certificate requested/actual validity, an unsupported Loki audit-storage assignment,
+a conservative high-severity clock-anchor judgment, and one overconstrained reference fact.
+Those reasons and grouped metrics are retained; no source/reference was edited to raise scores.
+These are small synthetic development results, not independent human or production validation.
+
+```sh
+# Reproduce reviewed metrics without model calls:
+uv run python scripts/score_reviewed_answers.py --answers docs/results/stage-1.3/answers.json.gz --references data/stage-1.3/answer-semantic-references-v1.json --reviews data/stage-1.3/answer-reviewed-baseline-v1.json --output artifacts/my-stage13-reviewed.json
+# Fresh evaluation of the fixed profile, preserving earlier runs:
+HF_HUB_OFFLINE=1 uv run python scripts/evaluate_stage13.py --output artifacts/stage-1.3/replay-001
+HF_HUB_OFFLINE=1 ERAG_MODEL_TESTS=1 uv run pytest -q
+```
+
+Verification: 172 tests passed, two optional checks skipped; fresh twenty-document CLI smoke and
+all three real stored-stage validations passed. Raw rankings, model outputs, review annotations,
+frozen hashes, source snapshots and remaining findings: `docs/results/stage-1.3`.
+Generation timings are fresh; retrieval diagnostics/timings are reused from the ranking run,
+so the answer evaluation is not a fresh full-pipeline latency benchmark. Stage 1.4 (50 documents)
+remains unapproved. Historical stage results follow below.
+
+---
+
 # Current stage: Phase 1.2 — ten documents
 
 Ten synthetic DevOps runbooks are indexed in 52 chunks. The original five source files and

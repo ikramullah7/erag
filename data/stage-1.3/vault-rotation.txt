@@ -1,0 +1,15 @@
+# Payments vault rotation RB-SEC-042
+
+Owner: Security Operations | Dataset: stage-1.3-v1 | Status: synthetic training fixture
+
+## Production rotation policy
+
+The configured rotation interval for payment-signing-key in kv-payments-prod is 60 days. Security Operations approves signing-key rotation. The rotation interval is distinct from the validity requested for ingress certificate payments-api-cert. A rotation schedule does not prove that the active signing key was rotated on time. No private key bytes or secret values are recorded in this runbook.
+
+## Safe rollover
+
+Publish the new public verification key before switching the signing key. Keep the previous public verification key available for a 24-hour overlap after the switch. Confirm consumers accept signatures from both supported key versions during the overlap. Record public key version IDs and the change ticket; never paste the signing key into logs.
+
+## Access verification
+
+Use the least-privilege vault role assigned to the workload identity; rotation approval does not grant broad vault administration to application teams. Check identity token exchange separately from private endpoint reachability. This policy does not record the current active key version, last completed rotation time or actual vault role-assignment verification result.

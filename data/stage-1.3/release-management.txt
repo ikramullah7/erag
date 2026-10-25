@@ -1,0 +1,19 @@
+# Payments release management RB-REL-034
+
+Owner: Release Engineering | Dataset: stage-1.2-v1 | Status: synthetic training fixture
+
+## Production canary
+
+For a production payments-api release, send 10 percent of traffic to the canary for 15 minutes before promotion. Promotion requires fresh telemetry, successful synthetic payment transactions and no sustained increase in error rate. The 15-minute canary window is distinct from the 24-hour staging observation required before an AKS cluster upgrade. A healthy canary does not authorize a cluster upgrade.
+
+## Promotion evidence
+
+Record the immutable image digest, configuration revision, canary start time and comparison dashboard window. A green dashboard without fresh metrics is not sufficient promotion evidence. Check the latest Prometheus sample timestamp and payment trace outcomes. The release runbook defines required evidence but does not record the currently deployed image digest or latest production promotion result.
+
+## Rollback boundaries
+
+Release Engineering authorizes an application rollback; application teams execute the approved manifest rollback. Roll back the application image and configuration to the recorded prior release. Database schema rollback requires a separately reviewed database plan; an application rollback does not automatically reverse a database migration. Cluster version rollback is outside this procedure.
+
+## Scope of readiness
+
+Before promotion, verify ingress health, payments /ready on port 8080 and the synthetic payment transaction. A readiness response is not proof of ledger business correctness. The managed Redis cache is disposable, but the production PostgreSQL payment store must retain transaction consistency. Follow Database Reliability approval for any database restoration.

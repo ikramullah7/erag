@@ -1,0 +1,15 @@
+# Payments patch compliance RB-PAT-050
+
+Owner: Platform Security | Dataset: stage-1.3-v1 | Status: synthetic training fixture
+
+## Remediation targets
+
+Critical operating-system findings on production payment nodes have a remediation target of 72 hours after confirmed triage. High-severity findings have a remediation target of 14 days. These are remediation targets, not evidence that current nodes are compliant. Platform Security owns severity classification; the platform team executes node image upgrades.
+
+## Upgrade controls
+
+Use the safe-upgrade controls in the AKS runbook, including disruption budgets and subnet surge capacity. A vulnerability target does not authorize deleting the system pool or bypassing a disruption budget. Record the approved image version and maintenance ticket. Verify application readiness and fresh monitoring signals after the upgrade.
+
+## Compliance evidence
+
+Verify a fresh authenticated scan after remediation before closing the finding. An image upgrade completion event alone does not prove that the reported vulnerability is absent. This runbook contains no live vulnerability inventory, current node image version or last successful scan timestamp.

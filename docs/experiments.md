@@ -83,3 +83,25 @@ Agent-reviewed final baseline: faithfulness 72/73, correctness mean F1 .972222, 
 No source/reference fact was edited after outputs to raise scores. Evidence and input/code
 snapshots: `docs/results/stage-1.2`. These are synthetic development and regression observations,
 not new independent human validation or production readiness.
+
+
+## Stage 1.3 fixed twenty-document expansion
+
+Twenty sources/82 chunks; ten retained files and 52 chunk IDs unchanged. Fixed ranking profile;
+14B generation context 12,288 set before evaluation. Frozen questions: ten prior regressions,
+twenty new supported questions, six unsupported. Tuning fifteen supported; heldout fifteen
+supported plus six unsupported. All six retrieval variants executed. Selected existing hybrid+
+BGE: heldout Hit@1/Hit@3/Recall@5/MRR/nDCG@10 all 1.0; tuning nDCG@10 .9865 with other selected
+metrics 1.0. No heldout-based strategy selection or ranking tuning.
+
+Fresh 14B answers: 30/30 expected-fact checks, 6/6 correct abstentions, one successful bounded
+retry (37 API calls), zero final invalid/provider errors. No recorded-answer replay. A separate
+fresh CLI answer also passed. Generation-only median 10.66 s; ranking timing reuse is explicit
+and not a fresh full-pipeline latency measurement.
+
+Agent-reviewed semantics: faithfulness 71/74, correctness mean F1 .962525, citation accuracy
+67/70, abstention 36/36. Per-case and grouped scores retain old certainty issues, unsupported
+Loki backend assignment, a conservative high-severity clock-anchor interpretation and a
+compound-reference scope caveat. No source/expected fact was rewritten after seeing answers.
+These are agent-reviewed synthetic development observations, not independent human gold scores.
+All raw outputs, source snapshots, annotations, frozen hashes and tests: `docs/results/stage-1.3`.

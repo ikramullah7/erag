@@ -1,0 +1,15 @@
+# Regional payments recovery RB-DR-043
+
+Owner: Resilience Engineering | Dataset: stage-1.3-v1 | Status: synthetic training fixture
+
+## Regional objectives
+
+The regional payments-service recovery point objective is 10 minutes and its recovery time objective is 120 minutes. These regional objectives are distinct from the production PostgreSQL database recovery objectives. The regional service target includes application dependencies and traffic restoration, not just a database restore. Objectives are targets rather than measured recovery results.
+
+## Regional activation
+
+Resilience Engineering authorizes a regional failover. Before traffic activation, validate payment consistency in the recovery region and confirm ledger connectivity from recovery workloads. Enable traffic only after those checks pass. Record the recovery-region name, authorization ticket and validation timestamps. DNS resolution alone does not prove successful business transactions.
+
+## Drill boundaries
+
+An archived regional tabletop exercise used a 240-minute recovery time objective. That historical exercise does not replace the current regional 120-minute target. No actual disaster declaration, current recovery-region readiness or latest regional drill completion time is recorded here.

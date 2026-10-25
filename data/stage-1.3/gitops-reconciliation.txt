@@ -1,0 +1,15 @@
+# Payments GitOps reconciliation RB-GIT-048
+
+Owner: Delivery Platform | Dataset: stage-1.3-v1 | Status: synthetic training fixture
+
+## Reconciliation policy
+
+Flux Kustomization payments-prod reconciles every 5 minutes with prune enabled. Its source path is clusters/prod/payments. Delivery Platform owns the reconciliation configuration. A reconciliation interval is a schedule rather than proof that the last apply succeeded. Release Engineering retains authority for application rollback approval.
+
+## Drift response
+
+For unauthorized production drift, revert the change in the reviewed Git source and allow reconciliation to apply it. A direct cluster edit is not a durable fix while the reconciler remains active. Record the Git commit and Flux revision. Suspending reconciliation requires Delivery Platform approval and a time-bounded incident note; do not suspend it merely to hide a failed release.
+
+## Archived staging behavior
+
+An archived staging Kustomization used a 1-minute interval with prune disabled. Those staging settings do not replace the production 5-minute interval and prune-enabled policy. This runbook contains no current Git commit SHA or latest successful reconciliation timestamp.

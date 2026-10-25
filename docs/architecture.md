@@ -1,8 +1,8 @@
 # Phase 1 architecture
 
-Current approved scope: ten-document Stage 1.2, with retrieval and local cited answers through
-one Python CLI. Five-document Stage 1.1 remains reproducible with its existing profiles.
-Chat, authentication, cloud deployment and expansion beyond ten documents remain future work.
+Current approved scope: twenty-document Stage 1.3, with retrieval and local cited answers
+through one Python CLI. Five- and ten-document profiles remain reproducible. Chat, authentication,
+cloud deployment and expansion beyond twenty documents remain future work.
 
 | Module | Responsibility |
 |---|---|
@@ -175,3 +175,21 @@ source chunks; the structured-output schema is still provided to Ollama.
 Reviewed 1.2 metrics reuse the existing formulas and hash-bound annotation scorer. The final
 validation replay retains actual measured first-pass generations and makes fresh repair requests
 only where needed. It is explicitly marked as replay and is separate from the fresh CLI smoke.
+
+
+## Stage 1.3 expansion
+
+Stage 1.3 explicitly allows the twenty approved source IDs and retains all ten prior documents
+and canonical chunk IDs. The same index/payload/fingerprint and deletion/restore checks apply.
+New source/index profiles keep previous states isolated. Candidate count remains twenty;
+chunking, embeddings, weighted RRF and BGE parameters are unchanged. Generation remains local
+14B, with the new profile context budget 12,288 to accommodate six relevant source chunks and
+repair feedback. Output budget and the one-retry/unique-fragment alignment policy are unchanged.
+No old profile is modified. Stage 1.4 and unauthorized source sets remain rejected.
+
+The frozen evaluation compares all six strategies, with fresh local answer generation and a
+separate fresh CLI smoke. Retrieval diagnostics are reused from the real ranking evaluation,
+with explicit timing scope. Thirty supported and six unsupported answers are source-reviewed;
+atomic/citation judgments, reference coverage, grouped results and conservative ambiguities are
+preserved. Factual precision penalizes unsupported additions even when all requested facts are
+present. A reference-overconstraint note is retained without silently rewriting the gold facts.

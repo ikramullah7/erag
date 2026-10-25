@@ -1,0 +1,23 @@
+# Redis payments availability RB-CACHE-032
+
+Owner: Application Reliability | Dataset: stage-1.2-v1 | Status: synthetic training fixture
+
+## Production scope
+
+Production cache redis-payments-prod stores disposable payment-session cache entries. PostgreSQL remains the authoritative payment store. The production Redis client retry budget is 15 seconds. An exhausted cache retry budget must surface an application error; it must not silently convert an unsuccessful database write into a successful payment. Redis failover cannot repair the external ledger private DNS record.
+
+## Planned failover procedure
+
+Before a planned production failover, confirm replica health and notify the payments on-call engineer. Initiate the managed service planned failover, then verify that clients reconnect and session cache operations recover. Record the failover operation ID and failed client request count. A planned failover is complete only after successful application cache operations are observed; a green service status alone is insufficient. This runbook documents a procedure, not the status of a current failover.
+
+## Cache readiness
+
+The Redis-dependent synthetic probe is PaymentsCacheReachability. PaymentsCacheReachability checks a cache read and write; it does not validate payment-ledger transactions. The application's /ready endpoint and the Redis synthetic probe test different scopes. Check payments /ready on port 8080 separately before attributing HTTP 503 to a Redis failover.
+
+## Archived staging experiment
+
+An archived staging experiment on redis-payments-stage used a 3-second retry budget. That experiment is not the production policy. The current production redis-payments-prod retry budget remains 15 seconds. Never copy a staging retry budget into production merely because both environments use Redis.
+
+## Escalation and evidence
+
+Application Reliability owns Redis client retry settings; the managed-cache team owns service failover operations. Capture client error timestamps, reconnect duration and the operation ID. Cache contents are disposable and do not replace database recovery evidence. No Redis access key, current replica-health reading or latest failover outcome is stored in this runbook.

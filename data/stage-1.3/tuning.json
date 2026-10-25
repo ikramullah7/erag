@@ -1,0 +1,281 @@
+[
+  {
+    "id": "regression-01",
+    "query": "What is the IP address of pe-ledger-prod-01?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "text": "The ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3
+    }
+  },
+  {
+    "id": "regression-02",
+    "query": "What CPU and memory does a payments API replica request?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "text": "The payments API requests 500m CPU and 768Mi memory per replica.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "regression-03",
+    "query": "How long is payments-api-cert valid, and how early is renewal configured?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "text": "payments-api-cert requests a 90 day certificate and sets renewBefore to 30 days.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "regression-04",
+    "query": "What readiness path and port does the payments service use?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "text": "The payments readiness path is /ready on port 8080.",
+        "grade": 3
+      },
+      {
+        "document_id": "redis-availability",
+        "text": "Check payments /ready on port 8080 separately before attributing HTTP 503 to a Redis failover.",
+        "grade": 3
+      },
+      {
+        "document_id": "release-management",
+        "text": "Before promotion, verify ingress health, payments /ready on port 8080 and the synthetic payment transaction.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3,
+      "redis-availability": 3,
+      "release-management": 3
+    }
+  },
+  {
+    "id": "regression-05",
+    "query": "When does CertificateExpirySoon fire?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "text": "CertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "fresh-01",
+    "query": "For the production payments event queue, how long is a delivery locked and how many deliveries are allowed?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "servicebus-recovery",
+        "text": "Production queue payments-events-prod uses PeekLock delivery with a configured lock duration of 45 seconds.",
+        "grade": 3
+      },
+      {
+        "document_id": "servicebus-recovery",
+        "text": "The maximum delivery count is 8.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "servicebus-recovery": 3
+    }
+  },
+  {
+    "id": "fresh-03",
+    "query": "Compare the signing-key rotation interval with the validity requested for the ingress certificate.",
+    "category": "cross-document",
+    "evidence": [
+      {
+        "document_id": "vault-rotation",
+        "text": "The configured rotation interval for payment-signing-key in kv-payments-prod is 60 days.",
+        "grade": 2
+      },
+      {
+        "document_id": "certificate-management",
+        "text": "payments-api-cert requests a 90 day certificate and sets renewBefore to 30 days.",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "vault-rotation": 2,
+      "certificate-management": 2
+    }
+  },
+  {
+    "id": "fresh-05",
+    "query": "What are the current regional payments-service RPO and RTO targets, rather than the old tabletop target?",
+    "category": "scope-version",
+    "evidence": [
+      {
+        "document_id": "disaster-recovery",
+        "text": "The regional payments-service recovery point objective is 10 minutes and its recovery time objective is 120 minutes.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "disaster-recovery": 3
+    }
+  },
+  {
+    "id": "fresh-07",
+    "query": "How do payment-audit export immutability retention and production Loki application-log retention differ?",
+    "category": "cross-document",
+    "evidence": [
+      {
+        "document_id": "storage-access",
+        "text": "The container has a configured immutability retention period of 180 days.",
+        "grade": 2
+      },
+      {
+        "document_id": "logging-governance",
+        "text": "Production payments application logs in Loki have a configured retention period of 30 days.",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "storage-access": 2,
+      "logging-governance": 2
+    }
+  },
+  {
+    "id": "fresh-09",
+    "query": "What production monthly planning budget is documented, and at what forecast percentage does its alert fire?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "capacity-management",
+        "text": "The monthly planning budget for the payments production platform is 12000 USD.",
+        "grade": 3
+      },
+      {
+        "document_id": "capacity-management",
+        "text": "The budget alert fires when forecast spend exceeds 80 percent of that budget.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "capacity-management": 3
+    }
+  },
+  {
+    "id": "fresh-11",
+    "query": "Where does the public payments ingress send traffic: hostname, backend service, namespace and service port?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "ingress-routing",
+        "text": "Ingress route payments-api-public serves hostname api.payments.example.test.",
+        "grade": 3
+      },
+      {
+        "document_id": "ingress-routing",
+        "text": "It forwards to service payments-api-svc in namespace payments on service port 8080.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "ingress-routing": 3
+    }
+  },
+  {
+    "id": "fresh-13",
+    "query": "Which SecretProviderClass mounts the database credential, and at what file path?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "secret-delivery",
+        "text": "SecretProviderClass payments-runtime-secrets mounts the database credential at /mnt/secrets-store/db-password.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "secret-delivery": 3
+    }
+  },
+  {
+    "id": "fresh-15",
+    "query": "Which interval and prune setting apply to production GitOps, rather than the archived staging settings?",
+    "category": "scope-version",
+    "evidence": [
+      {
+        "document_id": "gitops-reconciliation",
+        "text": "Flux Kustomization payments-prod reconciles every 5 minutes with prune enabled.",
+        "grade": 3
+      },
+      {
+        "document_id": "gitops-reconciliation",
+        "text": "Those staging settings do not replace the production 5-minute interval and prune-enabled policy.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "gitops-reconciliation": 3
+    }
+  },
+  {
+    "id": "fresh-17",
+    "query": "What are the configured production retention periods for application logs and security audit records?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "logging-governance",
+        "text": "Production payments application logs in Loki have a configured retention period of 30 days.",
+        "grade": 3
+      },
+      {
+        "document_id": "logging-governance",
+        "text": "Security audit records have a separate configured retention period of 365 days.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "logging-governance": 3
+    }
+  },
+  {
+    "id": "fresh-19",
+    "query": "After confirmed triage, what remediation targets apply to critical and high-severity node OS findings?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "patch-compliance",
+        "text": "Critical operating-system findings on production payment nodes have a remediation target of 72 hours after confirmed triage.",
+        "grade": 3
+      },
+      {
+        "document_id": "patch-compliance",
+        "text": "High-severity findings have a remediation target of 14 days.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "patch-compliance": 3
+    }
+  }
+]
