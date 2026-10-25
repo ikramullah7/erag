@@ -1,0 +1,27 @@
+# Kubernetes incident triage RB-K8S-021
+
+Owner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture
+
+## CrashLoopBackOff
+
+CrashLoopBackOff means a container repeatedly exits and Kubernetes delays its next restart. Inspect kubectl logs --previous before deleting the pod, then inspect the last termination reason. An OOMKilled termination with exit code 137 indicates a memory limit investigation; compare peak working set against the container limit. Increasing readiness probe delays does not repair an out-of-memory termination. Record the image digest and recent configuration changes.
+
+## Pending pods
+
+For a Pending payments pod, inspect kubectl describe pod for FailedScheduling events. Messages mentioning untolerated taint dedicated=payments require a matching toleration. Insufficient memory messages require resource or node capacity investigation. Check node selectors, quotas and persistent volume binding separately. A Pending pod has not started a container, so application log absence is expected. Do not diagnose every Pending pod as an image registry outage.
+
+## Readiness and HTTP 503
+
+An ingress HTTP 503 with running pods can result from an empty EndpointSlice. Compare service selector app=payments-api against pod labels and inspect readiness probe failures. The payments readiness path is /ready on port 8080. A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates.
+
+## DNS and upstream timeouts
+
+For an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.
+
+## Certificate symptoms
+
+An x509 certificate has expired error should be traced to the endpoint that presents the certificate. Inspect certificate dates and subject alternative names with openssl s_client. Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA. For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx.
+
+## Incident evidence
+
+Capture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs.

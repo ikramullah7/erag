@@ -1,0 +1,686 @@
+[
+  {
+    "question_id": "Q0001",
+    "query": "The API resolves on a spoke VM but fails from VPN. What should be checked?"
+  },
+  {
+    "question_id": "Q0002",
+    "query": "Should Azure NSG and firewall denials be treated as the same control or owner?"
+  },
+  {
+    "question_id": "Q0003",
+    "query": "Which distributed tracing header should survive the ingress-to-ledger request chain?"
+  },
+  {
+    "question_id": "Q0004",
+    "query": "What does the MongoDB sharding key contain?"
+  },
+  {
+    "question_id": "Q0005",
+    "query": "Which controls must permit ledger traffic across Kubernetes and Azure?"
+  },
+  {
+    "question_id": "Q0006",
+    "query": "Who controls issuer rules and who runs the controller that implements certificate management?"
+  },
+  {
+    "question_id": "Q0007",
+    "query": "Are an Azure network-security-group rejection and a firewall rejection owned by the same control team?"
+  },
+  {
+    "question_id": "Q0008",
+    "query": "Which S3 bucket holds financial backups?"
+  },
+  {
+    "question_id": "Q0009",
+    "query": "Does readiness failure always restart the container?"
+  },
+  {
+    "question_id": "Q0010",
+    "query": "Which public certificate values should be compared before and after a renewal incident?"
+  },
+  {
+    "question_id": "Q0011",
+    "query": "What is the supported RabbitMQ queue retention setting?"
+  },
+  {
+    "question_id": "Q0012",
+    "query": "What workload label and NoSchedule taint are attached to the dedicated payment nodes?"
+  },
+  {
+    "question_id": "Q0013",
+    "query": "How long should staging be observed before upgrading production AKS?"
+  },
+  {
+    "question_id": "Q0014",
+    "query": "What incident-triage runbook ID should be cited and what sensitive content must be redacted from the accompanying logs?"
+  },
+  {
+    "question_id": "Q0015",
+    "query": "How can I correlate a request between logs and distributed service spans?"
+  },
+  {
+    "question_id": "Q0016",
+    "query": "What hostname and TLS server-name setting does the certificate probe use?"
+  },
+  {
+    "question_id": "Q0017",
+    "query": "How is the count of ready replicas different from the count of restarted containers?"
+  },
+  {
+    "question_id": "Q0018",
+    "query": "How can running payment pods still cause ingress HTTP 503?"
+  },
+  {
+    "question_id": "Q0019",
+    "query": "Which Elasticsearch shard allocation command should we run?"
+  },
+  {
+    "question_id": "Q0020",
+    "query": "What DNS service should a VPN-connected operator use for access to the private production API?"
+  },
+  {
+    "question_id": "Q0021",
+    "query": "What threshold triggers the payment latency alert?"
+  },
+  {
+    "question_id": "Q0022",
+    "query": "Which hostname appears in the payment certificate subject alternative name?"
+  },
+  {
+    "question_id": "Q0023",
+    "query": "Does a successful LedgerDependencyReachability probe prove a payment transaction is correct?"
+  },
+  {
+    "question_id": "Q0024",
+    "query": "How much processor time and RAM must be reserved for one payments-api instance?"
+  },
+  {
+    "question_id": "Q0025",
+    "query": "Where does corporate DNS forward the private AKS zone?"
+  },
+  {
+    "question_id": "Q0026",
+    "query": "What addressing conflict makes peering between virtual networks unreliable?"
+  },
+  {
+    "question_id": "Q0027",
+    "query": "Beyond CPU or memory availability, what binding and placement constraints should be checked for a Pending pod?"
+  },
+  {
+    "question_id": "Q0028",
+    "query": "Which trace context header must propagate through ingress, the payment API and ledger calls?"
+  },
+  {
+    "question_id": "Q0029",
+    "query": "What route and firewall version information belongs in a DNS change record?"
+  },
+  {
+    "question_id": "Q0030",
+    "query": "What selectors, tenancy limits and storage-binding conditions may block a pod even when node resources seem available?"
+  },
+  {
+    "question_id": "Q0031",
+    "query": "Is deleting the infrastructure node pool an approved way to recover broken application routing?"
+  },
+  {
+    "question_id": "Q0032",
+    "query": "For the payment ingress certificate, what domain is included in the SAN field?"
+  },
+  {
+    "question_id": "Q0033",
+    "query": "How do certificate expiry and monitoring freshness relate?"
+  },
+  {
+    "question_id": "Q0034",
+    "query": "How do we rotate the Snowflake warehouse password?"
+  },
+  {
+    "question_id": "Q0035",
+    "query": "What is the GitHub organisation recovery token?"
+  },
+  {
+    "question_id": "Q0036",
+    "query": "For a service with no ready endpoints, what payments selector must match the labels on its pods?"
+  },
+  {
+    "question_id": "Q0037",
+    "query": "At what restart frequency does the payment crash-loop alert begin firing?"
+  },
+  {
+    "question_id": "Q0038",
+    "query": "Which private DNS linking and forwarding settings must be checked for the payment spoke?"
+  },
+  {
+    "question_id": "Q0039",
+    "query": "What different roles do aggregated measurements, event records and distributed request paths play in observability?"
+  },
+  {
+    "question_id": "Q0040",
+    "query": "How are IBM MQ channels authenticated?"
+  },
+  {
+    "question_id": "Q0041",
+    "query": "What public certificate and ticket references form the retained compliance evidence?"
+  },
+  {
+    "question_id": "Q0042",
+    "query": "A dedicated-node taint blocks a pod. Will increasing the autoscaler maximum fix scheduling?"
+  },
+  {
+    "question_id": "Q0043",
+    "query": "What public DNS record does ACME need for the payment hostname?"
+  },
+  {
+    "question_id": "Q0044",
+    "query": "Which part of a certificate secret must stay out of support tickets?"
+  },
+  {
+    "question_id": "Q0045",
+    "query": "How is ownership divided between ingress health checks and TLS policy?"
+  },
+  {
+    "question_id": "Q0046",
+    "query": "Who should handle subnet exhaustion versus repeated NotReady nodes?"
+  },
+  {
+    "question_id": "Q0047",
+    "query": "Can a missing private DNS zone link cause either a nonexistent name or a public address?"
+  },
+  {
+    "question_id": "Q0048",
+    "query": "What address ranges are assigned to the payments spoke and AKS subnet?"
+  },
+  {
+    "question_id": "Q0049",
+    "query": "Which triage runbook should accompany escalation, and what must be removed from its logs?"
+  },
+  {
+    "question_id": "Q0050",
+    "query": "How can slow payment requests coexist with normal CPU, and which dependency checks help?"
+  },
+  {
+    "question_id": "Q0051",
+    "query": "Is it sensible to troubleshoot certificate validation when the HTTPS connection has not completed its TCP handshake?"
+  },
+  {
+    "question_id": "Q0052",
+    "query": "What is the production database password?"
+  },
+  {
+    "question_id": "Q0053",
+    "query": "What are the GPU model serving quotas for this tenant?"
+  },
+  {
+    "question_id": "Q0054",
+    "query": "What is the deployment procedure for Cassandra?"
+  },
+  {
+    "question_id": "Q0055",
+    "query": "When issuance stalls, which public DNS permission and challenge-status resources should be investigated?"
+  },
+  {
+    "question_id": "Q0056",
+    "query": "What stops payments pods from scheduling on dedicated nodes?"
+  },
+  {
+    "question_id": "Q0057",
+    "query": "Can packet-routing changes take the place of connecting a private DNS zone to the virtual network?"
+  },
+  {
+    "question_id": "Q0058",
+    "query": "Before deleting a crashing container, how can I read its previous logs?"
+  },
+  {
+    "question_id": "Q0059",
+    "query": "Who checks ingress health and who owns certificate policy?"
+  },
+  {
+    "question_id": "Q0060",
+    "query": "What must a renewal update, and where must the replacement become observable?"
+  },
+  {
+    "question_id": "Q0061",
+    "query": "What source, destination and timing evidence does the networking team need for a blocked-flow escalation?"
+  },
+  {
+    "question_id": "Q0062",
+    "query": "Does an API authorization error happen before or after network and TLS establishment?"
+  },
+  {
+    "question_id": "Q0063",
+    "query": "Which backend endpoint and readiness checks should precede changing certificates during an ingress 503 incident?"
+  },
+  {
+    "question_id": "Q0064",
+    "query": "Which BigQuery dataset stores historical orders?"
+  },
+  {
+    "question_id": "Q0065",
+    "query": "What does PaymentsReadyReplicasLow measure compared with container restart count?"
+  },
+  {
+    "question_id": "Q0066",
+    "query": "Between what two limits may the payment workload node pool automatically grow or shrink?"
+  },
+  {
+    "question_id": "Q0067",
+    "query": "When probing ingress certificate expiry, which host must be contacted and which TLS name must be sent?"
+  },
+  {
+    "question_id": "Q0068",
+    "query": "Which three cert-manager resources should be examined after Certificate Ready=False?"
+  },
+  {
+    "question_id": "Q0069",
+    "query": "Which duration histogram and ledger spans should be examined to investigate slow payment calls?"
+  },
+  {
+    "question_id": "Q0070",
+    "query": "What log option preserves access to output from the terminated container before the pod is removed?"
+  },
+  {
+    "question_id": "Q0071",
+    "query": "How do metrics, logs and traces differ in the information they provide?"
+  },
+  {
+    "question_id": "Q0072",
+    "query": "What label and scheduling taint identify the payment node pool?"
+  },
+  {
+    "question_id": "Q0073",
+    "query": "Which connection details should I preserve before escalating a suspected network block?"
+  },
+  {
+    "question_id": "Q0074",
+    "query": "Which alert detects missing monitoring samples?"
+  },
+  {
+    "question_id": "Q0075",
+    "query": "Which CIDR blocks belong to the payments virtual network and its Kubernetes subnet?"
+  },
+  {
+    "question_id": "Q0076",
+    "query": "Should missing-scrape alerts be silenced just because a payments dashboard has no red panels?"
+  },
+  {
+    "question_id": "Q0077",
+    "query": "What are the Redis failover steps?"
+  },
+  {
+    "question_id": "Q0078",
+    "query": "Where is the Terraform Cloud organisation API key stored?"
+  },
+  {
+    "question_id": "Q0079",
+    "query": "How are Windows domain controllers backed up?"
+  },
+  {
+    "question_id": "Q0080",
+    "query": "Which dashboard and signals help diagnose payments incidents?"
+  },
+  {
+    "question_id": "Q0081",
+    "query": "Which image identity and recent changes should be recorded during repeated container crashes?"
+  },
+  {
+    "question_id": "Q0082",
+    "query": "Before changing TLS certificates for HTTP 503, which service objects should be inspected?"
+  },
+  {
+    "question_id": "Q0083",
+    "query": "What VPN access and role assignment must an operator have before reaching the private AKS cluster?"
+  },
+  {
+    "question_id": "Q0084",
+    "query": "What is the PostgreSQL backup retention period?"
+  },
+  {
+    "question_id": "Q0085",
+    "query": "When does CertificateExpirySoon fire?"
+  },
+  {
+    "question_id": "Q0086",
+    "query": "What namespace and ingress reference checks are needed for a replacement TLS secret?"
+  },
+  {
+    "question_id": "Q0087",
+    "query": "How long must recovery be observed before closing an incident?"
+  },
+  {
+    "question_id": "Q0088",
+    "query": "Who owns AKS cluster upgrades and who owns application workloads?"
+  },
+  {
+    "question_id": "Q0089",
+    "query": "Which Azure firewall rule permits HTTPS to the internal ledger, and which Kubernetes policy must also allow it?"
+  },
+  {
+    "question_id": "Q0090",
+    "query": "Would simply raising the node ceiling make a pod schedulable when its dedicated taint is not tolerated?"
+  },
+  {
+    "question_id": "Q0091",
+    "query": "Which service, synthetic and telemetry signals should verify recovery?"
+  },
+  {
+    "question_id": "Q0092",
+    "query": "Which ACME issuer is used for payments TLS, and what kind of challenge does it require?"
+  },
+  {
+    "question_id": "Q0093",
+    "query": "Is a lack of application log output expected for a pod whose container has not yet been scheduled?"
+  },
+  {
+    "question_id": "Q0094",
+    "query": "What is the ledger DNS cache TTL after a change?"
+  },
+  {
+    "question_id": "Q0095",
+    "query": "For a failing ACME challenge, which identity permission needs checking and which challenge resources should be inspected?"
+  },
+  {
+    "question_id": "Q0096",
+    "query": "Which owners receive address-space exhaustion incidents and unhealthy-node incidents?"
+  },
+  {
+    "question_id": "Q0097",
+    "query": "For ledger DNS in the payment spoke, which virtual-network zone link and corporate forwarding configuration are required?"
+  },
+  {
+    "question_id": "Q0098",
+    "query": "What must I verify before increasing AKS nodes during upgrades?"
+  },
+  {
+    "question_id": "Q0099",
+    "query": "What is the Azure subscription billing account number?"
+  },
+  {
+    "question_id": "Q0100",
+    "query": "Which service label selector should I compare against pod labels for an empty payments EndpointSlice?"
+  },
+  {
+    "question_id": "Q0101",
+    "query": "When software reports an expired x509 certificate, how do we identify which serving endpoint to investigate?"
+  },
+  {
+    "question_id": "Q0102",
+    "query": "How does the Oracle RAC backup job authenticate?"
+  },
+  {
+    "question_id": "Q0103",
+    "query": "Which effective networking state and policy version should be attached to a DNS change ticket?"
+  },
+  {
+    "question_id": "Q0104",
+    "query": "What is the difference between liveness and readiness failures for container restarts?"
+  },
+  {
+    "question_id": "Q0105",
+    "query": "Which team sets certificate issuer policy and which operates cert-manager?"
+  },
+  {
+    "question_id": "Q0106",
+    "query": "Does changing a route repair a missing DNS zone link?"
+  },
+  {
+    "question_id": "Q0107",
+    "query": "Which certificate identifiers and change records are retained for compliance?"
+  },
+  {
+    "question_id": "Q0108",
+    "query": "If the API rejects a request as unauthorized, has the connection already passed network and TLS establishment?"
+  },
+  {
+    "question_id": "Q0109",
+    "query": "Before declaring replacement TLS material active, what namespace and ingress linkage should be verified?"
+  },
+  {
+    "question_id": "Q0110",
+    "query": "What are the minimum and maximum node counts for the paynp autoscaler?"
+  },
+  {
+    "question_id": "Q0111",
+    "query": "Which checks distinguish DNS trouble from a blocked ledger connection?"
+  },
+  {
+    "question_id": "Q0112",
+    "query": "Does opening HTTPS repair a certificate hostname mismatch?"
+  },
+  {
+    "question_id": "Q0113",
+    "query": "How do I investigate a container killed after exhausting its memory?"
+  },
+  {
+    "question_id": "Q0114",
+    "query": "What container behaviour causes Kubernetes to back off before the next restart?"
+  },
+  {
+    "question_id": "Q0115",
+    "query": "How should container restart counts be correlated with memory use and the last termination reason?"
+  },
+  {
+    "question_id": "Q0116",
+    "query": "Why can overlapping network ranges break virtual network peering?"
+  },
+  {
+    "question_id": "Q0117",
+    "query": "Which resolver must VPN clients use to reach the private production cluster?"
+  },
+  {
+    "question_id": "Q0118",
+    "query": "What readiness, synthetic transaction and fresh telemetry checks should be present before recovery is declared?"
+  },
+  {
+    "question_id": "Q0119",
+    "query": "How can a missing intermediate or a corporate proxy cause an unknown-authority TLS error?"
+  },
+  {
+    "question_id": "Q0120",
+    "query": "What can the ledger connectivity probe establish, and what business-level guarantee does it not provide?"
+  },
+  {
+    "question_id": "Q0121",
+    "query": "What is the IP address of pe-ledger-prod-01?"
+  },
+  {
+    "question_id": "Q0122",
+    "query": "What is the company travel expense limit?"
+  },
+  {
+    "question_id": "Q0123",
+    "query": "A scrape outage makes the dashboard empty. Is the service healthy?"
+  },
+  {
+    "question_id": "Q0124",
+    "query": "Which Prometheus target state, ServiceMonitor selector and allowed TCP port should be checked after telemetry stops?"
+  },
+  {
+    "question_id": "Q0125",
+    "query": "What chain or proxy trust problems could explain a TLS unknown-authority message?"
+  },
+  {
+    "question_id": "Q0126",
+    "query": "How many restarts in what time window trigger KubePodCrashLooping?"
+  },
+  {
+    "question_id": "Q0127",
+    "query": "What is the organisation policy for maternity leave?"
+  },
+  {
+    "question_id": "Q0128",
+    "query": "Which named firewall allowance and pod egress policy both participate in allowing ledger HTTPS calls?"
+  },
+  {
+    "question_id": "Q0129",
+    "query": "Which commands configure a Kafka consumer group?"
+  },
+  {
+    "question_id": "Q0130",
+    "query": "Which Kubernetes identifiers and times should go in the incident evidence package?"
+  },
+  {
+    "question_id": "Q0131",
+    "query": "What are the finance department laptop replacement rules?"
+  },
+  {
+    "question_id": "Q0132",
+    "query": "What scrape-target, label-selector and port checks should be made when payment samples disappear?"
+  },
+  {
+    "question_id": "Q0133",
+    "query": "After cert-manager renews a certificate, what secret must change and where must users see the new certificate?"
+  },
+  {
+    "question_id": "Q0134",
+    "query": "Is an apparently green payment dashboard sufficient reason to disable a missing-metrics alert?"
+  },
+  {
+    "question_id": "Q0135",
+    "query": "What two sorts of incorrect lookup results can arise when a private DNS zone is not linked?"
+  },
+  {
+    "question_id": "Q0136",
+    "query": "How are upgrade responsibility and namespace workload responsibility divided between teams?"
+  },
+  {
+    "question_id": "Q0137",
+    "query": "Which metric and termination evidence would link repeated restarts to memory exhaustion?"
+  },
+  {
+    "question_id": "Q0138",
+    "query": "How early should payments-api-cert renew and how long does it last?"
+  },
+  {
+    "question_id": "Q0139",
+    "query": "Do the Azure balancer and the Kubernetes application readiness probe check the same hop?"
+  },
+  {
+    "question_id": "Q0140",
+    "query": "If cluster DNS works, does that establish that VPN users can resolve the private API?"
+  },
+  {
+    "question_id": "Q0141",
+    "query": "Which change records should accompany investigation of a repeatedly exiting container?"
+  },
+  {
+    "question_id": "Q0142",
+    "query": "What CPU and memory does each payments API replica request?"
+  },
+  {
+    "question_id": "Q0143",
+    "query": "Does a load-balancer health probe verify the same thing as pod readiness?"
+  },
+  {
+    "question_id": "Q0144",
+    "query": "When an x509 expiry error occurs, which certificate should be traced first?"
+  },
+  {
+    "question_id": "Q0145",
+    "query": "Which AKS node pool hosts cluster services and which hosts payment applications?"
+  },
+  {
+    "question_id": "Q0146",
+    "query": "Why are there no application logs for a pod still waiting to be scheduled?"
+  },
+  {
+    "question_id": "Q0147",
+    "query": "Which readiness path and port do payment services use?"
+  },
+  {
+    "question_id": "Q0148",
+    "query": "How does failing the traffic-readiness check differ from failing the health check that restarts a container?"
+  },
+  {
+    "question_id": "Q0149",
+    "query": "What public certificate details should be recorded before and after recovery without disclosing tls.key?"
+  },
+  {
+    "question_id": "Q0150",
+    "query": "Why does an internal ledger DNS record not solve a certificate challenge?"
+  },
+  {
+    "question_id": "Q0151",
+    "query": "When cert-manager marks a Certificate unready, what request, order and challenge objects need review?"
+  },
+  {
+    "question_id": "Q0152",
+    "query": "What namespace, workload identifiers and timing information should a Kubernetes incident record contain?"
+  },
+  {
+    "question_id": "Q0153",
+    "query": "What issuer and challenge method issue the ingress certificate?"
+  },
+  {
+    "question_id": "Q0154",
+    "query": "Can application manifests be rolled back without changing the Kubernetes cluster release?"
+  },
+  {
+    "question_id": "Q0155",
+    "query": "After an unsuccessful AKS upgrade, which command output and operation identifier should be retained?"
+  },
+  {
+    "question_id": "Q0156",
+    "query": "Why could requests be slow without heavy CPU consumption, and how can the upstream ledger be investigated?"
+  },
+  {
+    "question_id": "Q0157",
+    "query": "Should an application routing incident be repaired by deleting the system node pool?"
+  },
+  {
+    "question_id": "Q0158",
+    "query": "Which request duration histogram and tracing spans help investigate ledger latency?"
+  },
+  {
+    "question_id": "Q0159",
+    "query": "How does an ingress certificate differ from the AKS API certificate?"
+  },
+  {
+    "question_id": "Q0160",
+    "query": "What does CrashLoopBackOff tell us about container exits and restart delays?"
+  },
+  {
+    "question_id": "Q0161",
+    "query": "Why might a successful certificate renewal leave the old certificate visible?"
+  },
+  {
+    "question_id": "Q0162",
+    "query": "What connection and Azure role are required to access the production cluster?"
+  },
+  {
+    "question_id": "Q0163",
+    "query": "What diagnostic evidence should be saved when a cluster upgrade fails?"
+  },
+  {
+    "question_id": "Q0164",
+    "query": "Where do the cluster infrastructure services run compared with ordinary payment workloads?"
+  },
+  {
+    "question_id": "Q0165",
+    "query": "Does successful name lookup inside Kubernetes tell us whether remote VPN users can resolve the control-plane name?"
+  },
+  {
+    "question_id": "Q0166",
+    "query": "What secret material must never be pasted into an incident ticket?"
+  },
+  {
+    "question_id": "Q0167",
+    "query": "Where is payments-api-tls stored and who manages it?"
+  },
+  {
+    "question_id": "Q0168",
+    "query": "Should a connection timeout be diagnosed as certificate verification failure?"
+  },
+  {
+    "question_id": "Q0169",
+    "query": "Must an application rollback wait for a rollback of the AKS cluster version?"
+  },
+  {
+    "question_id": "Q0170",
+    "query": "What is the planned AKS node drain disruption allowance?"
+  },
+  {
+    "question_id": "Q0171",
+    "query": "Which firewall and route control payment worker egress?"
+  }
+]

@@ -1,0 +1,93 @@
+{
+  "models": [
+    {
+      "model": "qwen3:14b",
+      "model_digest": "bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8",
+      "summary": {
+        "cases": 20,
+        "known_fact_cases_passed": 15,
+        "known_fact_cases": 15,
+        "known_fact_case_rate": 1.0,
+        "correct_abstentions": 5,
+        "unsupported_cases": 5,
+        "abstention_rate": 1.0,
+        "valid_responses": 20,
+        "invalid_responses": 0,
+        "provider_errors": 0,
+        "unsupported_answers": 0,
+        "citation_provenance_rate": 1.0,
+        "generation_ms_p50": 9665.48195850919,
+        "generation_ms_p95": 13011.40829969664,
+        "failed_cases": []
+      },
+      "checks": {
+        "known_fact_cases_at_least_90_percent": true,
+        "all_unsupported_questions_abstained": true,
+        "no_invalid_or_error_responses": true,
+        "all_answered_citations_have_valid_provenance": true
+      },
+      "passed": true
+    },
+    {
+      "model": "qwen3:8b",
+      "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "summary": {
+        "cases": 20,
+        "known_fact_cases_passed": 15,
+        "known_fact_cases": 15,
+        "known_fact_case_rate": 1.0,
+        "correct_abstentions": 5,
+        "unsupported_cases": 5,
+        "abstention_rate": 1.0,
+        "valid_responses": 20,
+        "invalid_responses": 0,
+        "provider_errors": 0,
+        "unsupported_answers": 0,
+        "citation_provenance_rate": 1.0,
+        "generation_ms_p50": 6109.544854494743,
+        "generation_ms_p95": 10218.690822939972,
+        "failed_cases": []
+      },
+      "checks": {
+        "known_fact_cases_at_least_90_percent": true,
+        "all_unsupported_questions_abstained": true,
+        "no_invalid_or_error_responses": true,
+        "all_answered_citations_have_valid_provenance": true
+      },
+      "passed": true
+    }
+  ],
+  "same_sources_for_both_models": true,
+  "prompt_version": "grounded-claims-v2",
+  "phase": "answer-1.1",
+  "documents": 5,
+  "default_model": "qwen3:14b",
+  "alternative_model": "qwen3:8b",
+  "evaluation": "20 observed development questions, not independent held-out validation",
+  "timing_scope": "generation only, identical cached retrieval for both models",
+  "runtime": "Ollama 0.40.7",
+  "hardware": {
+    "processor": "Apple M4 Pro",
+    "unified_memory_bytes": 25769803776,
+    "generation_acceleration": "GPU",
+    "quantization": "Q4_K_M"
+  },
+  "historical_retrieval_targets_changed": false,
+  "document_stage_expanded": false,
+  "software_tests": {
+    "passed": 123,
+    "skipped": 2,
+    "failed": 0,
+    "command": "HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false ERAG_MODEL_TESTS=1 uv run pytest -q",
+    "skipped_checks": [
+      "Docker server parity (not running)",
+      "Historical strict ranking gate (user accepted ranking; not re-evaluated in answer scope)"
+    ]
+  },
+  "default_cli_smoke": "answered with validated citations",
+  "static_checks": {
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "git_diff_check": "passed"
+  }
+}

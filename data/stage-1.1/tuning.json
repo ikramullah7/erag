@@ -1,0 +1,278 @@
+[
+  {
+    "id": "tuning-01",
+    "query": "What is the IP address of pe-ledger-prod-01?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "The ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3
+    }
+  },
+  {
+    "id": "tuning-02",
+    "query": "How can running payment pods still cause ingress HTTP 503?",
+    "category": "troubleshooting",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "An ingress HTTP 503 with running pods can result from an empty EndpointSlice."
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "tuning-03",
+    "query": "Where is payments-api-tls stored and who manages it?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "tuning-04",
+    "query": "How do I investigate a container killed after exhausting its memory?",
+    "category": "semantic",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "An OOMKilled termination with exit code 137 indicates a memory limit investigation; compare peak working set against the container limit."
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "tuning-05",
+    "query": "Which alert detects missing monitoring samples?",
+    "category": "semantic",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "tuning-06",
+    "query": "What stops payments pods from scheduling on dedicated nodes?",
+    "category": "troubleshooting",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "Payments pods need a matching toleration and node selector."
+      },
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "Messages mentioning untolerated taint dedicated=payments require a matching toleration."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3,
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "tuning-07",
+    "query": "Which checks distinguish DNS trouble from a blocked ledger connection?",
+    "category": "multi",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "A DNS response alone is not evidence that TCP 443 is reachable."
+      },
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 2,
+        "text": "A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3,
+      "kubernetes-troubleshooting": 2
+    }
+  },
+  {
+    "id": "tuning-08",
+    "query": "When does CertificateExpirySoon fire?",
+    "category": "similar",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "CertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining."
+      },
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "Alert CertificateExpirySoon fires when fewer than 14 days remain."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3,
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "tuning-09",
+    "query": "What is the planned AKS node drain disruption allowance?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "Before an AKS upgrade, confirm that PodDisruptionBudget payments-api-pdb allows at least one unavailable replica."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "tuning-10",
+    "query": "How does an ingress certificate differ from the AKS API certificate?",
+    "category": "ambiguous",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "This runbook does not manage the AKS API server certificate."
+      },
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 2,
+        "text": "Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3,
+      "kubernetes-troubleshooting": 2
+    }
+  },
+  {
+    "id": "tuning-11",
+    "query": "Which dashboard and signals help diagnose payments incidents?",
+    "category": "ambiguous",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "Dashboard payments-prod-overview joins Prometheus metrics, Loki logs and Tempo traces for namespace payments."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "tuning-12",
+    "query": "Why does an internal ledger DNS record not solve a certificate challenge?",
+    "category": "similar",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "tuning-13",
+    "query": "How long should staging be observed before upgrading production AKS?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "Upgrade the staging cluster first, observe for 24 hours, and then upgrade production during the approved maintenance window."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "tuning-14",
+    "query": "A scrape outage makes the dashboard empty. Is the service healthy?",
+    "category": "troubleshooting",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "An empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "tuning-15",
+    "query": "Which firewall and route control payment worker egress?",
+    "category": "multi",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "Route rt-payments-egress sends outbound traffic through fw-hub-prod-01."
+      },
+      {
+        "document_id": "aks-platform",
+        "grade": 2,
+        "text": "The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3,
+      "aks-platform": 2
+    }
+  },
+  {
+    "id": "tuning-16",
+    "query": "What is the PostgreSQL backup retention period?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  },
+  {
+    "id": "tuning-17",
+    "query": "What is the Azure subscription billing account number?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  },
+  {
+    "id": "tuning-18",
+    "query": "Which commands configure a Kafka consumer group?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  }
+]

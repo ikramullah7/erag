@@ -1,0 +1,26 @@
+{
+  "frozen_unix": 1792863329.89743,
+  "corpus_changed": false,
+  "source_documents": 5,
+  "development_inputs": [
+    "tuning.json",
+    "heldout.json"
+  ],
+  "old_heldout_retired": true,
+  "new_heldout_answerable": 30,
+  "new_heldout_no_answer": 5,
+  "additional_tuning_iterations_max": 3,
+  "targets": {
+    "hit@1": 0.95,
+    "hit@3": 0.98,
+    "recall@5": 0.95,
+    "mrr": 0.95,
+    "ndcg@10": 0.95
+  },
+  "label_hashes": {
+    "tuning.json": "12fa00022db1d59e7887b3e94b7e234083f5d67fc5a21c0b28982b8fdf2b3f23",
+    "heldout.json": "ada207d28690723a255327ca913c1617fbcf87851f5f872f760fb1549a18aa31",
+    "tuning-v2.json": "0dc8e0366e3477798272a1f9dc5e31bc76ce956f73a3cdc628f08a992413c235",
+    "heldout-v2.json": "1082a256fff9515cb678366bd22f5d7945196ddb800bbd78de011abc87c79154"
+  }
+}

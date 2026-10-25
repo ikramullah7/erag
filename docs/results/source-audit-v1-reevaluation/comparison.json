@@ -1,0 +1,244 @@
+{
+  "label_version": "source-audit-v1",
+  "profiles": {
+    "original-bm25": {
+      "chunk": {
+        "mrr": 0.686220238095238,
+        "hit@1": 0.5666666666666667,
+        "hit@3": 0.7666666666666667,
+        "recall@3": 0.725,
+        "recall@5": 0.8138888888888888,
+        "ndcg@5": 0.6909734619082486,
+        "recall@10": 0.95,
+        "ndcg@10": 0.7359711028179017
+      },
+      "document": {
+        "mrr": 0.8347222222222221,
+        "hit@1": 0.7,
+        "hit@3": 0.95,
+        "recall@3": 0.9416666666666667,
+        "recall@5": 1.0,
+        "ndcg@5": 0.8723068879011806
+      },
+      "gate": {
+        "passed": false,
+        "checks": {
+          "document_recall@3": true,
+          "document_mrr": false,
+          "document_ndcg@5": true,
+          "chunk_hit@1": false,
+          "chunk_hit@3": false,
+          "chunk_recall@5": false,
+          "chunk_mrr": false,
+          "chunk_ndcg@10": false,
+          "latency": true
+        }
+      },
+      "answerable_count": 60,
+      "inference_reexecuted": true,
+      "latency_ms_p95": 0.1315579982474446,
+      "latency_source": "measured in this run"
+    },
+    "original-hybrid": {
+      "chunk": {
+        "mrr": 0.7097222222222223,
+        "hit@1": 0.5666666666666667,
+        "hit@3": 0.8,
+        "recall@3": 0.7444444444444444,
+        "recall@5": 0.8666666666666667,
+        "ndcg@5": 0.7217259561370803,
+        "recall@10": 1.0,
+        "ndcg@10": 0.7676585925373774
+      },
+      "document": {
+        "mrr": 0.9027777777777778,
+        "hit@1": 0.8166666666666667,
+        "hit@3": 1.0,
+        "recall@3": 0.9916666666666667,
+        "recall@5": 1.0,
+        "ndcg@5": 0.9226077397115131
+      },
+      "gate": {
+        "passed": false,
+        "checks": {
+          "document_recall@3": true,
+          "document_mrr": true,
+          "document_ndcg@5": true,
+          "chunk_hit@1": false,
+          "chunk_hit@3": false,
+          "chunk_recall@5": false,
+          "chunk_mrr": false,
+          "chunk_ndcg@10": false,
+          "latency": true
+        }
+      },
+      "answerable_count": 60,
+      "inference_reexecuted": true,
+      "latency_ms_p95": 5.144966387888417,
+      "latency_source": "measured in this run"
+    },
+    "weighted-hybrid": {
+      "chunk": {
+        "mrr": 0.7556481481481482,
+        "hit@1": 0.6666666666666666,
+        "hit@3": 0.7833333333333333,
+        "recall@3": 0.7416666666666667,
+        "recall@5": 0.8888888888888888,
+        "ndcg@5": 0.7616306923511742,
+        "recall@10": 0.9916666666666667,
+        "ndcg@10": 0.7954268867031223
+      },
+      "document": {
+        "mrr": 0.898611111111111,
+        "hit@1": 0.8166666666666667,
+        "hit@3": 0.9833333333333333,
+        "recall@3": 0.975,
+        "recall@5": 1.0,
+        "ndcg@5": 0.9179756873483086
+      },
+      "gate": {
+        "passed": false,
+        "checks": {
+          "document_recall@3": true,
+          "document_mrr": true,
+          "document_ndcg@5": true,
+          "chunk_hit@1": false,
+          "chunk_hit@3": false,
+          "chunk_recall@5": false,
+          "chunk_mrr": false,
+          "chunk_ndcg@10": false,
+          "latency": true
+        }
+      },
+      "answerable_count": 60,
+      "inference_reexecuted": true,
+      "latency_ms_p95": 4.040750203421339,
+      "latency_source": "measured in this run"
+    },
+    "bge-full-context": {
+      "chunk": {
+        "mrr": 0.9477777777777777,
+        "hit@1": 0.9166666666666666,
+        "hit@3": 0.9833333333333333,
+        "recall@3": 0.9666666666666667,
+        "recall@5": 1.0,
+        "ndcg@5": 0.9518595042528653,
+        "recall@10": 1.0,
+        "ndcg@10": 0.9518595042528653
+      },
+      "document": {
+        "mrr": 0.975,
+        "hit@1": 0.95,
+        "hit@3": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "ndcg@5": 0.9760128620918445
+      },
+      "gate": {
+        "passed": false,
+        "checks": {
+          "document_recall@3": true,
+          "document_mrr": true,
+          "document_ndcg@5": true,
+          "chunk_hit@1": false,
+          "chunk_hit@3": true,
+          "chunk_recall@5": true,
+          "chunk_mrr": false,
+          "chunk_ndcg@10": true,
+          "latency": true
+        }
+      },
+      "answerable_count": 60,
+      "inference_reexecuted": true,
+      "latency_ms_p95": 1343.6266169999726,
+      "latency_source": "measured in this run"
+    },
+    "bge-windows": {
+      "chunk": {
+        "mrr": 0.9158333333333333,
+        "hit@1": 0.8666666666666667,
+        "hit@3": 0.9666666666666667,
+        "recall@3": 0.95,
+        "recall@5": 1.0,
+        "ndcg@5": 0.9289353896037726,
+        "recall@10": 1.0,
+        "ndcg@10": 0.9289353896037726
+      },
+      "document": {
+        "mrr": 0.9611111111111111,
+        "hit@1": 0.9333333333333333,
+        "hit@3": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "ndcg@5": 0.966546479689147
+      },
+      "gate": {
+        "passed": false,
+        "checks": {
+          "document_recall@3": true,
+          "document_mrr": true,
+          "document_ndcg@5": true,
+          "chunk_hit@1": false,
+          "chunk_hit@3": false,
+          "chunk_recall@5": true,
+          "chunk_mrr": false,
+          "chunk_ndcg@10": false,
+          "latency": true
+        }
+      },
+      "answerable_count": 60,
+      "inference_reexecuted": false,
+      "latency_ms_p95": 2720.846708206227,
+      "latency_source": "original frozen run; not remeasured"
+    },
+    "bge-rank-fusion": {
+      "chunk": {
+        "mrr": 0.9019444444444443,
+        "hit@1": 0.8333333333333334,
+        "hit@3": 0.9666666666666667,
+        "recall@3": 0.95,
+        "recall@5": 1.0,
+        "ndcg@5": 0.9177660971255188,
+        "recall@10": 1.0,
+        "ndcg@10": 0.9177660971255188
+      },
+      "document": {
+        "mrr": 0.975,
+        "hit@1": 0.95,
+        "hit@3": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "ndcg@5": 0.9760128620918445
+      },
+      "gate": {
+        "passed": false,
+        "checks": {
+          "document_recall@3": true,
+          "document_mrr": true,
+          "document_ndcg@5": true,
+          "chunk_hit@1": false,
+          "chunk_hit@3": false,
+          "chunk_recall@5": true,
+          "chunk_mrr": false,
+          "chunk_ndcg@10": false,
+          "latency": true
+        }
+      },
+      "answerable_count": 60,
+      "inference_reexecuted": false,
+      "latency_ms_p95": 4054.2053493787535,
+      "latency_source": "original frozen run; not remeasured"
+    }
+  },
+  "parameters_tuned": false,
+  "profile_promoted": false,
+  "original_labels_changed": false,
+  "disputed_proposals_applied": false,
+  "independent_validation_claimed": false,
+  "any_profile_qualified": false,
+  "display_profile": "bge-full-context",
+  "display_profile_is_descriptive_only": true,
+  "actual_measurement_run_exit_status": 0,
+  "quality_gate_passed": false,
+  "current_cli_exit_policy": "2 when no frozen profile qualifies; the measurement run completed before this exit policy was added."
+}

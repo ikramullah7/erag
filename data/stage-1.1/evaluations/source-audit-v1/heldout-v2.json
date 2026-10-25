@@ -1,0 +1,528 @@
+[
+  {
+    "id": "heldout-v2-01",
+    "query": "Who owns AKS cluster upgrades and who owns application workloads?",
+    "category": "similar",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "The platform team owns cluster upgrades; application teams own workloads in namespace payments."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "heldout-v2-02",
+    "query": "What CPU and memory does each payments API replica request?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "The payments API requests 500m CPU and 768Mi memory per replica."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "heldout-v2-03",
+    "query": "What are the minimum and maximum node counts for the paynp autoscaler?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "The cluster autoscaler scales paynp between 3 and 12 nodes."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "heldout-v2-04",
+    "query": "A dedicated-node taint blocks a pod. Will increasing the autoscaler maximum fix scheduling?",
+    "category": "troubleshooting",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "Pending pods caused by untolerated taints do not become schedulable merely by raising the maximum node count."
+      },
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 2,
+        "text": "Messages mentioning untolerated taint dedicated=payments require a matching toleration."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3,
+      "kubernetes-troubleshooting": 2
+    }
+  },
+  {
+    "id": "heldout-v2-05",
+    "query": "What diagnostic evidence should be saved when a cluster upgrade fails?",
+    "category": "semantic",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "For a failed upgrade, preserve kubectl get events output and record the node pool operation ID."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "heldout-v2-06",
+    "query": "Who should handle subnet exhaustion versus repeated NotReady nodes?",
+    "category": "ambiguous",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team, and payments-api-tls renewal failures to the certificate owner."
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "heldout-v2-07",
+    "query": "What does CrashLoopBackOff tell us about container exits and restart delays?",
+    "category": "semantic",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "CrashLoopBackOff means a container repeatedly exits and Kubernetes delays its next restart."
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "heldout-v2-08",
+    "query": "Before deleting a crashing container, how can I read its previous logs?",
+    "category": "troubleshooting",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "Inspect kubectl logs --previous before deleting the pod, then inspect the last termination reason."
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "heldout-v2-09",
+    "query": "What is the difference between liveness and readiness failures for container restarts?",
+    "category": "similar",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it."
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "heldout-v2-10",
+    "query": "Why are there no application logs for a pod still waiting to be scheduled?",
+    "category": "semantic",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "A Pending pod has not started a container, so application log absence is expected."
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "heldout-v2-11",
+    "query": "Which service label selector should I compare against pod labels for an empty payments EndpointSlice?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "Compare service selector app=payments-api against pod labels and inspect readiness probe failures."
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "heldout-v2-12",
+    "query": "Which Kubernetes identifiers and times should go in the incident evidence package?",
+    "category": "ambiguous",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 3,
+        "text": "Capture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window."
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3
+    }
+  },
+  {
+    "id": "heldout-v2-13",
+    "query": "What address ranges are assigned to the payments spoke and AKS subnet?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "Spoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3
+    }
+  },
+  {
+    "id": "heldout-v2-14",
+    "query": "Does changing a route repair a missing DNS zone link?",
+    "category": "similar",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3
+    }
+  },
+  {
+    "id": "heldout-v2-15",
+    "query": "Why can overlapping network ranges break virtual network peering?",
+    "category": "semantic",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "Overlapping address spaces prevent reliable peering."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3
+    }
+  },
+  {
+    "id": "heldout-v2-16",
+    "query": "Which Azure firewall rule permits HTTPS to the internal ledger, and which Kubernetes policy must also allow it?",
+    "category": "multi",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443."
+      },
+      {
+        "document_id": "aks-platform",
+        "grade": 2,
+        "text": "Network policy payments-egress permits TCP 443 to the ledger service."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3,
+      "aks-platform": 2
+    }
+  },
+  {
+    "id": "heldout-v2-17",
+    "query": "Does a load-balancer health probe verify the same thing as pod readiness?",
+    "category": "multi",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "Azure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks."
+      },
+      {
+        "document_id": "aks-platform",
+        "grade": 3,
+        "text": "Azure Load Balancer health probes and Kubernetes readiness probes test different network hops."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3,
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "heldout-v2-18",
+    "query": "Which connection details should I preserve before escalating a suspected network block?",
+    "category": "troubleshooting",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "grade": 3,
+        "text": "Preserve source address, destination address, port and timestamp when escalating a suspected network block."
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3
+    }
+  },
+  {
+    "id": "heldout-v2-19",
+    "query": "What issuer and challenge method issue the ingress certificate?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "heldout-v2-20",
+    "query": "Which team sets certificate issuer policy and which operates cert-manager?",
+    "category": "ambiguous",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "The security team owns issuer policy; the platform team operates cert-manager."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "heldout-v2-21",
+    "query": "What secret material must never be pasted into an incident ticket?",
+    "category": "semantic",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "Keep private keys in Kubernetes secrets and never paste them into incident tickets."
+      },
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "Record certificate serial number and notAfter before and after recovery, but never copy tls.key."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "heldout-v2-22",
+    "query": "How can a missing intermediate or a corporate proxy cause an unknown-authority TLS error?",
+    "category": "troubleshooting",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "heldout-v2-23",
+    "query": "What public certificate details should be recorded before and after recovery without disclosing tls.key?",
+    "category": "similar",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "Record certificate serial number and notAfter before and after recovery, but never copy tls.key."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "heldout-v2-24",
+    "query": "For a failing ACME challenge, which identity permission needs checking and which challenge resources should be inspected?",
+    "category": "multi",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "grade": 3,
+        "text": "Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying."
+      },
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 2,
+        "text": "For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3,
+      "kubernetes-troubleshooting": 2
+    }
+  },
+  {
+    "id": "heldout-v2-25",
+    "query": "Which trace context header must propagate through ingress, the payment API and ledger calls?",
+    "category": "exact",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "Propagate W3C traceparent from the ingress through payments-api to ledger calls."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "heldout-v2-26",
+    "query": "How many restarts in what time window trigger KubePodCrashLooping?",
+    "category": "troubleshooting",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "KubePodCrashLooping fires when a payment container restarts more than five times in ten minutes."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "heldout-v2-27",
+    "query": "Which metric and termination evidence would link repeated restarts to memory exhaustion?",
+    "category": "multi",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events."
+      },
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "grade": 2,
+        "text": "An OOMKilled termination with exit code 137 indicates a memory limit investigation; compare peak working set against the container limit."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3,
+      "kubernetes-troubleshooting": 2
+    }
+  },
+  {
+    "id": "heldout-v2-28",
+    "query": "Which request duration histogram and tracing spans help investigate ledger latency?",
+    "category": "similar",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "heldout-v2-29",
+    "query": "Does a successful LedgerDependencyReachability probe prove a payment transaction is correct?",
+    "category": "multi",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness."
+      },
+      {
+        "document_id": "azure-networking",
+        "grade": 2,
+        "text": "Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3,
+      "azure-networking": 2
+    }
+  },
+  {
+    "id": "heldout-v2-30",
+    "query": "Should missing-scrape alerts be silenced just because a payments dashboard has no red panels?",
+    "category": "ambiguous",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "grade": 3,
+        "text": "Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels."
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "heldout-v2-31",
+    "query": "What is the supported RabbitMQ queue retention setting?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  },
+  {
+    "id": "heldout-v2-32",
+    "query": "How are Windows domain controllers backed up?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  },
+  {
+    "id": "heldout-v2-33",
+    "query": "What is the deployment procedure for Cassandra?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  },
+  {
+    "id": "heldout-v2-34",
+    "query": "What are the finance department laptop replacement rules?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  },
+  {
+    "id": "heldout-v2-35",
+    "query": "What is the GitHub organisation recovery token?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  }
+]

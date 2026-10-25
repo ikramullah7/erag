@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": {
+    "retrieval_and_latency": true,
+    "all_tests_executed_and_passed": true,
+    "server_real_model_and_mutation_checks": true,
+    "server_corpus_matches_evaluation": true,
+    "chunk_integrity": true,
+    "reproducible_rankings": true
+  }
+}

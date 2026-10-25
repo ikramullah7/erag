@@ -1,0 +1,32 @@
+{
+  "stage": "1.2",
+  "documents": 10,
+  "retained_from_stage_1_1": {
+    "observability.txt": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+    "certificate-management.txt": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+    "aks-platform.txt": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+    "azure-networking.txt": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+    "kubernetes-troubleshooting.txt": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c"
+  },
+  "new_documents": [
+    "incident-response",
+    "postgresql-recovery",
+    "redis-availability",
+    "release-management",
+    "workload-identity"
+  ],
+  "model": "qwen3:14b",
+  "evaluation_policy": "Freeze fresh questions and source evidence before initial retrieval; no tuning on heldout questions.",
+  "evaluation_hashes": {
+    "answer-evaluation-v1.json": "ac80746b88739389ee5f29fae42f7de0436119f2d9a34db6ebccf728177417c9",
+    "heldout.json": "0b441d280926e75c8fa73a05ea704e857247b984271d4b051c82be3e393262b5",
+    "answer-semantic-references-v1.json": "8f5fc528a107995bc2e3b774d8025f75161afd10bfa7b9193dc96b99fbd3387a",
+    "tuning.json": "ccc72e26ef5e1badc38cb6b2c2f1670d219fc73a412cc7d3e5330e8b86c62944"
+  },
+  "legacy_answerability_changes": {
+    "PostgreSQL backup retention": "Previously unsupported in stage 1.1; supported by new PostgreSQL policy in 1.2.",
+    "Redis failover procedure": "Previously unsupported in stage 1.1; supported by new Redis runbook in 1.2.",
+    "Production database password": "Remains unsupported; no credential values added."
+  },
+  "label_review": "Before any retrieval queries, source review added complete alternative evidence introduced by the new documents (readiness, recovery closure, duplicated current retention); preserved original stage-1.1 labels. No rankings inspected."
+}

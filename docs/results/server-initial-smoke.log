@@ -1,0 +1,11 @@
+W1024 12:14:35.061000 30843 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 8961.26it/s]
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights: 100%|██████████| 105/105 [00:00<00:00, 10759.36it/s]
+Traceback (most recent call last):
+  File "/Users/ikram/source/erag/scripts/verify_server.py", line 91, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ikram/source/erag/scripts/verify_server.py", line 40, in main
+    assert result["results"][0]["chunk"]["document_id"] == "azure-networking"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

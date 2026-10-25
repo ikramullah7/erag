@@ -1,0 +1,34 @@
+{
+  "frozen-selection.json.gz": {
+    "uncompressed_sha256": "d9b25e2c21a640b26f13aa88b685e28938b3a750a492c8afbe3d7840c2dab63f",
+    "compressed_sha256": "6c0588f080730a0bb5653fa6d733416e161ae596791132ff00ed8c275f526d58"
+  },
+  "heldout.json.gz": {
+    "uncompressed_sha256": "34ec827aedbf24186c5d5b8c883afb99ac4522b51be6d41425d29a480941aa70",
+    "compressed_sha256": "b2c6d1f7a2429a066299717438c9c4525e1c7c9f7304fec85239968a5368d2f2"
+  },
+  "model-load.json.gz": {
+    "uncompressed_sha256": "db1ab0bca48d0d730dccf73011306e56516672e207825d5bace61a96faa88f37",
+    "compressed_sha256": "78d472078480724dc6e3db80fd22dee4fcfbce9959cd7495e6b52b3400f60ef0"
+  },
+  "quality-gate.json.gz": {
+    "uncompressed_sha256": "e88fad740d661ffea53240ad9ddac9081b038f4d4fb7508adaa9e1cef0f9c505",
+    "compressed_sha256": "621a188404a9579287c7175e07957ad745cfa58a37ccfab82f2c98b9106a5a23"
+  },
+  "tuning-1.json.gz": {
+    "uncompressed_sha256": "37e6bf409faffa1dcd3a3cd7910fb68703a813defe3ee5df554d5a8c7a8b3410",
+    "compressed_sha256": "3ed368bce5fe71e9ba277ccd50df0a61bfb778b23f2d9106fd3249048bdfa888"
+  },
+  "tuning-2.json.gz": {
+    "uncompressed_sha256": "c8f5a3425251c02245d0561eef2633b8ad1f1cc3168bacc7f6acc2680fae6ab5",
+    "compressed_sha256": "4fdff40181ad6d36fb9a3c13f4194b3acdc3fec9a77e3cd900d1425e02bf86c9"
+  },
+  "tuning-3.json.gz": {
+    "uncompressed_sha256": "3b79b13706311117ba04aeeb45dcf4cfd32824de36505ab77a5e6c3c99ffbe3e",
+    "compressed_sha256": "e1a5a86756fc6ee5d2178517e14571348d84616c6d2f81d3dfc0ef2fdc1e8330"
+  },
+  "chunk-audit.json.gz": {
+    "uncompressed_sha256": "c98200afb70afcb72ebade5881ccacef1be309fa7c4a6c1a6ebf8ca9f1980d87",
+    "compressed_sha256": "51de1c6bd8ae2f9b0250b6145c798f16ed558a27ad01c74f4c5db13202ceb77f"
+  }
+}

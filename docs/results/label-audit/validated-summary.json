@@ -1,0 +1,27 @@
+{
+  "validated": true,
+  "questions": 171,
+  "source_units": 30,
+  "positive_judgments": 259,
+  "answerability": {
+    "answerable": 149,
+    "unanswerable": 21,
+    "partially_answerable": 1
+  },
+  "human_review_flags": 22,
+  "audit_sha256": "23f6ffc7aa806b12c95e6ab0dd833bd8c87bbbf39641b41003b722b25cfc5937",
+  "originals_unchanged": true,
+  "questions_with_label_differences": 64,
+  "answerability_differences": 0,
+  "change_counts": {
+    "added_supporting_evidence": 44,
+    "removed_positive": 6,
+    "grade_change": 14,
+    "added_partial_evidence": 27,
+    "added_full_answer": 12
+  },
+  "review_queue_questions": 85,
+  "applied_to_original_labels": false,
+  "retrieval_or_tuning_executed": false,
+  "quality_gate_recalculated": false
+}

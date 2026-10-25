@@ -1,0 +1,56 @@
+[
+  {
+    "max_words": 100,
+    "overlap_words": 0,
+    "chunks": 30,
+    "missing_words": 0,
+    "overlap_word_occurrences": 0,
+    "preserved_paragraphs": 70,
+    "total_paragraphs": 70
+  },
+  {
+    "max_words": 100,
+    "overlap_words": 20,
+    "chunks": 30,
+    "missing_words": 0,
+    "overlap_word_occurrences": 500,
+    "preserved_paragraphs": 70,
+    "total_paragraphs": 70
+  },
+  {
+    "max_words": 140,
+    "overlap_words": 0,
+    "chunks": 19,
+    "missing_words": 0,
+    "overlap_word_occurrences": 0,
+    "preserved_paragraphs": 70,
+    "total_paragraphs": 70
+  },
+  {
+    "max_words": 140,
+    "overlap_words": 20,
+    "chunks": 29,
+    "missing_words": 0,
+    "overlap_word_occurrences": 480,
+    "preserved_paragraphs": 70,
+    "total_paragraphs": 70
+  },
+  {
+    "max_words": 140,
+    "overlap_words": 40,
+    "chunks": 29,
+    "missing_words": 0,
+    "overlap_word_occurrences": 960,
+    "preserved_paragraphs": 70,
+    "total_paragraphs": 70
+  },
+  {
+    "max_words": 180,
+    "overlap_words": 20,
+    "chunks": 15,
+    "missing_words": 0,
+    "overlap_word_occurrences": 200,
+    "preserved_paragraphs": 70,
+    "total_paragraphs": 70
+  }
+]

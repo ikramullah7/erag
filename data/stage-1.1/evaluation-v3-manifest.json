@@ -1,0 +1,16 @@
+{
+  "frozen_unix": 1792863667.084998,
+  "validation_v2_failed": true,
+  "old_validation_preserved": true,
+  "source_documents": 5,
+  "fresh_answerable": 30,
+  "fresh_no_answer": 5,
+  "remaining_tuning_iterations": 2,
+  "label_hashes": {
+    "tuning.json": "12fa00022db1d59e7887b3e94b7e234083f5d67fc5a21c0b28982b8fdf2b3f23",
+    "heldout.json": "ada207d28690723a255327ca913c1617fbcf87851f5f872f760fb1549a18aa31",
+    "heldout-v2.json": "1082a256fff9515cb678366bd22f5d7945196ddb800bbd78de011abc87c79154",
+    "tuning-v3.json": "b5986c7e5cb1deb57b7e30bef8f3c3d37de6c34886f938afbfaeb5f112f70ab0",
+    "heldout-v3.json": "ccec724963682b05d034e46c9caec1d9d502b539abcefaa18acb0b9c9f9dbdeb"
+  }
+}

@@ -1,0 +1,3279 @@
+{
+  "passed": true,
+  "image": "qdrant/qdrant:v1.20.0@sha256:9bfc89f9914fc14876a88c05270685921a55b8877b254a98bcc1cc2f0a424cd2",
+  "server_version": "1.20.0",
+  "launch": "docker run (Compose CLI unavailable)",
+  "six_retrieval_variants": true,
+  "idempotent_rebuild": true,
+  "updates": true,
+  "logical_deletion_restore": true,
+  "source_fixture_count": 5,
+  "corpus_hash": "82a195647c98ce0e155023fce27984de2cabd1f62265c0076547fb32a525467e",
+  "chunk_hash": "7ecb8290373cd8692822bc733fa3c01e4b9121c5ab7ba8438fe2f5ca61018aef",
+  "initial_smoke_observation": "Unreranked BM25 ranks the expected source second for the smoke paraphrase on both backends; the initial top-1 assumption failed. No retrieval parameters or official labels changed.",
+  "heldout_labels_used": false,
+  "model_identity": "sentence-transformers/multi-qa-MiniLM-L6-cos-v1@b207367332321f8e44f96e224ef15bc607f4dbf0",
+  "reranker_identity": "cross-encoder/ms-marco-MiniLM-L6-v2@233902d25c440f23af6f7d6e94d2946bac0bee0a",
+  "initial_index_ms": 445.47979200433474,
+  "queries": [
+    {
+      "query": "What IP address does pe-ledger-prod-01 have?",
+      "mode": "bm25",
+      "reranked": false,
+      "timings": {
+        "bm25_ms": 0.08749999688006938,
+        "total_ms": 0.11512500350363553
+      },
+      "components": {
+        "bm25": [
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            8.161225871271135
+          ],
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            8.026936485222961
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            7.652139576508528
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            4.532406766124244
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            3.030951099184965
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            2.5263326589109703
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            2.511610640982788
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            2.5036222822664698
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            1.8846801436035245
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            1.8842665950967692
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            1.7555156313548104
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            1.6949832990102585
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            1.6868682730349915
+          ],
+          [
+            "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+            1.3265297146211388
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            1.2511230031221416
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            1.1917914436594388
+          ],
+          [
+            "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+            1.1085270539202214
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            1.042130084384488
+          ],
+          [
+            "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+            0.5962712187703927
+          ],
+          [
+            "22a1a619-869c-5dc8-82ef-a1251668c61c",
+            0.5846292604678307
+          ]
+        ],
+        "cosine": [],
+        "rrf": []
+      },
+      "initial_ranking": [
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          8.161225871271135
+        ],
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          8.026936485222961
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          7.652139576508528
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          4.532406766124244
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          3.030951099184965
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          2.5263326589109703
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          2.511610640982788
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          2.5036222822664698
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          1.8846801436035245
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          1.8842665950967692
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          1.7555156313548104
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          1.6949832990102585
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          1.6868682730349915
+        ],
+        [
+          "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+          1.3265297146211388
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          1.2511230031221416
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          1.1917914436594388
+        ],
+        [
+          "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+          1.1085270539202214
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          1.042130084384488
+        ],
+        [
+          "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+          0.5962712187703927
+        ],
+        [
+          "22a1a619-869c-5dc8-82ef-a1251668c61c",
+          0.5846292604678307
+        ]
+      ],
+      "final_ranking": [
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          8.161225871271135
+        ],
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          8.026936485222961
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          7.652139576508528
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          4.532406766124244
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          3.030951099184965
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          2.5263326589109703
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          2.511610640982788
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          2.5036222822664698
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          1.8846801436035245
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          1.8842665950967692
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          1.7555156313548104
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          1.6949832990102585
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          1.6868682730349915
+        ],
+        [
+          "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+          1.3265297146211388
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          1.2511230031221416
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          1.1917914436594388
+        ],
+        [
+          "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+          1.1085270539202214
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          1.042130084384488
+        ],
+        [
+          "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+          0.5962712187703927
+        ],
+        [
+          "22a1a619-869c-5dc8-82ef-a1251668c61c",
+          0.5846292604678307
+        ]
+      ],
+      "results": [
+        {
+          "chunk": {
+            "id": "db514816-078d-5c11-b488-8b412256f6ce",
+            "document_id": "kubernetes-troubleshooting",
+            "source": "kubernetes-troubleshooting.txt",
+            "version": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c",
+            "position": 3,
+            "start": 1410,
+            "end": 2004,
+            "heading": "Readiness and HTTP 503",
+            "text": "service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates.\n\n## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 1,
+          "final_rank": 1,
+          "scores": {
+            "bm25": 8.161225871271135,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "d51466c8-46d2-5691-80be-c7251445c402",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 0,
+            "start": 0,
+            "end": 997,
+            "heading": "Azure private networking and DNS RB-NET-008",
+            "text": "# Azure private networking and DNS RB-NET-008\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Address plan\n\nSpoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other.\n\n## Ledger private endpoint\n\nThe ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17. The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 2,
+          "final_rank": 2,
+          "scores": {
+            "bm25": 8.026936485222961,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 4,
+            "start": 1900,
+            "end": 2494,
+            "heading": "Ingress and workload certificates",
+            "text": "owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.\n\n## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 3,
+          "final_rank": 3,
+          "scores": {
+            "bm25": 7.652139576508528,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 2,
+            "start": 1312,
+            "end": 1961,
+            "heading": "AKS private API access",
+            "text": "inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.\n\n## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 4,
+          "final_rank": 4,
+          "scores": {
+            "bm25": 4.532406766124244,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 1,
+            "start": 869,
+            "end": 1463,
+            "heading": "Ledger private endpoint",
+            "text": "can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.\n\n## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 5,
+          "final_rank": 5,
+          "scores": {
+            "bm25": 3.030951099184965,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 4,
+            "start": 2287,
+            "end": 2872,
+            "heading": "Load balancer probes",
+            "text": "not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block.\n\n## Change verification\n\nAfter a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client. Respect resolver cache TTL; this environment uses a 60 second TTL for the ledger record. Record the effective route and firewall policy version with the change ticket. Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records. Escalate with RB-NET-008.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 6,
+          "final_rank": 6,
+          "scores": {
+            "bm25": 2.5263326589109703,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "44d13257-02e2-5300-a420-33a8d74916a9",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 3,
+            "start": 1440,
+            "end": 2029,
+            "heading": "Certificate alert",
+            "text": "actual certificate notAfter and the monitoring target state. Do not interpret a private endpoint timeout as a certificate expiry measurement.\n\n## Missing telemetry\n\nAn empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes. Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 7,
+          "final_rank": 7,
+          "scores": {
+            "bm25": 2.511610640982788,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "33d0f144-cb69-510c-aaae-570811afa66e",
+            "document_id": "certificate-management",
+            "source": "certificate-management.txt",
+            "version": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+            "position": 2,
+            "start": 965,
+            "end": 1596,
+            "heading": "Renewal policy",
+            "text": "days remain. An old ingress certificate after a successful renewal may indicate that the controller did not reload the secret.\n\n## DNS-01 failure\n\nFor Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources. A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation. Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying. Do not replace DNS-01 with HTTP-01 without a reviewed policy change.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 8,
+          "final_rank": 8,
+          "scores": {
+            "bm25": 2.5036222822664698,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 0,
+            "start": 0,
+            "end": 576,
+            "heading": "AKS production platform runbook",
+            "text": "# AKS production platform runbook\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Cluster identity and access\n\nThe production cluster aks-payments-prod-01 runs private AKS in the platform subscription. Its API hostname resolves through the privatelink.eastus.azmk8s.io private DNS zone. The platform team owns cluster upgrades; application teams own workloads in namespace payments. Access requires the corporate VPN and the platform-reader Azure role. A successful VPN connection does not prove that private DNS resolution works.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 9,
+          "final_rank": 9,
+          "scores": {
+            "bm25": 1.8846801436035245,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "90310603-4d83-5736-aece-f47d0b6aedeb",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 3,
+            "start": 1840,
+            "end": 2428,
+            "heading": "NSG and firewall checks",
+            "text": "network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.\n\n## Load balancer probes\n\nAzure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks. For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall. A certificate name mismatch is not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 10,
+          "final_rank": 10,
+          "scores": {
+            "bm25": 1.8842665950967692,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        }
+      ],
+      "expected_source_rank": 2,
+      "matches_embedded_ranking": true
+    },
+    {
+      "query": "What IP address does pe-ledger-prod-01 have?",
+      "mode": "bm25",
+      "reranked": true,
+      "timings": {
+        "bm25_ms": 0.054208008805289865,
+        "rerank_ms": 257.18637500540353,
+        "total_ms": 257.26862500596326
+      },
+      "components": {
+        "bm25": [
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            8.161225871271135
+          ],
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            8.026936485222961
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            7.652139576508528
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            4.532406766124244
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            3.030951099184965
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            2.5263326589109703
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            2.511610640982788
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            2.5036222822664698
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            1.8846801436035245
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            1.8842665950967692
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            1.7555156313548104
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            1.6949832990102585
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            1.6868682730349915
+          ],
+          [
+            "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+            1.3265297146211388
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            1.2511230031221416
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            1.1917914436594388
+          ],
+          [
+            "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+            1.1085270539202214
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            1.042130084384488
+          ],
+          [
+            "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+            0.5962712187703927
+          ],
+          [
+            "22a1a619-869c-5dc8-82ef-a1251668c61c",
+            0.5846292604678307
+          ]
+        ],
+        "cosine": [],
+        "rrf": []
+      },
+      "initial_ranking": [
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          8.161225871271135
+        ],
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          8.026936485222961
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          7.652139576508528
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          4.532406766124244
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          3.030951099184965
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          2.5263326589109703
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          2.511610640982788
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          2.5036222822664698
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          1.8846801436035245
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          1.8842665950967692
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          1.7555156313548104
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          1.6949832990102585
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          1.6868682730349915
+        ],
+        [
+          "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+          1.3265297146211388
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          1.2511230031221416
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          1.1917914436594388
+        ],
+        [
+          "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+          1.1085270539202214
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          1.042130084384488
+        ],
+        [
+          "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+          0.5962712187703927
+        ],
+        [
+          "22a1a619-869c-5dc8-82ef-a1251668c61c",
+          0.5846292604678307
+        ]
+      ],
+      "final_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          5.647812843322754
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          2.119257926940918
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.9867033958435059
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          -1.6885350942611694
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          -2.159965991973877
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          -3.129873037338257
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          -3.4188451766967773
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          -4.367745399475098
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          -5.188422203063965
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          -6.267536163330078
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          -6.856208801269531
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          -6.929749965667725
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          -8.426263809204102
+        ],
+        [
+          "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+          -8.986335754394531
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          -9.00124740600586
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          -10.859424591064453
+        ],
+        [
+          "22a1a619-869c-5dc8-82ef-a1251668c61c",
+          -11.162318229675293
+        ],
+        [
+          "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+          -11.235472679138184
+        ],
+        [
+          "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+          -11.325740814208984
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          -11.399221420288086
+        ]
+      ],
+      "results": [
+        {
+          "chunk": {
+            "id": "d51466c8-46d2-5691-80be-c7251445c402",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 0,
+            "start": 0,
+            "end": 997,
+            "heading": "Azure private networking and DNS RB-NET-008",
+            "text": "# Azure private networking and DNS RB-NET-008\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Address plan\n\nSpoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other.\n\n## Ledger private endpoint\n\nThe ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17. The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 2,
+          "final_rank": 1,
+          "scores": {
+            "bm25": 8.026936485222961,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": 5.647812843322754
+          }
+        },
+        {
+          "chunk": {
+            "id": "db514816-078d-5c11-b488-8b412256f6ce",
+            "document_id": "kubernetes-troubleshooting",
+            "source": "kubernetes-troubleshooting.txt",
+            "version": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c",
+            "position": 3,
+            "start": 1410,
+            "end": 2004,
+            "heading": "Readiness and HTTP 503",
+            "text": "service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates.\n\n## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 1,
+          "final_rank": 2,
+          "scores": {
+            "bm25": 8.161225871271135,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": 2.119257926940918
+          }
+        },
+        {
+          "chunk": {
+            "id": "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 4,
+            "start": 1900,
+            "end": 2494,
+            "heading": "Ingress and workload certificates",
+            "text": "owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.\n\n## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 3,
+          "final_rank": 3,
+          "scores": {
+            "bm25": 7.652139576508528,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": 0.9867033958435059
+          }
+        },
+        {
+          "chunk": {
+            "id": "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 1,
+            "start": 869,
+            "end": 1463,
+            "heading": "Ledger private endpoint",
+            "text": "can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.\n\n## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 5,
+          "final_rank": 4,
+          "scores": {
+            "bm25": 3.030951099184965,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": -1.6885350942611694
+          }
+        },
+        {
+          "chunk": {
+            "id": "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 2,
+            "start": 1312,
+            "end": 1961,
+            "heading": "AKS private API access",
+            "text": "inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.\n\n## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 4,
+          "final_rank": 5,
+          "scores": {
+            "bm25": 4.532406766124244,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": -2.159965991973877
+          }
+        },
+        {
+          "chunk": {
+            "id": "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 0,
+            "start": 0,
+            "end": 605,
+            "heading": "Payments monitoring and observability RB-OBS-011",
+            "text": "# Payments monitoring and observability RB-OBS-011\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Signals and dashboards\n\nDashboard payments-prod-overview joins Prometheus metrics, Loki logs and Tempo traces for namespace payments. Metrics describe aggregate health, logs record events, and traces connect requests across services. Propagate W3C traceparent from the ingress through payments-api to ledger calls. A trace ID links logs to the distributed request path; it is not the Kubernetes pod UID. Dashboard access does not itself prove signal freshness.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 12,
+          "final_rank": 6,
+          "scores": {
+            "bm25": 1.6949832990102585,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": -3.129873037338257
+          }
+        },
+        {
+          "chunk": {
+            "id": "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 0,
+            "start": 0,
+            "end": 576,
+            "heading": "AKS production platform runbook",
+            "text": "# AKS production platform runbook\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Cluster identity and access\n\nThe production cluster aks-payments-prod-01 runs private AKS in the platform subscription. Its API hostname resolves through the privatelink.eastus.azmk8s.io private DNS zone. The platform team owns cluster upgrades; application teams own workloads in namespace payments. Access requires the corporate VPN and the platform-reader Azure role. A successful VPN connection does not prove that private DNS resolution works.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 9,
+          "final_rank": 7,
+          "scores": {
+            "bm25": 1.8846801436035245,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": -3.4188451766967773
+          }
+        },
+        {
+          "chunk": {
+            "id": "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 5,
+            "start": 2368,
+            "end": 2939,
+            "heading": "Outbound dependencies",
+            "text": "ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.\n\n## Recovery and escalation\n\nFor a failed upgrade, preserve kubectl get events output and record the node pool operation ID. Do not delete the system pool to repair application routing. Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team, and payments-api-tls renewal failures to the certificate owner. Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 13,
+          "final_rank": 8,
+          "scores": {
+            "bm25": 1.6868682730349915,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": -4.367745399475098
+          }
+        },
+        {
+          "chunk": {
+            "id": "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            "document_id": "certificate-management",
+            "source": "certificate-management.txt",
+            "version": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+            "position": 0,
+            "start": 0,
+            "end": 634,
+            "heading": "Certificate lifecycle and ACME RB-PKI-006",
+            "text": "# Certificate lifecycle and ACME RB-PKI-006\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Ownership and storage\n\ncert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 11,
+          "final_rank": 9,
+          "scores": {
+            "bm25": 1.7555156313548104,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": -5.188422203063965
+          }
+        },
+        {
+          "chunk": {
+            "id": "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 5,
+            "start": 2397,
+            "end": 2985,
+            "heading": "Latency and traces",
+            "text": "DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation.\n\n## Recovery verification\n\nAfter remediation, confirm ready replicas, successful synthetic payment checks, fresh metrics and traces without ledger timeout spans. Observe for 15 minutes before closing the incident. Capture the dashboard time range and alert evaluation window. Certificate changes, DNS cache TTL and scrape intervals can delay visible recovery. Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 15,
+          "final_rank": 10,
+          "scores": {
+            "bm25": 1.2511230031221416,
+            "cosine": null,
+            "rrf": null,
+            "cross_encoder": -6.267536163330078
+          }
+        }
+      ],
+      "expected_source_rank": 1,
+      "matches_embedded_ranking": true
+    },
+    {
+      "query": "What IP address does pe-ledger-prod-01 have?",
+      "mode": "vector",
+      "reranked": false,
+      "timings": {
+        "vector_ms": 10.923790992819704,
+        "total_ms": 10.961249994579703
+      },
+      "components": {
+        "bm25": [],
+        "cosine": [
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            0.47466224
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            0.4415316
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            0.43194672
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            0.38968885
+          ],
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            0.35974514
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            0.35827777
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            0.33963895
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            0.31763127
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            0.31724113
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            0.31630254
+          ],
+          [
+            "aabd4a9f-5851-57d3-b0a1-214481997338",
+            0.3036098
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            0.2862335
+          ],
+          [
+            "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+            0.27558622
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            0.27501595
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            0.26688883
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            0.26478952
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            0.25836706
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            0.25778675
+          ],
+          [
+            "281da283-4d22-5793-962a-1dec7bdfab52",
+            0.25596526
+          ],
+          [
+            "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+            0.24222279
+          ]
+        ],
+        "rrf": []
+      },
+      "initial_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          0.47466224
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          0.4415316
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.43194672
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          0.38968885
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          0.35974514
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          0.35827777
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          0.33963895
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          0.31763127
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          0.31724113
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          0.31630254
+        ],
+        [
+          "aabd4a9f-5851-57d3-b0a1-214481997338",
+          0.3036098
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          0.2862335
+        ],
+        [
+          "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+          0.27558622
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          0.27501595
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          0.26688883
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          0.26478952
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          0.25836706
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          0.25778675
+        ],
+        [
+          "281da283-4d22-5793-962a-1dec7bdfab52",
+          0.25596526
+        ],
+        [
+          "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+          0.24222279
+        ]
+      ],
+      "final_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          0.47466224
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          0.4415316
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.43194672
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          0.38968885
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          0.35974514
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          0.35827777
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          0.33963895
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          0.31763127
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          0.31724113
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          0.31630254
+        ],
+        [
+          "aabd4a9f-5851-57d3-b0a1-214481997338",
+          0.3036098
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          0.2862335
+        ],
+        [
+          "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+          0.27558622
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          0.27501595
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          0.26688883
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          0.26478952
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          0.25836706
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          0.25778675
+        ],
+        [
+          "281da283-4d22-5793-962a-1dec7bdfab52",
+          0.25596526
+        ],
+        [
+          "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+          0.24222279
+        ]
+      ],
+      "results": [
+        {
+          "chunk": {
+            "id": "d51466c8-46d2-5691-80be-c7251445c402",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 0,
+            "start": 0,
+            "end": 997,
+            "heading": "Azure private networking and DNS RB-NET-008",
+            "text": "# Azure private networking and DNS RB-NET-008\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Address plan\n\nSpoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other.\n\n## Ledger private endpoint\n\nThe ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17. The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 1,
+          "final_rank": 1,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.47466224,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 4,
+            "start": 2287,
+            "end": 2872,
+            "heading": "Load balancer probes",
+            "text": "not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block.\n\n## Change verification\n\nAfter a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client. Respect resolver cache TTL; this environment uses a 60 second TTL for the ledger record. Record the effective route and firewall policy version with the change ticket. Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records. Escalate with RB-NET-008.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 2,
+          "final_rank": 2,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.4415316,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 4,
+            "start": 1900,
+            "end": 2494,
+            "heading": "Ingress and workload certificates",
+            "text": "owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.\n\n## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 3,
+          "final_rank": 3,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.43194672,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "33d0f144-cb69-510c-aaae-570811afa66e",
+            "document_id": "certificate-management",
+            "source": "certificate-management.txt",
+            "version": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+            "position": 2,
+            "start": 965,
+            "end": 1596,
+            "heading": "Renewal policy",
+            "text": "days remain. An old ingress certificate after a successful renewal may indicate that the controller did not reload the secret.\n\n## DNS-01 failure\n\nFor Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources. A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation. Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying. Do not replace DNS-01 with HTTP-01 without a reviewed policy change.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 4,
+          "final_rank": 4,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.38968885,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "db514816-078d-5c11-b488-8b412256f6ce",
+            "document_id": "kubernetes-troubleshooting",
+            "source": "kubernetes-troubleshooting.txt",
+            "version": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c",
+            "position": 3,
+            "start": 1410,
+            "end": 2004,
+            "heading": "Readiness and HTTP 503",
+            "text": "service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates.\n\n## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 5,
+          "final_rank": 5,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.35974514,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 2,
+            "start": 1312,
+            "end": 1961,
+            "heading": "AKS private API access",
+            "text": "inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.\n\n## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 6,
+          "final_rank": 6,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.35827777,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 5,
+            "start": 2368,
+            "end": 2939,
+            "heading": "Outbound dependencies",
+            "text": "ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.\n\n## Recovery and escalation\n\nFor a failed upgrade, preserve kubectl get events output and record the node pool operation ID. Do not delete the system pool to repair application routing. Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team, and payments-api-tls renewal failures to the certificate owner. Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 7,
+          "final_rank": 7,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.33963895,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "15618786-9583-5ef1-8e73-d612cdac3cea",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 4,
+            "start": 1916,
+            "end": 2532,
+            "heading": "Missing telemetry",
+            "text": "Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure.\n\n## Latency and traces\n\nPaymentLatencyHigh fires when the 95th percentile request duration exceeds 750 milliseconds for ten minutes. Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo. A high request latency with normal CPU can indicate waiting on an upstream dependency. LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 8,
+          "final_rank": 8,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.31763127,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "90310603-4d83-5736-aece-f47d0b6aedeb",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 3,
+            "start": 1840,
+            "end": 2428,
+            "heading": "NSG and firewall checks",
+            "text": "network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.\n\n## Load balancer probes\n\nAzure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks. For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall. A certificate name mismatch is not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 9,
+          "final_rank": 9,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.31724113,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 5,
+            "start": 2397,
+            "end": 2985,
+            "heading": "Latency and traces",
+            "text": "DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation.\n\n## Recovery verification\n\nAfter remediation, confirm ready replicas, successful synthetic payment checks, fresh metrics and traces without ledger timeout spans. Observe for 15 minutes before closing the incident. Capture the dashboard time range and alert evaluation window. Certificate changes, DNS cache TTL and scrape intervals can delay visible recovery. Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 10,
+          "final_rank": 10,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.31630254,
+            "rrf": null,
+            "cross_encoder": null
+          }
+        }
+      ],
+      "expected_source_rank": 1,
+      "matches_embedded_ranking": true
+    },
+    {
+      "query": "What IP address does pe-ledger-prod-01 have?",
+      "mode": "vector",
+      "reranked": true,
+      "timings": {
+        "vector_ms": 4.8949580086627975,
+        "rerank_ms": 165.46733300492633,
+        "total_ms": 170.38995800248813
+      },
+      "components": {
+        "bm25": [],
+        "cosine": [
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            0.47466224
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            0.4415316
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            0.43194672
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            0.38968885
+          ],
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            0.35974514
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            0.35827777
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            0.33963895
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            0.31763127
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            0.31724113
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            0.31630254
+          ],
+          [
+            "aabd4a9f-5851-57d3-b0a1-214481997338",
+            0.3036098
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            0.2862335
+          ],
+          [
+            "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+            0.27558622
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            0.27501595
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            0.26688883
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            0.26478952
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            0.25836706
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            0.25778675
+          ],
+          [
+            "281da283-4d22-5793-962a-1dec7bdfab52",
+            0.25596526
+          ],
+          [
+            "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+            0.24222279
+          ]
+        ],
+        "rrf": []
+      },
+      "initial_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          0.47466224
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          0.4415316
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.43194672
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          0.38968885
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          0.35974514
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          0.35827777
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          0.33963895
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          0.31763127
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          0.31724113
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          0.31630254
+        ],
+        [
+          "aabd4a9f-5851-57d3-b0a1-214481997338",
+          0.3036098
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          0.2862335
+        ],
+        [
+          "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+          0.27558622
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          0.27501595
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          0.26688883
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          0.26478952
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          0.25836706
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          0.25778675
+        ],
+        [
+          "281da283-4d22-5793-962a-1dec7bdfab52",
+          0.25596526
+        ],
+        [
+          "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+          0.24222279
+        ]
+      ],
+      "final_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          5.647812843322754
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          2.119257926940918
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.9867033958435059
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          -1.6885350942611694
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          -2.159965991973877
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          -3.129873037338257
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          -3.4188451766967773
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          -4.367745399475098
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          -5.188422203063965
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          -6.267536163330078
+        ],
+        [
+          "281da283-4d22-5793-962a-1dec7bdfab52",
+          -6.6496782302856445
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          -6.856208801269531
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          -6.929749965667725
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          -8.426263809204102
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          -9.00124740600586
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          -10.859424591064453
+        ],
+        [
+          "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+          -10.971973419189453
+        ],
+        [
+          "aabd4a9f-5851-57d3-b0a1-214481997338",
+          -10.988465309143066
+        ],
+        [
+          "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+          -11.256498336791992
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          -11.399221420288086
+        ]
+      ],
+      "results": [
+        {
+          "chunk": {
+            "id": "d51466c8-46d2-5691-80be-c7251445c402",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 0,
+            "start": 0,
+            "end": 997,
+            "heading": "Azure private networking and DNS RB-NET-008",
+            "text": "# Azure private networking and DNS RB-NET-008\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Address plan\n\nSpoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other.\n\n## Ledger private endpoint\n\nThe ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17. The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 1,
+          "final_rank": 1,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.47466224,
+            "rrf": null,
+            "cross_encoder": 5.647812843322754
+          }
+        },
+        {
+          "chunk": {
+            "id": "db514816-078d-5c11-b488-8b412256f6ce",
+            "document_id": "kubernetes-troubleshooting",
+            "source": "kubernetes-troubleshooting.txt",
+            "version": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c",
+            "position": 3,
+            "start": 1410,
+            "end": 2004,
+            "heading": "Readiness and HTTP 503",
+            "text": "service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates.\n\n## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 5,
+          "final_rank": 2,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.35974514,
+            "rrf": null,
+            "cross_encoder": 2.119257926940918
+          }
+        },
+        {
+          "chunk": {
+            "id": "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 4,
+            "start": 1900,
+            "end": 2494,
+            "heading": "Ingress and workload certificates",
+            "text": "owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.\n\n## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 3,
+          "final_rank": 3,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.43194672,
+            "rrf": null,
+            "cross_encoder": 0.9867033958435059
+          }
+        },
+        {
+          "chunk": {
+            "id": "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 1,
+            "start": 869,
+            "end": 1463,
+            "heading": "Ledger private endpoint",
+            "text": "can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.\n\n## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 17,
+          "final_rank": 4,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.25836706,
+            "rrf": null,
+            "cross_encoder": -1.6885350942611694
+          }
+        },
+        {
+          "chunk": {
+            "id": "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 2,
+            "start": 1312,
+            "end": 1961,
+            "heading": "AKS private API access",
+            "text": "inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.\n\n## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 6,
+          "final_rank": 5,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.35827777,
+            "rrf": null,
+            "cross_encoder": -2.159965991973877
+          }
+        },
+        {
+          "chunk": {
+            "id": "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 0,
+            "start": 0,
+            "end": 605,
+            "heading": "Payments monitoring and observability RB-OBS-011",
+            "text": "# Payments monitoring and observability RB-OBS-011\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Signals and dashboards\n\nDashboard payments-prod-overview joins Prometheus metrics, Loki logs and Tempo traces for namespace payments. Metrics describe aggregate health, logs record events, and traces connect requests across services. Propagate W3C traceparent from the ingress through payments-api to ledger calls. A trace ID links logs to the distributed request path; it is not the Kubernetes pod UID. Dashboard access does not itself prove signal freshness.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 14,
+          "final_rank": 6,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.27501595,
+            "rrf": null,
+            "cross_encoder": -3.129873037338257
+          }
+        },
+        {
+          "chunk": {
+            "id": "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 0,
+            "start": 0,
+            "end": 576,
+            "heading": "AKS production platform runbook",
+            "text": "# AKS production platform runbook\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Cluster identity and access\n\nThe production cluster aks-payments-prod-01 runs private AKS in the platform subscription. Its API hostname resolves through the privatelink.eastus.azmk8s.io private DNS zone. The platform team owns cluster upgrades; application teams own workloads in namespace payments. Access requires the corporate VPN and the platform-reader Azure role. A successful VPN connection does not prove that private DNS resolution works.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 15,
+          "final_rank": 7,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.26688883,
+            "rrf": null,
+            "cross_encoder": -3.4188451766967773
+          }
+        },
+        {
+          "chunk": {
+            "id": "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 5,
+            "start": 2368,
+            "end": 2939,
+            "heading": "Outbound dependencies",
+            "text": "ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.\n\n## Recovery and escalation\n\nFor a failed upgrade, preserve kubectl get events output and record the node pool operation ID. Do not delete the system pool to repair application routing. Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team, and payments-api-tls renewal failures to the certificate owner. Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 7,
+          "final_rank": 8,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.33963895,
+            "rrf": null,
+            "cross_encoder": -4.367745399475098
+          }
+        },
+        {
+          "chunk": {
+            "id": "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            "document_id": "certificate-management",
+            "source": "certificate-management.txt",
+            "version": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+            "position": 0,
+            "start": 0,
+            "end": 634,
+            "heading": "Certificate lifecycle and ACME RB-PKI-006",
+            "text": "# Certificate lifecycle and ACME RB-PKI-006\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Ownership and storage\n\ncert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 16,
+          "final_rank": 9,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.26478952,
+            "rrf": null,
+            "cross_encoder": -5.188422203063965
+          }
+        },
+        {
+          "chunk": {
+            "id": "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 5,
+            "start": 2397,
+            "end": 2985,
+            "heading": "Latency and traces",
+            "text": "DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation.\n\n## Recovery verification\n\nAfter remediation, confirm ready replicas, successful synthetic payment checks, fresh metrics and traces without ledger timeout spans. Observe for 15 minutes before closing the incident. Capture the dashboard time range and alert evaluation window. Certificate changes, DNS cache TTL and scrape intervals can delay visible recovery. Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 10,
+          "final_rank": 10,
+          "scores": {
+            "bm25": null,
+            "cosine": 0.31630254,
+            "rrf": null,
+            "cross_encoder": -6.267536163330078
+          }
+        }
+      ],
+      "expected_source_rank": 1,
+      "matches_embedded_ranking": true
+    },
+    {
+      "query": "What IP address does pe-ledger-prod-01 have?",
+      "mode": "hybrid",
+      "reranked": false,
+      "timings": {
+        "bm25_ms": 0.09874999523162842,
+        "vector_ms": 5.546917003812268,
+        "total_ms": 5.709707998903468
+      },
+      "components": {
+        "bm25": [
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            8.161225871271135
+          ],
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            8.026936485222961
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            7.652139576508528
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            4.532406766124244
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            3.030951099184965
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            2.5263326589109703
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            2.511610640982788
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            2.5036222822664698
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            1.8846801436035245
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            1.8842665950967692
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            1.7555156313548104
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            1.6949832990102585
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            1.6868682730349915
+          ],
+          [
+            "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+            1.3265297146211388
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            1.2511230031221416
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            1.1917914436594388
+          ],
+          [
+            "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+            1.1085270539202214
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            1.042130084384488
+          ],
+          [
+            "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+            0.5962712187703927
+          ],
+          [
+            "22a1a619-869c-5dc8-82ef-a1251668c61c",
+            0.5846292604678307
+          ]
+        ],
+        "cosine": [
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            0.47466224
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            0.4415316
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            0.43194672
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            0.38968885
+          ],
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            0.35974514
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            0.35827777
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            0.33963895
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            0.31763127
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            0.31724113
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            0.31630254
+          ],
+          [
+            "aabd4a9f-5851-57d3-b0a1-214481997338",
+            0.3036098
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            0.2862335
+          ],
+          [
+            "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+            0.27558622
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            0.27501595
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            0.26688883
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            0.26478952
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            0.25836706
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            0.25778675
+          ],
+          [
+            "281da283-4d22-5793-962a-1dec7bdfab52",
+            0.25596526
+          ],
+          [
+            "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+            0.24222279
+          ]
+        ],
+        "rrf": [
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            0.03252247488101534
+          ],
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            0.03177805800756621
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            0.031746031746031744
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            0.03128054740957967
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            0.030776515151515152
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            0.030330882352941176
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            0.02877846790890269
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            0.02862400327131466
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            0.028371628371628373
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            0.02786377708978328
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            0.02782608695652174
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            0.027745885954841176
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            0.02761904761904762
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            0.027402402402402402
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            0.027242401779095628
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            0.026709401709401708
+          ],
+          [
+            "aabd4a9f-5851-57d3-b0a1-214481997338",
+            0.014084507042253521
+          ],
+          [
+            "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+            0.0136986301369863
+          ],
+          [
+            "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+            0.013513513513513514
+          ],
+          [
+            "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+            0.012987012987012988
+          ],
+          [
+            "281da283-4d22-5793-962a-1dec7bdfab52",
+            0.012658227848101266
+          ],
+          [
+            "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+            0.012658227848101266
+          ],
+          [
+            "22a1a619-869c-5dc8-82ef-a1251668c61c",
+            0.0125
+          ],
+          [
+            "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+            0.0125
+          ]
+        ]
+      },
+      "initial_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          0.03252247488101534
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          0.03177805800756621
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.031746031746031744
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          0.03128054740957967
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          0.030776515151515152
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          0.030330882352941176
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          0.02877846790890269
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          0.02862400327131466
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          0.028371628371628373
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          0.02786377708978328
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          0.02782608695652174
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          0.027745885954841176
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          0.02761904761904762
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          0.027402402402402402
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          0.027242401779095628
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          0.026709401709401708
+        ],
+        [
+          "aabd4a9f-5851-57d3-b0a1-214481997338",
+          0.014084507042253521
+        ],
+        [
+          "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+          0.0136986301369863
+        ],
+        [
+          "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+          0.013513513513513514
+        ],
+        [
+          "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+          0.012987012987012988
+        ]
+      ],
+      "final_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          0.03252247488101534
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          0.03177805800756621
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.031746031746031744
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          0.03128054740957967
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          0.030776515151515152
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          0.030330882352941176
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          0.02877846790890269
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          0.02862400327131466
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          0.028371628371628373
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          0.02786377708978328
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          0.02782608695652174
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          0.027745885954841176
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          0.02761904761904762
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          0.027402402402402402
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          0.027242401779095628
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          0.026709401709401708
+        ],
+        [
+          "aabd4a9f-5851-57d3-b0a1-214481997338",
+          0.014084507042253521
+        ],
+        [
+          "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+          0.0136986301369863
+        ],
+        [
+          "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+          0.013513513513513514
+        ],
+        [
+          "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+          0.012987012987012988
+        ]
+      ],
+      "results": [
+        {
+          "chunk": {
+            "id": "d51466c8-46d2-5691-80be-c7251445c402",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 0,
+            "start": 0,
+            "end": 997,
+            "heading": "Azure private networking and DNS RB-NET-008",
+            "text": "# Azure private networking and DNS RB-NET-008\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Address plan\n\nSpoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other.\n\n## Ledger private endpoint\n\nThe ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17. The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 1,
+          "final_rank": 1,
+          "scores": {
+            "bm25": 8.026936485222961,
+            "cosine": 0.47466224,
+            "rrf": 0.03252247488101534,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "db514816-078d-5c11-b488-8b412256f6ce",
+            "document_id": "kubernetes-troubleshooting",
+            "source": "kubernetes-troubleshooting.txt",
+            "version": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c",
+            "position": 3,
+            "start": 1410,
+            "end": 2004,
+            "heading": "Readiness and HTTP 503",
+            "text": "service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates.\n\n## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 2,
+          "final_rank": 2,
+          "scores": {
+            "bm25": 8.161225871271135,
+            "cosine": 0.35974514,
+            "rrf": 0.03177805800756621,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 4,
+            "start": 1900,
+            "end": 2494,
+            "heading": "Ingress and workload certificates",
+            "text": "owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.\n\n## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 3,
+          "final_rank": 3,
+          "scores": {
+            "bm25": 7.652139576508528,
+            "cosine": 0.43194672,
+            "rrf": 0.031746031746031744,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 4,
+            "start": 2287,
+            "end": 2872,
+            "heading": "Load balancer probes",
+            "text": "not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block.\n\n## Change verification\n\nAfter a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client. Respect resolver cache TTL; this environment uses a 60 second TTL for the ledger record. Record the effective route and firewall policy version with the change ticket. Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records. Escalate with RB-NET-008.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 4,
+          "final_rank": 4,
+          "scores": {
+            "bm25": 2.5263326589109703,
+            "cosine": 0.4415316,
+            "rrf": 0.03128054740957967,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 2,
+            "start": 1312,
+            "end": 1961,
+            "heading": "AKS private API access",
+            "text": "inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.\n\n## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 5,
+          "final_rank": 5,
+          "scores": {
+            "bm25": 4.532406766124244,
+            "cosine": 0.35827777,
+            "rrf": 0.030776515151515152,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "33d0f144-cb69-510c-aaae-570811afa66e",
+            "document_id": "certificate-management",
+            "source": "certificate-management.txt",
+            "version": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+            "position": 2,
+            "start": 965,
+            "end": 1596,
+            "heading": "Renewal policy",
+            "text": "days remain. An old ingress certificate after a successful renewal may indicate that the controller did not reload the secret.\n\n## DNS-01 failure\n\nFor Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources. A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation. Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying. Do not replace DNS-01 with HTTP-01 without a reviewed policy change.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 6,
+          "final_rank": 6,
+          "scores": {
+            "bm25": 2.5036222822664698,
+            "cosine": 0.38968885,
+            "rrf": 0.030330882352941176,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "90310603-4d83-5736-aece-f47d0b6aedeb",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 3,
+            "start": 1840,
+            "end": 2428,
+            "heading": "NSG and firewall checks",
+            "text": "network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.\n\n## Load balancer probes\n\nAzure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks. For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall. A certificate name mismatch is not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 7,
+          "final_rank": 7,
+          "scores": {
+            "bm25": 1.8842665950967692,
+            "cosine": 0.31724113,
+            "rrf": 0.02877846790890269,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 5,
+            "start": 2368,
+            "end": 2939,
+            "heading": "Outbound dependencies",
+            "text": "ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.\n\n## Recovery and escalation\n\nFor a failed upgrade, preserve kubectl get events output and record the node pool operation ID. Do not delete the system pool to repair application routing. Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team, and payments-api-tls renewal failures to the certificate owner. Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 8,
+          "final_rank": 8,
+          "scores": {
+            "bm25": 1.6868682730349915,
+            "cosine": 0.33963895,
+            "rrf": 0.02862400327131466,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 1,
+            "start": 869,
+            "end": 1463,
+            "heading": "Ledger private endpoint",
+            "text": "can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.\n\n## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 9,
+          "final_rank": 9,
+          "scores": {
+            "bm25": 3.030951099184965,
+            "cosine": 0.25836706,
+            "rrf": 0.028371628371628373,
+            "cross_encoder": null
+          }
+        },
+        {
+          "chunk": {
+            "id": "15618786-9583-5ef1-8e73-d612cdac3cea",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 4,
+            "start": 1916,
+            "end": 2532,
+            "heading": "Missing telemetry",
+            "text": "Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure.\n\n## Latency and traces\n\nPaymentLatencyHigh fires when the 95th percentile request duration exceeds 750 milliseconds for ten minutes. Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo. A high request latency with normal CPU can indicate waiting on an upstream dependency. LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 10,
+          "final_rank": 10,
+          "scores": {
+            "bm25": 1.1917914436594388,
+            "cosine": 0.31763127,
+            "rrf": 0.02786377708978328,
+            "cross_encoder": null
+          }
+        }
+      ],
+      "expected_source_rank": 1,
+      "matches_embedded_ranking": true
+    },
+    {
+      "query": "What IP address does pe-ledger-prod-01 have?",
+      "mode": "hybrid",
+      "reranked": true,
+      "timings": {
+        "bm25_ms": 0.08408300345763564,
+        "vector_ms": 5.189582996536046,
+        "rerank_ms": 164.55229101120494,
+        "total_ms": 169.87354100274388
+      },
+      "components": {
+        "bm25": [
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            8.161225871271135
+          ],
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            8.026936485222961
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            7.652139576508528
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            4.532406766124244
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            3.030951099184965
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            2.5263326589109703
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            2.511610640982788
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            2.5036222822664698
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            1.8846801436035245
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            1.8842665950967692
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            1.7555156313548104
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            1.6949832990102585
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            1.6868682730349915
+          ],
+          [
+            "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+            1.3265297146211388
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            1.2511230031221416
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            1.1917914436594388
+          ],
+          [
+            "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+            1.1085270539202214
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            1.042130084384488
+          ],
+          [
+            "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+            0.5962712187703927
+          ],
+          [
+            "22a1a619-869c-5dc8-82ef-a1251668c61c",
+            0.5846292604678307
+          ]
+        ],
+        "cosine": [
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            0.47466224
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            0.4415316
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            0.43194672
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            0.38968885
+          ],
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            0.35974514
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            0.35827777
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            0.33963895
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            0.31763127
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            0.31724113
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            0.31630254
+          ],
+          [
+            "aabd4a9f-5851-57d3-b0a1-214481997338",
+            0.3036098
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            0.2862335
+          ],
+          [
+            "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+            0.27558622
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            0.27501595
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            0.26688883
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            0.26478952
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            0.25836706
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            0.25778675
+          ],
+          [
+            "281da283-4d22-5793-962a-1dec7bdfab52",
+            0.25596526
+          ],
+          [
+            "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+            0.24222279
+          ]
+        ],
+        "rrf": [
+          [
+            "d51466c8-46d2-5691-80be-c7251445c402",
+            0.03252247488101534
+          ],
+          [
+            "db514816-078d-5c11-b488-8b412256f6ce",
+            0.03177805800756621
+          ],
+          [
+            "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            0.031746031746031744
+          ],
+          [
+            "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+            0.03128054740957967
+          ],
+          [
+            "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            0.030776515151515152
+          ],
+          [
+            "33d0f144-cb69-510c-aaae-570811afa66e",
+            0.030330882352941176
+          ],
+          [
+            "90310603-4d83-5736-aece-f47d0b6aedeb",
+            0.02877846790890269
+          ],
+          [
+            "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            0.02862400327131466
+          ],
+          [
+            "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            0.028371628371628373
+          ],
+          [
+            "15618786-9583-5ef1-8e73-d612cdac3cea",
+            0.02786377708978328
+          ],
+          [
+            "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            0.02782608695652174
+          ],
+          [
+            "44d13257-02e2-5300-a420-33a8d74916a9",
+            0.027745885954841176
+          ],
+          [
+            "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            0.02761904761904762
+          ],
+          [
+            "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            0.027402402402402402
+          ],
+          [
+            "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            0.027242401779095628
+          ],
+          [
+            "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+            0.026709401709401708
+          ],
+          [
+            "aabd4a9f-5851-57d3-b0a1-214481997338",
+            0.014084507042253521
+          ],
+          [
+            "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+            0.0136986301369863
+          ],
+          [
+            "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+            0.013513513513513514
+          ],
+          [
+            "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+            0.012987012987012988
+          ],
+          [
+            "281da283-4d22-5793-962a-1dec7bdfab52",
+            0.012658227848101266
+          ],
+          [
+            "f1634f45-25ab-5cdc-b9b4-e64b82a78aed",
+            0.012658227848101266
+          ],
+          [
+            "22a1a619-869c-5dc8-82ef-a1251668c61c",
+            0.0125
+          ],
+          [
+            "70d70d69-87bd-5fa0-9c4f-4f726ce48f19",
+            0.0125
+          ]
+        ]
+      },
+      "initial_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          0.03252247488101534
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          0.03177805800756621
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.031746031746031744
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          0.03128054740957967
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          0.030776515151515152
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          0.030330882352941176
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          0.02877846790890269
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          0.02862400327131466
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          0.028371628371628373
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          0.02786377708978328
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          0.02782608695652174
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          0.027745885954841176
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          0.02761904761904762
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          0.027402402402402402
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          0.027242401779095628
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          0.026709401709401708
+        ],
+        [
+          "aabd4a9f-5851-57d3-b0a1-214481997338",
+          0.014084507042253521
+        ],
+        [
+          "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+          0.0136986301369863
+        ],
+        [
+          "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+          0.013513513513513514
+        ],
+        [
+          "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+          0.012987012987012988
+        ]
+      ],
+      "final_ranking": [
+        [
+          "d51466c8-46d2-5691-80be-c7251445c402",
+          5.647812843322754
+        ],
+        [
+          "db514816-078d-5c11-b488-8b412256f6ce",
+          2.119257926940918
+        ],
+        [
+          "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+          0.9867033958435059
+        ],
+        [
+          "c73a32c6-20dd-501c-a3a9-6554817b948f",
+          -1.6885350942611694
+        ],
+        [
+          "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+          -2.159965991973877
+        ],
+        [
+          "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+          -3.129873037338257
+        ],
+        [
+          "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+          -3.4188451766967773
+        ],
+        [
+          "cf97a800-5220-537f-8654-6c8c63abb6e4",
+          -4.367745399475098
+        ],
+        [
+          "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+          -5.188422203063965
+        ],
+        [
+          "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+          -6.267536163330078
+        ],
+        [
+          "33d0f144-cb69-510c-aaae-570811afa66e",
+          -6.856208801269531
+        ],
+        [
+          "6d30985d-4db5-5999-9cbe-3ef3b5f93498",
+          -6.929749965667725
+        ],
+        [
+          "386f5868-4ab5-56ff-a37e-c6364e014ba3",
+          -8.426263809204102
+        ],
+        [
+          "d883c51e-dcd3-5eba-b1b0-c0826fe4333f",
+          -8.986335754394531
+        ],
+        [
+          "15618786-9583-5ef1-8e73-d612cdac3cea",
+          -9.00124740600586
+        ],
+        [
+          "90310603-4d83-5736-aece-f47d0b6aedeb",
+          -10.859424591064453
+        ],
+        [
+          "aabd4a9f-5851-57d3-b0a1-214481997338",
+          -10.988465309143066
+        ],
+        [
+          "c3660bde-fbe9-5985-8421-ca08e96d4a03",
+          -11.235472679138184
+        ],
+        [
+          "2eea680e-d3db-5a8e-8b50-bcda8bfc51cd",
+          -11.256498336791992
+        ],
+        [
+          "44d13257-02e2-5300-a420-33a8d74916a9",
+          -11.399221420288086
+        ]
+      ],
+      "results": [
+        {
+          "chunk": {
+            "id": "d51466c8-46d2-5691-80be-c7251445c402",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 0,
+            "start": 0,
+            "end": 997,
+            "heading": "Azure private networking and DNS RB-NET-008",
+            "text": "# Azure private networking and DNS RB-NET-008\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Address plan\n\nSpoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other.\n\n## Ledger private endpoint\n\nThe ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17. The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 1,
+          "final_rank": 1,
+          "scores": {
+            "bm25": 8.026936485222961,
+            "cosine": 0.47466224,
+            "rrf": 0.03252247488101534,
+            "cross_encoder": 5.647812843322754
+          }
+        },
+        {
+          "chunk": {
+            "id": "db514816-078d-5c11-b488-8b412256f6ce",
+            "document_id": "kubernetes-troubleshooting",
+            "source": "kubernetes-troubleshooting.txt",
+            "version": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c",
+            "position": 3,
+            "start": 1410,
+            "end": 2004,
+            "heading": "Readiness and HTTP 503",
+            "text": "service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates.\n\n## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 2,
+          "final_rank": 2,
+          "scores": {
+            "bm25": 8.161225871271135,
+            "cosine": 0.35974514,
+            "rrf": 0.03177805800756621,
+            "cross_encoder": 2.119257926940918
+          }
+        },
+        {
+          "chunk": {
+            "id": "ce722eb0-a2e3-5d68-b553-f2bfa8ac9f91",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 4,
+            "start": 1900,
+            "end": 2494,
+            "heading": "Ingress and workload certificates",
+            "text": "owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.\n\n## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 3,
+          "final_rank": 3,
+          "scores": {
+            "bm25": 7.652139576508528,
+            "cosine": 0.43194672,
+            "rrf": 0.031746031746031744,
+            "cross_encoder": 0.9867033958435059
+          }
+        },
+        {
+          "chunk": {
+            "id": "c73a32c6-20dd-501c-a3a9-6554817b948f",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 1,
+            "start": 869,
+            "end": 1463,
+            "heading": "Ledger private endpoint",
+            "text": "can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.\n\n## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 9,
+          "final_rank": 4,
+          "scores": {
+            "bm25": 3.030951099184965,
+            "cosine": 0.25836706,
+            "rrf": 0.028371628371628373,
+            "cross_encoder": -1.6885350942611694
+          }
+        },
+        {
+          "chunk": {
+            "id": "74d2a723-92fa-5bc8-b3f8-da613adc7e90",
+            "document_id": "azure-networking",
+            "source": "azure-networking.txt",
+            "version": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+            "position": 2,
+            "start": 1312,
+            "end": 1961,
+            "heading": "AKS private API access",
+            "text": "inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.\n\n## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 5,
+          "final_rank": 5,
+          "scores": {
+            "bm25": 4.532406766124244,
+            "cosine": 0.35827777,
+            "rrf": 0.030776515151515152,
+            "cross_encoder": -2.159965991973877
+          }
+        },
+        {
+          "chunk": {
+            "id": "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 0,
+            "start": 0,
+            "end": 605,
+            "heading": "Payments monitoring and observability RB-OBS-011",
+            "text": "# Payments monitoring and observability RB-OBS-011\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Signals and dashboards\n\nDashboard payments-prod-overview joins Prometheus metrics, Loki logs and Tempo traces for namespace payments. Metrics describe aggregate health, logs record events, and traces connect requests across services. Propagate W3C traceparent from the ingress through payments-api to ledger calls. A trace ID links logs to the distributed request path; it is not the Kubernetes pod UID. Dashboard access does not itself prove signal freshness.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 14,
+          "final_rank": 6,
+          "scores": {
+            "bm25": 1.6949832990102585,
+            "cosine": 0.27501595,
+            "rrf": 0.027402402402402402,
+            "cross_encoder": -3.129873037338257
+          }
+        },
+        {
+          "chunk": {
+            "id": "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 0,
+            "start": 0,
+            "end": 576,
+            "heading": "AKS production platform runbook",
+            "text": "# AKS production platform runbook\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Cluster identity and access\n\nThe production cluster aks-payments-prod-01 runs private AKS in the platform subscription. Its API hostname resolves through the privatelink.eastus.azmk8s.io private DNS zone. The platform team owns cluster upgrades; application teams own workloads in namespace payments. Access requires the corporate VPN and the platform-reader Azure role. A successful VPN connection does not prove that private DNS resolution works.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 11,
+          "final_rank": 7,
+          "scores": {
+            "bm25": 1.8846801436035245,
+            "cosine": 0.26688883,
+            "rrf": 0.02782608695652174,
+            "cross_encoder": -3.4188451766967773
+          }
+        },
+        {
+          "chunk": {
+            "id": "cf97a800-5220-537f-8654-6c8c63abb6e4",
+            "document_id": "aks-platform",
+            "source": "aks-platform.txt",
+            "version": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+            "position": 5,
+            "start": 2368,
+            "end": 2939,
+            "heading": "Outbound dependencies",
+            "text": "ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.\n\n## Recovery and escalation\n\nFor a failed upgrade, preserve kubectl get events output and record the node pool operation ID. Do not delete the system pool to repair application routing. Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team, and payments-api-tls renewal failures to the certificate owner. Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 8,
+          "final_rank": 8,
+          "scores": {
+            "bm25": 1.6868682730349915,
+            "cosine": 0.33963895,
+            "rrf": 0.02862400327131466,
+            "cross_encoder": -4.367745399475098
+          }
+        },
+        {
+          "chunk": {
+            "id": "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+            "document_id": "certificate-management",
+            "source": "certificate-management.txt",
+            "version": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+            "position": 0,
+            "start": 0,
+            "end": 634,
+            "heading": "Certificate lifecycle and ACME RB-PKI-006",
+            "text": "# Certificate lifecycle and ACME RB-PKI-006\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Ownership and storage\n\ncert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 15,
+          "final_rank": 9,
+          "scores": {
+            "bm25": 1.7555156313548104,
+            "cosine": 0.26478952,
+            "rrf": 0.027242401779095628,
+            "cross_encoder": -5.188422203063965
+          }
+        },
+        {
+          "chunk": {
+            "id": "7bc71aff-5e60-53fc-8d28-2b138a8dedb3",
+            "document_id": "observability",
+            "source": "observability.txt",
+            "version": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0",
+            "position": 5,
+            "start": 2397,
+            "end": 2985,
+            "heading": "Latency and traces",
+            "text": "DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation.\n\n## Recovery verification\n\nAfter remediation, confirm ready replicas, successful synthetic payment checks, fresh metrics and traces without ledger timeout spans. Observe for 15 minutes before closing the incident. Capture the dashboard time range and alert evaluation window. Certificate changes, DNS cache TTL and scrape intervals can delay visible recovery. Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels.",
+            "dataset": "stage-1.1-v1"
+          },
+          "initial_rank": 13,
+          "final_rank": 10,
+          "scores": {
+            "bm25": 1.2511230031221416,
+            "cosine": 0.31630254,
+            "rrf": 0.02761904761904762,
+            "cross_encoder": -6.267536163330078
+          }
+        }
+      ],
+      "expected_source_rank": 1,
+      "matches_embedded_ranking": true
+    }
+  ]
+}

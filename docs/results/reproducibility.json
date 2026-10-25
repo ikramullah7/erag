@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "replayed_rankings": 108,
+  "split": "tuning",
+  "config_frozen": true,
+  "ranking_parameters_changed": false,
+  "environment": {
+    "python": "3.13.13 (main, Apr  7 2026, 18:19:01) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "packages": {
+      "qdrant-client": "1.20.0",
+      "rank-bm25": "0.2.2",
+      "sentence-transformers": "6.2.0",
+      "torch": "2.14.1",
+      "transformers": "5.20.2",
+      "numpy": "2.5.4",
+      "PyYAML": "6.0.3",
+      "pytest": "9.1.1"
+    },
+    "lock_hash": "6d874e1d1e532f9242f4a3aaba4e4451863dc6e16ec98d3d326cbb446246a187",
+    "git_revision": null,
+    "source_hash": "a32ebed5132aa8745d0637e12e6d3e58678f66d9de6aa80fe881a2e5da132cc1"
+  }
+}

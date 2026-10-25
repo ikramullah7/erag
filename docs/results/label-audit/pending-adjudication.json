@@ -1,0 +1,2288 @@
+{
+  "unadopted_change_count": 88,
+  "changes": [
+    {
+      "question_id": "Q0001",
+      "case_ids": [
+        "heldout-06"
+      ],
+      "source_file": "heldout.json",
+      "query": "The API resolves on a spoke VM but fails from VPN. What should be checked?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C001",
+      "chunk_id": "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C001",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "A successful VPN connection does not prove that private DNS resolution works."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "# AKS production platform runbook\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Cluster identity and access\n\nThe production cluster aks-payments-prod-01 runs private AKS in the platform subscription. Its API hostname resolves through the privatelink.eastus.azmk8s.io private DNS zone. The platform team owns cluster upgrades; application teams own workloads in namespace payments. Access requires the corporate VPN and the platform-reader Azure role. A successful VPN connection does not prove that private DNS resolution works."
+    },
+    {
+      "question_id": "Q0005",
+      "case_ids": [
+        "heldout-12"
+      ],
+      "source_file": "heldout.json",
+      "query": "Which controls must permit ledger traffic across Kubernetes and Azure?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C022",
+      "chunk_id": "8990c444-6660-5cf3-a556-965c54373290",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C022",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Check CoreDNS logs and outbound TCP 443 policy."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname."
+    },
+    {
+      "question_id": "Q0010",
+      "case_ids": [
+        "heldout-v4-23"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Which public certificate values should be compared before and after a renewal incident?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C016",
+      "chunk_id": "aa97eb46-a9b4-5a44-a111-ccffdee3e80e",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C016",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "verify the leaf certificate dates, issuer chain and subject alternative name."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## TLS verification\n\nRun openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name. A name mismatch means the requested hostname is absent from the SAN list. An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA. A TCP timeout occurs before certificate verification and should be investigated as connectivity first."
+    },
+    {
+      "question_id": "Q0015",
+      "case_ids": [
+        "heldout-03"
+      ],
+      "source_file": "heldout.json",
+      "query": "How can I correlate a request between logs and distributed service spans?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Preserve a failing request trace ID for the observability team."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0015",
+      "case_ids": [
+        "heldout-03"
+      ],
+      "source_file": "heldout.json",
+      "query": "How can I correlate a request between logs and distributed service spans?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C029",
+      "chunk_id": "3eb580d5-f789-5a86-a585-bdd0175029c0",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C029",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Latency and traces\n\nPaymentLatencyHigh fires when the 95th percentile request duration exceeds 750 milliseconds for ten minutes. Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo. A high request latency with normal CPU can indicate waiting on an upstream dependency. LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation."
+    },
+    {
+      "question_id": "Q0016",
+      "case_ids": [
+        "heldout-v3-27"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "What hostname and TLS server-name setting does the certificate probe use?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C016",
+      "chunk_id": "aa97eb46-a9b4-5a44-a111-ccffdee3e80e",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C016",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Run openssl s_client with server name api.payments.example.test"
+        ],
+        "rationale": "Explicitly supplies the verification TLS server name, but does not describe the monitoring probe itself."
+      },
+      "source_text": "## TLS verification\n\nRun openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name. A name mismatch means the requested hostname is absent from the SAN list. An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA. A TCP timeout occurs before certificate verification and should be investigated as connectivity first."
+    },
+    {
+      "question_id": "Q0017",
+      "case_ids": [
+        "heldout-v4-56"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "How is the count of ready replicas different from the count of restarted containers?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C021",
+      "chunk_id": "17f87938-211a-59c0-a2e3-77f8aec423fc",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C021",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Readiness and HTTP 503\n\nAn ingress HTTP 503 with running pods can result from an empty EndpointSlice. Compare service selector app=payments-api against pod labels and inspect readiness probe failures. The payments readiness path is /ready on port 8080. A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates."
+    },
+    {
+      "question_id": "Q0018",
+      "case_ids": [
+        "tuning-02"
+      ],
+      "source_file": "tuning.json",
+      "query": "How can running payment pods still cause ingress HTTP 503?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C011",
+      "chunk_id": "e7582be9-fb1e-51a8-bce4-f49bb4434a7c",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C011",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Load balancer probes\n\nAzure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks. For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall. A certificate name mismatch is not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block."
+    },
+    {
+      "question_id": "Q0018",
+      "case_ids": [
+        "tuning-02"
+      ],
+      "source_file": "tuning.json",
+      "query": "How can running payment pods still cause ingress HTTP 503?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0023",
+      "case_ids": [
+        "heldout-v2-29"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "Does a successful LedgerDependencyReachability probe prove a payment transaction is correct?",
+      "kind": "grade_change",
+      "unit_id": "C012",
+      "chunk_id": "c057ac12-2c34-564e-8a4f-c85525f5dcee",
+      "document_id": "azure-networking",
+      "before_grade": 2,
+      "proposed_grade": 1,
+      "original_evidence": [
+        "Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C012",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Change verification\n\nAfter a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client. Respect resolver cache TTL; this environment uses a 60 second TTL for the ledger record. Record the effective route and firewall policy version with the change ticket. Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records. Escalate with RB-NET-008."
+    },
+    {
+      "question_id": "Q0027",
+      "case_ids": [
+        "heldout-v3-08"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Beyond CPU or memory availability, what binding and placement constraints should be checked for a Pending pod?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C002",
+      "chunk_id": "9626d291-569d-5b5f-a45d-5384a0c634a7",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C002",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "The user pool carries label workload=payments and taint dedicated=payments:NoSchedule. Payments pods need a matching toleration and node selector."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Node pools and scheduling\n\nSystem pool sysnp runs cluster services; user pool paynp runs payment workloads. The payments API requests 500m CPU and 768Mi memory per replica. The user pool carries label workload=payments and taint dedicated=payments:NoSchedule. Payments pods need a matching toleration and node selector. The cluster autoscaler scales paynp between 3 and 12 nodes. Pending pods caused by untolerated taints do not become schedulable merely by raising the maximum node count."
+    },
+    {
+      "question_id": "Q0030",
+      "case_ids": [
+        "heldout-v4-38"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "What selectors, tenancy limits and storage-binding conditions may block a pod even when node resources seem available?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C002",
+      "chunk_id": "9626d291-569d-5b5f-a45d-5384a0c634a7",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C002",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "The user pool carries label workload=payments and taint dedicated=payments:NoSchedule. Payments pods need a matching toleration and node selector."
+        ],
+        "rationale": "Supplies the required node selector and toleration as concrete placement constraints, but does not establish quota or volume-binding checks requested here."
+      },
+      "source_text": "## Node pools and scheduling\n\nSystem pool sysnp runs cluster services; user pool paynp runs payment workloads. The payments API requests 500m CPU and 768Mi memory per replica. The user pool carries label workload=payments and taint dedicated=payments:NoSchedule. Payments pods need a matching toleration and node selector. The cluster autoscaler scales paynp between 3 and 12 nodes. Pending pods caused by untolerated taints do not become schedulable merely by raising the maximum node count."
+    },
+    {
+      "question_id": "Q0033",
+      "case_ids": [
+        "heldout-11"
+      ],
+      "source_file": "heldout.json",
+      "query": "How do certificate expiry and monitoring freshness relate?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C014",
+      "chunk_id": "304d1a5b-8ebd-5fae-99fa-64cb3079f985",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C014",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Inspect Certificate status.renewalTime and the notAfter date of the actual served certificate."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Renewal policy\n\npayments-api-cert requests a 90 day certificate and sets renewBefore to 30 days. Inspect Certificate status.renewalTime and the notAfter date of the actual served certificate. A successful renewal must update payments-api-tls and become visible at ingress. Alert CertificateExpirySoon fires when fewer than 14 days remain. An old ingress certificate after a successful renewal may indicate that the controller did not reload the secret."
+    },
+    {
+      "question_id": "Q0033",
+      "case_ids": [
+        "heldout-11"
+      ],
+      "source_file": "heldout.json",
+      "query": "How do certificate expiry and monitoring freshness relate?",
+      "kind": "grade_change",
+      "unit_id": "C018",
+      "chunk_id": "3d027b0a-b4e3-5671-b763-4e24ac922c26",
+      "document_id": "certificate-management",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "Check metric freshness when an alert unexpectedly clears."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C018",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "CertificateExpirySoon monitors served ingress certificates; AKS control-plane certificate rotation is a separate platform concern. The certificate dashboard is linked from payments-prod-overview. Check metric freshness when an alert unexpectedly clears."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Monitoring and scope\n\nCertificateExpirySoon monitors served ingress certificates; AKS control-plane certificate rotation is a separate platform concern. The certificate dashboard is linked from payments-prod-overview. Check metric freshness when an alert unexpectedly clears. Certificate expiry, private endpoint DNS failure and readiness failures can all appear as payment availability incidents, but require different evidence and owners. Certificate compliance records retain public certificate serials and change ticket IDs."
+    },
+    {
+      "question_id": "Q0033",
+      "case_ids": [
+        "heldout-11"
+      ],
+      "source_file": "heldout.json",
+      "query": "How do certificate expiry and monitoring freshness relate?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C028",
+      "chunk_id": "8df7e5c6-8726-51c8-aaec-526e75c4d061",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C028",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "A stale series can make a resolved incident look active or hide a new failure."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Missing telemetry\n\nAn empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes. Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure."
+    },
+    {
+      "question_id": "Q0033",
+      "case_ids": [
+        "heldout-11"
+      ],
+      "source_file": "heldout.json",
+      "query": "How do certificate expiry and monitoring freshness relate?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C030",
+      "chunk_id": "b4344889-633d-5d57-9700-cfcda1cb2ad4",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C030",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Certificate changes, DNS cache TTL and scrape intervals can delay visible recovery."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Recovery verification\n\nAfter remediation, confirm ready replicas, successful synthetic payment checks, fresh metrics and traces without ledger timeout spans. Observe for 15 minutes before closing the incident. Capture the dashboard time range and alert evaluation window. Certificate changes, DNS cache TTL and scrape intervals can delay visible recovery. Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels."
+    },
+    {
+      "question_id": "Q0045",
+      "case_ids": [
+        "heldout-v4-34"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "How is ownership divided between ingress health checks and TLS policy?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C013",
+      "chunk_id": "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C013",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "The security team owns issuer policy; the platform team operates cert-manager."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "# Certificate lifecycle and ACME RB-PKI-006\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Ownership and storage\n\ncert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate."
+    },
+    {
+      "question_id": "Q0050",
+      "case_ids": [
+        "heldout-v3-29"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "How can slow payment requests coexist with normal CPU, and which dependency checks help?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C010",
+      "chunk_id": "adce123c-818f-5379-8166-81ebb3ed43ba",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C010",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "For ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable."
+    },
+    {
+      "question_id": "Q0051",
+      "case_ids": [
+        "heldout-v4-54"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Is it sensible to troubleshoot certificate validation when the HTTPS connection has not completed its TCP handshake?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C027",
+      "chunk_id": "6bd71c40-d945-5344-a1ce-2d10c4e25fa4",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C027",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Do not interpret a private endpoint timeout as a certificate expiry measurement."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Certificate alert\n\nCertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining. The probe targets api.payments.example.test with the correct TLS server name. Its alert annotation links RB-PKI-006 and secret payments-api-tls. An absent certificate metric is not proof of successful renewal. Inspect the actual certificate notAfter and the monitoring target state. Do not interpret a private endpoint timeout as a certificate expiry measurement."
+    },
+    {
+      "question_id": "Q0055",
+      "case_ids": [
+        "heldout-v4-24"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "When issuance stalls, which public DNS permission and challenge-status resources should be investigated?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C017",
+      "chunk_id": "b349687e-56e8-5be8-915e-b7c52ad73a0a",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C017",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "If the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident renewal procedure\n\nIf the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal. Confirm the replacement secret is in namespace payments and referenced by the ingress. Record certificate serial number and notAfter before and after recovery, but never copy tls.key. Restarting payment pods does not fix a failing ACME DNS challenge. Use runbook RB-PKI-006 and notify the certificate owner."
+    },
+    {
+      "question_id": "Q0059",
+      "case_ids": [
+        "heldout-v3-04"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Who checks ingress health and who owns certificate policy?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C013",
+      "chunk_id": "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C013",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "The security team owns issuer policy; the platform team operates cert-manager."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "# Certificate lifecycle and ACME RB-PKI-006\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Ownership and storage\n\ncert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate."
+    },
+    {
+      "question_id": "Q0060",
+      "case_ids": [
+        "heldout-v3-21"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "What must a renewal update, and where must the replacement become observable?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C017",
+      "chunk_id": "b349687e-56e8-5be8-915e-b7c52ad73a0a",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C017",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Confirm the replacement secret is in namespace payments and referenced by the ingress."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident renewal procedure\n\nIf the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal. Confirm the replacement secret is in namespace payments and referenced by the ingress. Record certificate serial number and notAfter before and after recovery, but never copy tls.key. Restarting payment pods does not fix a failing ACME DNS challenge. Use runbook RB-PKI-006 and notify the certificate owner."
+    },
+    {
+      "question_id": "Q0063",
+      "case_ids": [
+        "heldout-v4-41"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Which backend endpoint and readiness checks should precede changing certificates during an ingress 503 incident?",
+      "kind": "grade_change",
+      "unit_id": "C011",
+      "chunk_id": "e7582be9-fb1e-51a8-bce4-f49bb4434a7c",
+      "document_id": "azure-networking",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C011",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Load balancer probes\n\nAzure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks. For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall. A certificate name mismatch is not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block."
+    },
+    {
+      "question_id": "Q0063",
+      "case_ids": [
+        "heldout-v4-41"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Which backend endpoint and readiness checks should precede changing certificates during an ingress 503 incident?",
+      "kind": "added_full_answer",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0065",
+      "case_ids": [
+        "heldout-v3-26"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "What does PaymentsReadyReplicasLow measure compared with container restart count?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C021",
+      "chunk_id": "17f87938-211a-59c0-a2e3-77f8aec423fc",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C021",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Readiness and HTTP 503\n\nAn ingress HTTP 503 with running pods can result from an empty EndpointSlice. Compare service selector app=payments-api against pod labels and inspect readiness probe failures. The payments readiness path is /ready on port 8080. A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates."
+    },
+    {
+      "question_id": "Q0067",
+      "case_ids": [
+        "heldout-v4-57"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "When probing ingress certificate expiry, which host must be contacted and which TLS name must be sent?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C016",
+      "chunk_id": "aa97eb46-a9b4-5a44-a111-ccffdee3e80e",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C016",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Run openssl s_client with server name api.payments.example.test"
+        ],
+        "rationale": "Explicitly supplies the verification TLS server name, but does not describe the monitoring probe itself."
+      },
+      "source_text": "## TLS verification\n\nRun openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name. A name mismatch means the requested hostname is absent from the SAN list. An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA. A TCP timeout occurs before certificate verification and should be investigated as connectivity first."
+    },
+    {
+      "question_id": "Q0068",
+      "case_ids": [
+        "heldout-v3-20"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Which three cert-manager resources should be examined after Certificate Ready=False?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C023",
+      "chunk_id": "28487ee5-2f01-5cd8-a3fd-fa9aa6d4c3f0",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C023",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Certificate symptoms\n\nAn x509 certificate has expired error should be traced to the endpoint that presents the certificate. Inspect certificate dates and subject alternative names with openssl s_client. Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA. For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+    },
+    {
+      "question_id": "Q0076",
+      "case_ids": [
+        "heldout-v2-30"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "Should missing-scrape alerts be silenced just because a payments dashboard has no red panels?",
+      "kind": "added_full_answer",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0076",
+      "case_ids": [
+        "heldout-v2-30"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "Should missing-scrape alerts be silenced just because a payments dashboard has no red panels?",
+      "kind": "added_full_answer",
+      "unit_id": "C028",
+      "chunk_id": "8df7e5c6-8726-51c8-aaec-526e75c4d061",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C028",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "An empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Missing telemetry\n\nAn empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes. Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure."
+    },
+    {
+      "question_id": "Q0080",
+      "case_ids": [
+        "tuning-11"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which dashboard and signals help diagnose payments incidents?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C006",
+      "chunk_id": "fde1685e-94c7-5f0e-8140-61e04d54129d",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C006",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Recovery and escalation\n\nFor a failed upgrade, preserve kubectl get events output and record the node pool operation ID. Do not delete the system pool to repair application routing. Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team, and payments-api-tls renewal failures to the certificate owner. Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014."
+    },
+    {
+      "question_id": "Q0080",
+      "case_ids": [
+        "tuning-11"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which dashboard and signals help diagnose payments incidents?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C018",
+      "chunk_id": "3d027b0a-b4e3-5671-b763-4e24ac922c26",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C018",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "The certificate dashboard is linked from payments-prod-overview."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Monitoring and scope\n\nCertificateExpirySoon monitors served ingress certificates; AKS control-plane certificate rotation is a separate platform concern. The certificate dashboard is linked from payments-prod-overview. Check metric freshness when an alert unexpectedly clears. Certificate expiry, private endpoint DNS failure and readiness failures can all appear as payment availability incidents, but require different evidence and owners. Certificate compliance records retain public certificate serials and change ticket IDs."
+    },
+    {
+      "question_id": "Q0080",
+      "case_ids": [
+        "tuning-11"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which dashboard and signals help diagnose payments incidents?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0080",
+      "case_ids": [
+        "tuning-11"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which dashboard and signals help diagnose payments incidents?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count."
+        ],
+        "rationale": "Specifies concrete payments restart, memory and readiness signals; does not name the dashboard or its logging/tracing systems."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0080",
+      "case_ids": [
+        "tuning-11"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which dashboard and signals help diagnose payments incidents?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C027",
+      "chunk_id": "6bd71c40-d945-5344-a1ce-2d10c4e25fa4",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C027",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "CertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining."
+        ],
+        "rationale": "Specifies a concrete certificate health alert relevant to payments incidents; does not establish the dashboard and other signal types."
+      },
+      "source_text": "## Certificate alert\n\nCertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining. The probe targets api.payments.example.test with the correct TLS server name. Its alert annotation links RB-PKI-006 and secret payments-api-tls. An absent certificate metric is not proof of successful renewal. Inspect the actual certificate notAfter and the monitoring target state. Do not interpret a private endpoint timeout as a certificate expiry measurement."
+    },
+    {
+      "question_id": "Q0080",
+      "case_ids": [
+        "tuning-11"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which dashboard and signals help diagnose payments incidents?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C028",
+      "chunk_id": "8df7e5c6-8726-51c8-aaec-526e75c4d061",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C028",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure."
+        ],
+        "rationale": "Specifies sample freshness as a concrete diagnostic check; does not identify the dashboard or all signal types."
+      },
+      "source_text": "## Missing telemetry\n\nAn empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes. Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure."
+    },
+    {
+      "question_id": "Q0080",
+      "case_ids": [
+        "tuning-11"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which dashboard and signals help diagnose payments incidents?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C029",
+      "chunk_id": "3eb580d5-f789-5a86-a585-bdd0175029c0",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C029",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo."
+        ],
+        "rationale": "Specifies concrete payment latency metrics and dependency tracing signals; does not name the dashboard."
+      },
+      "source_text": "## Latency and traces\n\nPaymentLatencyHigh fires when the 95th percentile request duration exceeds 750 milliseconds for ten minutes. Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo. A high request latency with normal CPU can indicate waiting on an upstream dependency. LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation."
+    },
+    {
+      "question_id": "Q0081",
+      "case_ids": [
+        "heldout-v4-37"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Which image identity and recent changes should be recorded during repeated container crashes?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Capture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window."
+        ],
+        "rationale": "Explicitly supplies image digest as the workload image identity, but not the recent configuration changes."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0082",
+      "case_ids": [
+        "heldout-v3-11"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Before changing TLS certificates for HTTP 503, which service objects should be inspected?",
+      "kind": "grade_change",
+      "unit_id": "C011",
+      "chunk_id": "e7582be9-fb1e-51a8-bce4-f49bb4434a7c",
+      "document_id": "azure-networking",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C011",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Load balancer probes\n\nAzure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks. For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall. A certificate name mismatch is not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block."
+    },
+    {
+      "question_id": "Q0082",
+      "case_ids": [
+        "heldout-v3-11"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Before changing TLS certificates for HTTP 503, which service objects should be inspected?",
+      "kind": "added_full_answer",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0083",
+      "case_ids": [
+        "heldout-v4-31"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "What VPN access and role assignment must an operator have before reaching the private AKS cluster?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C009",
+      "chunk_id": "25679da7-5d66-5e19-8991-d395a2cfa5d9",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C009",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "VPN clients must use the corporate DNS resolver to access aks-payments-prod-01."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment."
+    },
+    {
+      "question_id": "Q0086",
+      "case_ids": [
+        "heldout-v3-22"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "What namespace and ingress reference checks are needed for a replacement TLS secret?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C004",
+      "chunk_id": "85cb2744-45f2-50f0-acd1-a2fe92787f33",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C004",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Secret payments-api-tls is created by cert-manager in namespace payments."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Ingress and workload certificates\n\nThe public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments. A ClusterIP service forwards traffic to ready pods on port 8080. Azure Load Balancer health probes and Kubernetes readiness probes test different network hops. The platform owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate."
+    },
+    {
+      "question_id": "Q0086",
+      "case_ids": [
+        "heldout-v3-22"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "What namespace and ingress reference checks are needed for a replacement TLS secret?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C013",
+      "chunk_id": "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C013",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "# Certificate lifecycle and ACME RB-PKI-006\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Ownership and storage\n\ncert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate."
+    },
+    {
+      "question_id": "Q0091",
+      "case_ids": [
+        "heldout-v3-30"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Which service, synthetic and telemetry signals should verify recovery?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0091",
+      "case_ids": [
+        "heldout-v3-30"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Which service, synthetic and telemetry signals should verify recovery?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count."
+        ],
+        "rationale": "Provides the concrete availability signal associated with the requested ready-replica check; does not establish synthetic payment or telemetry recovery."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0091",
+      "case_ids": [
+        "heldout-v3-30"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Which service, synthetic and telemetry signals should verify recovery?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C028",
+      "chunk_id": "8df7e5c6-8726-51c8-aaec-526e75c4d061",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C028",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Check the newest sample timestamp."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Missing telemetry\n\nAn empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes. Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure."
+    },
+    {
+      "question_id": "Q0092",
+      "case_ids": [
+        "heldout-v4-19"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Which ACME issuer is used for payments TLS, and what kind of challenge does it require?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C015",
+      "chunk_id": "7b6e07ad-fe8e-5fcc-a530-36f484bb6589",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C015",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## DNS-01 failure\n\nFor Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources. A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation. Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying. Do not replace DNS-01 with HTTP-01 without a reviewed policy change."
+    },
+    {
+      "question_id": "Q0095",
+      "case_ids": [
+        "heldout-v2-24"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "For a failing ACME challenge, which identity permission needs checking and which challenge resources should be inspected?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C017",
+      "chunk_id": "b349687e-56e8-5be8-915e-b7c52ad73a0a",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C017",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "If the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident renewal procedure\n\nIf the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal. Confirm the replacement secret is in namespace payments and referenced by the ingress. Record certificate serial number and notAfter before and after recovery, but never copy tls.key. Restarting payment pods does not fix a failing ACME DNS challenge. Use runbook RB-PKI-006 and notify the certificate owner."
+    },
+    {
+      "question_id": "Q0101",
+      "case_ids": [
+        "heldout-v4-40"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "When software reports an expired x509 certificate, how do we identify which serving endpoint to investigate?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C016",
+      "chunk_id": "aa97eb46-a9b4-5a44-a111-ccffdee3e80e",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C016",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Run openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## TLS verification\n\nRun openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name. A name mismatch means the requested hostname is absent from the SAN list. An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA. A TCP timeout occurs before certificate verification and should be investigated as connectivity first."
+    },
+    {
+      "question_id": "Q0104",
+      "case_ids": [
+        "heldout-v2-09"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "What is the difference between liveness and readiness failures for container restarts?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "a readiness failure can reduce availability without increasing restart count."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0109",
+      "case_ids": [
+        "heldout-v4-52"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Before declaring replacement TLS material active, what namespace and ingress linkage should be verified?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C004",
+      "chunk_id": "85cb2744-45f2-50f0-acd1-a2fe92787f33",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C004",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Secret payments-api-tls is created by cert-manager in namespace payments."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Ingress and workload certificates\n\nThe public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments. A ClusterIP service forwards traffic to ready pods on port 8080. Azure Load Balancer health probes and Kubernetes readiness probes test different network hops. The platform owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate."
+    },
+    {
+      "question_id": "Q0109",
+      "case_ids": [
+        "heldout-v4-52"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Before declaring replacement TLS material active, what namespace and ingress linkage should be verified?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C013",
+      "chunk_id": "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C013",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "# Certificate lifecycle and ACME RB-PKI-006\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Ownership and storage\n\ncert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate."
+    },
+    {
+      "question_id": "Q0111",
+      "case_ids": [
+        "tuning-07"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which checks distinguish DNS trouble from a blocked ledger connection?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C005",
+      "chunk_id": "7d6abd65-e318-5751-aa40-3ee06bfd456d",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C005",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Inspect DNS and effective routes before restarting healthy pods."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other."
+    },
+    {
+      "question_id": "Q0111",
+      "case_ids": [
+        "tuning-07"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which checks distinguish DNS trouble from a blocked ledger connection?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C008",
+      "chunk_id": "f56106fc-5f4e-5d14-ab32-5d2c48f67b4c",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C008",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Ledger private endpoint\n\nThe ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17. The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link."
+    },
+    {
+      "question_id": "Q0111",
+      "case_ids": [
+        "tuning-07"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which checks distinguish DNS trouble from a blocked ledger connection?",
+      "kind": "grade_change",
+      "unit_id": "C010",
+      "chunk_id": "adce123c-818f-5379-8166-81ebb3ed43ba",
+      "document_id": "azure-networking",
+      "before_grade": 3,
+      "proposed_grade": 2,
+      "original_evidence": [
+        "A DNS response alone is not evidence that TCP 443 is reachable."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C010",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "For ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable."
+    },
+    {
+      "question_id": "Q0111",
+      "case_ids": [
+        "tuning-07"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which checks distinguish DNS trouble from a blocked ledger connection?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C012",
+      "chunk_id": "c057ac12-2c34-564e-8a4f-c85525f5dcee",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C012",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "After a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Change verification\n\nAfter a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client. Respect resolver cache TTL; this environment uses a 60 second TTL for the ledger record. Record the effective route and firewall policy version with the change ticket. Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records. Escalate with RB-NET-008."
+    },
+    {
+      "question_id": "Q0111",
+      "case_ids": [
+        "tuning-07"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which checks distinguish DNS trouble from a blocked ledger connection?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C029",
+      "chunk_id": "3eb580d5-f789-5a86-a585-bdd0175029c0",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C029",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Latency and traces\n\nPaymentLatencyHigh fires when the 95th percentile request duration exceeds 750 milliseconds for ten minutes. Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo. A high request latency with normal CPU can indicate waiting on an upstream dependency. LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation."
+    },
+    {
+      "question_id": "Q0113",
+      "case_ids": [
+        "tuning-04"
+      ],
+      "source_file": "tuning.json",
+      "query": "How do I investigate a container killed after exhausting its memory?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0113",
+      "case_ids": [
+        "tuning-04"
+      ],
+      "source_file": "tuning.json",
+      "query": "How do I investigate a container killed after exhausting its memory?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0115",
+      "case_ids": [
+        "heldout-v4-27"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "How should container restart counts be correlated with memory use and the last termination reason?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0116",
+      "case_ids": [
+        "heldout-v2-15"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "Why can overlapping network ranges break virtual network peering?",
+      "kind": "grade_change",
+      "unit_id": "C007",
+      "chunk_id": "cd9ba3f4-2630-57dc-94b8-6015692b1770",
+      "document_id": "azure-networking",
+      "before_grade": 3,
+      "proposed_grade": 2,
+      "original_evidence": [
+        "Overlapping address spaces prevent reliable peering."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C007",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Overlapping address spaces prevent reliable peering."
+        ],
+        "rationale": "States the adverse effect of overlap but does not explain the routing/address ambiguity mechanism requested by why."
+      },
+      "source_text": "# Azure private networking and DNS RB-NET-008\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Address plan\n\nSpoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other."
+    },
+    {
+      "question_id": "Q0118",
+      "case_ids": [
+        "heldout-v4-60"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "What readiness, synthetic transaction and fresh telemetry checks should be present before recovery is declared?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0118",
+      "case_ids": [
+        "heldout-v4-60"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "What readiness, synthetic transaction and fresh telemetry checks should be present before recovery is declared?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count."
+        ],
+        "rationale": "Provides the concrete availability signal associated with the requested ready-replica check; does not establish synthetic payment or telemetry recovery."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0118",
+      "case_ids": [
+        "heldout-v4-60"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "What readiness, synthetic transaction and fresh telemetry checks should be present before recovery is declared?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C028",
+      "chunk_id": "8df7e5c6-8726-51c8-aaec-526e75c4d061",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C028",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Check the newest sample timestamp."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Missing telemetry\n\nAn empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes. Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure."
+    },
+    {
+      "question_id": "Q0120",
+      "case_ids": [
+        "heldout-v4-29"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "What can the ledger connectivity probe establish, and what business-level guarantee does it not provide?",
+      "kind": "grade_change",
+      "unit_id": "C012",
+      "chunk_id": "c057ac12-2c34-564e-8a4f-c85525f5dcee",
+      "document_id": "azure-networking",
+      "before_grade": 2,
+      "proposed_grade": 1,
+      "original_evidence": [
+        "Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C012",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Change verification\n\nAfter a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client. Respect resolver cache TTL; this environment uses a 60 second TTL for the ledger record. Record the effective route and firewall policy version with the change ticket. Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records. Escalate with RB-NET-008."
+    },
+    {
+      "question_id": "Q0123",
+      "case_ids": [
+        "tuning-14"
+      ],
+      "source_file": "tuning.json",
+      "query": "A scrape outage makes the dashboard empty. Is the service healthy?",
+      "kind": "added_full_answer",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0123",
+      "case_ids": [
+        "tuning-14"
+      ],
+      "source_file": "tuning.json",
+      "query": "A scrape outage makes the dashboard empty. Is the service healthy?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C025",
+      "chunk_id": "b980cf01-5739-5e8e-ad78-3e20c6eba56e",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C025",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Dashboard access does not itself prove signal freshness."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "# Payments monitoring and observability RB-OBS-011\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Signals and dashboards\n\nDashboard payments-prod-overview joins Prometheus metrics, Loki logs and Tempo traces for namespace payments. Metrics describe aggregate health, logs record events, and traces connect requests across services. Propagate W3C traceparent from the ingress through payments-api to ledger calls. A trace ID links logs to the distributed request path; it is not the Kubernetes pod UID. Dashboard access does not itself prove signal freshness."
+    },
+    {
+      "question_id": "Q0133",
+      "case_ids": [
+        "heldout-v4-51"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "After cert-manager renews a certificate, what secret must change and where must users see the new certificate?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C017",
+      "chunk_id": "b349687e-56e8-5be8-915e-b7c52ad73a0a",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C017",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Confirm the replacement secret is in namespace payments and referenced by the ingress."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident renewal procedure\n\nIf the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal. Confirm the replacement secret is in namespace payments and referenced by the ingress. Record certificate serial number and notAfter before and after recovery, but never copy tls.key. Restarting payment pods does not fix a failing ACME DNS challenge. Use runbook RB-PKI-006 and notify the certificate owner."
+    },
+    {
+      "question_id": "Q0134",
+      "case_ids": [
+        "heldout-v4-30"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Is an apparently green payment dashboard sufficient reason to disable a missing-metrics alert?",
+      "kind": "added_full_answer",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0134",
+      "case_ids": [
+        "heldout-v4-30"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Is an apparently green payment dashboard sufficient reason to disable a missing-metrics alert?",
+      "kind": "added_full_answer",
+      "unit_id": "C028",
+      "chunk_id": "8df7e5c6-8726-51c8-aaec-526e75c4d061",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C028",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "An empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Missing telemetry\n\nAn empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes. Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure."
+    },
+    {
+      "question_id": "Q0137",
+      "case_ids": [
+        "heldout-v2-27"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "Which metric and termination evidence would link repeated restarts to memory exhaustion?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C024",
+      "chunk_id": "cf4185d0-aa7b-5c42-93d2-8c0d7ae5d003",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C024",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Incident evidence\n\nCapture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window. Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team. A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery. Escalate with runbook RB-K8S-021 and redact credentials from logs."
+    },
+    {
+      "question_id": "Q0140",
+      "case_ids": [
+        "heldout-v3-09"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "If cluster DNS works, does that establish that VPN users can resolve the private API?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C009",
+      "chunk_id": "25679da7-5d66-5e19-8991-d395a2cfa5d9",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C009",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment."
+    },
+    {
+      "question_id": "Q0144",
+      "case_ids": [
+        "heldout-v3-10"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "When an x509 expiry error occurs, which certificate should be traced first?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C016",
+      "chunk_id": "aa97eb46-a9b4-5a44-a111-ccffdee3e80e",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C016",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "Run openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## TLS verification\n\nRun openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name. A name mismatch means the requested hostname is absent from the SAN list. An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA. A TCP timeout occurs before certificate verification and should be investigated as connectivity first."
+    },
+    {
+      "question_id": "Q0147",
+      "case_ids": [
+        "heldout-04"
+      ],
+      "source_file": "heldout.json",
+      "query": "Which readiness path and port do payment services use?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C004",
+      "chunk_id": "85cb2744-45f2-50f0-acd1-a2fe92787f33",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C004",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "A ClusterIP service forwards traffic to ready pods on port 8080."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Ingress and workload certificates\n\nThe public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments. A ClusterIP service forwards traffic to ready pods on port 8080. Azure Load Balancer health probes and Kubernetes readiness probes test different network hops. The platform owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate."
+    },
+    {
+      "question_id": "Q0147",
+      "case_ids": [
+        "heldout-04"
+      ],
+      "source_file": "heldout.json",
+      "query": "Which readiness path and port do payment services use?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C011",
+      "chunk_id": "e7582be9-fb1e-51a8-bce4-f49bb4434a7c",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C011",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "the payments /ready probe"
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Load balancer probes\n\nAzure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks. For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall. A certificate name mismatch is not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block."
+    },
+    {
+      "question_id": "Q0147",
+      "case_ids": [
+        "heldout-04"
+      ],
+      "source_file": "heldout.json",
+      "query": "Which readiness path and port do payment services use?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0148",
+      "case_ids": [
+        "heldout-v4-09"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "How does failing the traffic-readiness check differ from failing the health check that restarts a container?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "a readiness failure can reduce availability without increasing restart count."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+    },
+    {
+      "question_id": "Q0149",
+      "case_ids": [
+        "heldout-v2-23"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "What public certificate details should be recorded before and after recovery without disclosing tls.key?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C016",
+      "chunk_id": "aa97eb46-a9b4-5a44-a111-ccffdee3e80e",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C016",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "verify the leaf certificate dates, issuer chain and subject alternative name."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## TLS verification\n\nRun openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name. A name mismatch means the requested hostname is absent from the SAN list. An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA. A TCP timeout occurs before certificate verification and should be investigated as connectivity first."
+    },
+    {
+      "question_id": "Q0151",
+      "case_ids": [
+        "heldout-v4-50"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "When cert-manager marks a Certificate unready, what request, order and challenge objects need review?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C023",
+      "chunk_id": "28487ee5-2f01-5cd8-a3fd-fa9aa6d4c3f0",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C023",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Certificate symptoms\n\nAn x509 certificate has expired error should be traced to the endpoint that presents the certificate. Inspect certificate dates and subject alternative names with openssl s_client. Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA. For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+    },
+    {
+      "question_id": "Q0153",
+      "case_ids": [
+        "heldout-v2-19"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "What issuer and challenge method issue the ingress certificate?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C015",
+      "chunk_id": "7b6e07ad-fe8e-5fcc-a530-36f484bb6589",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C015",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## DNS-01 failure\n\nFor Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources. A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation. Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying. Do not replace DNS-01 with HTTP-01 without a reviewed policy change."
+    },
+    {
+      "question_id": "Q0156",
+      "case_ids": [
+        "heldout-v4-59"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Why could requests be slow without heavy CPU consumption, and how can the upstream ledger be investigated?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C010",
+      "chunk_id": "adce123c-818f-5379-8166-81ebb3ed43ba",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C010",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "For ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## NSG and firewall checks\n\nFor ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable."
+    },
+    {
+      "question_id": "Q0159",
+      "case_ids": [
+        "tuning-10"
+      ],
+      "source_file": "tuning.json",
+      "query": "How does an ingress certificate differ from the AKS API certificate?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C004",
+      "chunk_id": "85cb2744-45f2-50f0-acd1-a2fe92787f33",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C004",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "The public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## Ingress and workload certificates\n\nThe public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments. A ClusterIP service forwards traffic to ready pods on port 8080. Azure Load Balancer health probes and Kubernetes readiness probes test different network hops. The platform owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate."
+    },
+    {
+      "question_id": "Q0159",
+      "case_ids": [
+        "tuning-10"
+      ],
+      "source_file": "tuning.json",
+      "query": "How does an ingress certificate differ from the AKS API certificate?",
+      "kind": "grade_change",
+      "unit_id": "C013",
+      "chunk_id": "5e64a5f1-b56a-56ab-a5ea-53e34896b284",
+      "document_id": "certificate-management",
+      "before_grade": 3,
+      "proposed_grade": 2,
+      "original_evidence": [
+        "This runbook does not manage the AKS API server certificate."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C013",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments.",
+          "This runbook does not manage the AKS API server certificate."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "# Certificate lifecycle and ACME RB-PKI-006\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Ownership and storage\n\ncert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate."
+    },
+    {
+      "question_id": "Q0159",
+      "case_ids": [
+        "tuning-10"
+      ],
+      "source_file": "tuning.json",
+      "query": "How does an ingress certificate differ from the AKS API certificate?",
+      "kind": "added_full_answer",
+      "unit_id": "C018",
+      "chunk_id": "3d027b0a-b4e3-5671-b763-4e24ac922c26",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C018",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "CertificateExpirySoon monitors served ingress certificates; AKS control-plane certificate rotation is a separate platform concern."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Monitoring and scope\n\nCertificateExpirySoon monitors served ingress certificates; AKS control-plane certificate rotation is a separate platform concern. The certificate dashboard is linked from payments-prod-overview. Check metric freshness when an alert unexpectedly clears. Certificate expiry, private endpoint DNS failure and readiness failures can all appear as payment availability incidents, but require different evidence and owners. Certificate compliance records retain public certificate serials and change ticket IDs."
+    },
+    {
+      "question_id": "Q0159",
+      "case_ids": [
+        "tuning-10"
+      ],
+      "source_file": "tuning.json",
+      "query": "How does an ingress certificate differ from the AKS API certificate?",
+      "kind": "grade_change",
+      "unit_id": "C023",
+      "chunk_id": "28487ee5-2f01-5cd8-a3fd-fa9aa6d4c3f0",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C023",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Certificate symptoms\n\nAn x509 certificate has expired error should be traced to the endpoint that presents the certificate. Inspect certificate dates and subject alternative names with openssl s_client. Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA. For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+    },
+    {
+      "question_id": "Q0162",
+      "case_ids": [
+        "heldout-v3-01"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "What connection and Azure role are required to access the production cluster?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C009",
+      "chunk_id": "25679da7-5d66-5e19-8991-d395a2cfa5d9",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C009",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "VPN clients must use the corporate DNS resolver to access aks-payments-prod-01."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment."
+    },
+    {
+      "question_id": "Q0165",
+      "case_ids": [
+        "heldout-v4-39"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Does successful name lookup inside Kubernetes tell us whether remote VPN users can resolve the control-plane name?",
+      "kind": "added_partial_evidence",
+      "unit_id": "C009",
+      "chunk_id": "25679da7-5d66-5e19-8991-d395a2cfa5d9",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 2,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C009",
+        "grade": 2,
+        "coverage": "partial",
+        "evidence": [
+          "If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC."
+        ],
+        "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+      },
+      "source_text": "## AKS private API access\n\nThe private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment."
+    },
+    {
+      "question_id": "Q0167",
+      "case_ids": [
+        "tuning-03"
+      ],
+      "source_file": "tuning.json",
+      "query": "Where is payments-api-tls stored and who manages it?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C017",
+      "chunk_id": "b349687e-56e8-5be8-915e-b7c52ad73a0a",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C017",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Confirm the replacement secret is in namespace payments and referenced by the ingress."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Incident renewal procedure\n\nIf the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal. Confirm the replacement secret is in namespace payments and referenced by the ingress. Record certificate serial number and notAfter before and after recovery, but never copy tls.key. Restarting payment pods does not fix a failing ACME DNS challenge. Use runbook RB-PKI-006 and notify the certificate owner."
+    },
+    {
+      "question_id": "Q0168",
+      "case_ids": [
+        "heldout-v3-24"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Should a connection timeout be diagnosed as certificate verification failure?",
+      "kind": "added_supporting_evidence",
+      "unit_id": "C027",
+      "chunk_id": "6bd71c40-d945-5344-a1ce-2d10c4e25fa4",
+      "document_id": "observability",
+      "before_grade": 0,
+      "proposed_grade": 1,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C027",
+        "grade": 1,
+        "coverage": "supporting",
+        "evidence": [
+          "Do not interpret a private endpoint timeout as a certificate expiry measurement."
+        ],
+        "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+      },
+      "source_text": "## Certificate alert\n\nCertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining. The probe targets api.payments.example.test with the correct TLS server name. Its alert annotation links RB-PKI-006 and secret payments-api-tls. An absent certificate metric is not proof of successful renewal. Inspect the actual certificate notAfter and the monitoring target state. Do not interpret a private endpoint timeout as a certificate expiry measurement."
+    }
+  ],
+  "primary_review_flags": [
+    {
+      "question_id": "Q0033",
+      "unit_ids": [
+        "C018"
+      ],
+      "concern": "Auditor expected facts include actual notAfter/target state, but the full-grade quote in C018 does not establish those values/checks. Adjudicate the required scope or grade."
+    },
+    {
+      "question_id": "Q0063",
+      "unit_ids": [
+        "C026",
+        "C011"
+      ],
+      "concern": "Auditor expected facts include service-selector comparison; these full-grade quotes omit that element. Decide whether the query requires it before adopting full grades."
+    },
+    {
+      "question_id": "Q0082",
+      "unit_ids": [
+        "C026",
+        "C011"
+      ],
+      "concern": "Auditor required facts include selector checks, while these quotes name endpoints/readiness only. Grade/required-fact scope needs adjudication."
+    },
+    {
+      "question_id": "Q0076",
+      "unit_ids": [
+        "C028"
+      ],
+      "concern": "Quote addresses empty-dashboard/scrape evidence, but not the explicit alert-silencing policy. It may support the answer without constituting a full answer."
+    },
+    {
+      "question_id": "Q0134",
+      "unit_ids": [
+        "C028"
+      ],
+      "concern": "Quote supplies missing-telemetry context, not an explicit decision rule for silencing an apparently green dashboard alert. Full-grade status needs review."
+    },
+    {
+      "question_id": "Q0159",
+      "unit_ids": [
+        "C023"
+      ],
+      "concern": "Quote says not to confuse ingress/API certificates but does not establish the separate control-plane rotation fact in the auditor required-facts list. The broad query also leaves the requested dimension of difference unspecified."
+    },
+    {
+      "question_id": "Q0120",
+      "unit_ids": [
+        "C012"
+      ],
+      "concern": "The query asks what a ledger probe establishes and what it does not. Explicit application-connectivity evidence may constitute a substantial requested component (grade 2) rather than merely supporting context (grade 1)."
+    },
+    {
+      "question_id": "Q0116",
+      "unit_ids": [
+        "C007"
+      ],
+      "concern": "Source states that overlap prevents reliable peering but omits the requested causal mechanism. Do not silently remove this question from published metrics; decide whether to retain as partial support or replace in a future benchmark."
+    },
+    {
+      "scope": "all_new_supporting_or_partial_positives",
+      "concern": "Do not automatically adopt new positive grades just because the quote is real. Evidence must materially answer the particular question; shared terminology alone is insufficient."
+    }
+  ]
+}

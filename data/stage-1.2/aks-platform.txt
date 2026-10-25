@@ -1,0 +1,27 @@
+# AKS production platform runbook
+
+Owner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture
+
+## Cluster identity and access
+
+The production cluster aks-payments-prod-01 runs private AKS in the platform subscription. Its API hostname resolves through the privatelink.eastus.azmk8s.io private DNS zone. The platform team owns cluster upgrades; application teams own workloads in namespace payments. Access requires the corporate VPN and the platform-reader Azure role. A successful VPN connection does not prove that private DNS resolution works.
+
+## Node pools and scheduling
+
+System pool sysnp runs cluster services; user pool paynp runs payment workloads. The payments API requests 500m CPU and 768Mi memory per replica. The user pool carries label workload=payments and taint dedicated=payments:NoSchedule. Payments pods need a matching toleration and node selector. The cluster autoscaler scales paynp between 3 and 12 nodes. Pending pods caused by untolerated taints do not become schedulable merely by raising the maximum node count.
+
+## Safe upgrades
+
+Before an AKS upgrade, confirm that PodDisruptionBudget payments-api-pdb allows at least one unavailable replica. Use surge capacity of one node and verify subnet address headroom. A drain blocked by a disruption budget is not a certificate failure. Upgrade the staging cluster first, observe for 24 hours, and then upgrade production during the approved maintenance window. Roll back application manifests independently of the cluster version.
+
+## Ingress and workload certificates
+
+The public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments. A ClusterIP service forwards traffic to ready pods on port 8080. Azure Load Balancer health probes and Kubernetes readiness probes test different network hops. The platform owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.
+
+## Outbound dependencies
+
+Payment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.
+
+## Recovery and escalation
+
+For a failed upgrade, preserve kubectl get events output and record the node pool operation ID. Do not delete the system pool to repair application routing. Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team, and payments-api-tls renewal failures to the certificate owner. Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014.

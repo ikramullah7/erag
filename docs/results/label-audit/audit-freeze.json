@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-25",
+  "blind_agent": "blind_relevance_audit",
+  "no_inherited_conversation": true,
+  "agent_confirmed_no_labels_rankings_scores_metrics_targets_seen": true,
+  "frozen_audit_sha256": "23f6ffc7aa806b12c95e6ab0dd833bd8c87bbbf39641b41003b722b25cfc5937",
+  "scope": "171 questions; 30 source units; five original documents",
+  "original_files_changed": false,
+  "model_or_ranker_changed": false,
+  "metrics_recalculated": false
+}

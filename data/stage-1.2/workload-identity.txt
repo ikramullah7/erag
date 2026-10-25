@@ -1,0 +1,19 @@
+# Payments workload identity RB-IAM-033
+
+Owner: Platform Identity | Dataset: stage-1.2-v1 | Status: synthetic training fixture
+
+## Production federation
+
+Production payments-api uses Kubernetes service account payments-api-sa in namespace payments. Its federated subject is system:serviceaccount:payments:payments-api-sa. The token audience is api://AzureADTokenExchange. The federated credential belongs to managed identity mi-payments-prod. A service account with the same name in namespace payments-stage has a different subject and cannot reuse the production federation unchanged.
+
+## Least privilege
+
+Managed identity mi-payments-prod receives Key Vault Secrets User on vault kv-payments-prod. Platform Identity approves role assignments. Application teams own the service account reference in workload manifests. The federated identity provides token-based access and does not document or expose a production database password. Keep tokens and private credentials out of incident logs.
+
+## Failure isolation
+
+For a token exchange failure, compare the projected token audience, federated issuer and exact subject. Check namespace and service account name before granting more permissions. A successful token exchange does not prove access to a private vault endpoint. DNS, network policy and Azure NSG rules still apply after identity is configured. Do not grant subscription-wide Owner to repair a namespace mismatch.
+
+## Scope boundaries
+
+The certificate issuer policy is owned by the security team, while workload-identity role assignments are approved by Platform Identity. The platform team operates cert-manager. A certificate renewal failure and a workload token exchange failure can both interrupt payments but require different evidence. This runbook contains no actual access token or current role-assignment verification result.

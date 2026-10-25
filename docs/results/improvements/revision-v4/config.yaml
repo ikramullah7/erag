@@ -1,0 +1,17 @@
+dataset: data/stage-1.1
+state: artifacts/revision-v3/index
+max_words: 140
+overlap_words: 20
+section_boundaries: true
+candidates: 20
+rrf_k: 60
+bm25_weight: 3
+vector_weight: 1
+mode: hybrid
+embedding_model: sentence-transformers/multi-qa-MiniLM-L6-cos-v1
+embedding_revision: b207367332321f8e44f96e224ef15bc607f4dbf0
+reranker_model: cross-encoder/ms-marco-MiniLM-L6-v2
+reranker_revision: 233902d25c440f23af6f7d6e94d2946bac0bee0a
+rerank_window_sentences: 2
+qdrant_url: null
+threads: 2

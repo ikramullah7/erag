@@ -1,0 +1,260 @@
+{
+  "version": "semantic-calibration-v1",
+  "purpose": "Hand-authored positive/negative evaluator sanity checks, not generator training or independent calibration.",
+  "cases": [
+    {
+      "id": "supported",
+      "task": {
+        "question": "Evaluate the requested facts.",
+        "required_facts": [
+          "The ledger IP address is 10.42.8.17."
+        ],
+        "reference_evidence": [
+          {
+            "document_id": "fixture",
+            "text": "The ledger IP address is 10.42.8.17."
+          }
+        ],
+        "retrieved_excerpts": [
+          {
+            "source_id": "S1",
+            "text": "The ledger IP address is 10.42.8.17."
+          }
+        ],
+        "claims": [
+          {
+            "claim_index": 0,
+            "text": "The ledger IP address is 10.42.8.17.",
+            "citations": [
+              {
+                "citation_index": 0,
+                "source_id": "S1",
+                "quote": "The ledger IP address is 10.42.8.17."
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "all_claims_faithful": true,
+        "all_claims_correct": true,
+        "all_citations_supported": true,
+        "covered_required_facts": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "wrong-value",
+      "task": {
+        "question": "Evaluate the requested facts.",
+        "required_facts": [
+          "The ledger IP address is 10.42.8.17."
+        ],
+        "reference_evidence": [
+          {
+            "document_id": "fixture",
+            "text": "The ledger IP address is 10.42.8.17."
+          }
+        ],
+        "retrieved_excerpts": [
+          {
+            "source_id": "S1",
+            "text": "The ledger IP address is 10.42.8.17."
+          }
+        ],
+        "claims": [
+          {
+            "claim_index": 0,
+            "text": "The ledger IP address is 10.42.8.99.",
+            "citations": [
+              {
+                "citation_index": 0,
+                "source_id": "S1",
+                "quote": "The ledger IP address is 10.42.8.17."
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "all_claims_faithful": false,
+        "all_claims_correct": false,
+        "all_citations_supported": false,
+        "covered_required_facts": [
+          false
+        ]
+      }
+    },
+    {
+      "id": "wrong-owner",
+      "task": {
+        "question": "Evaluate the requested facts.",
+        "required_facts": [
+          "The platform team owns cluster upgrades."
+        ],
+        "reference_evidence": [
+          {
+            "document_id": "fixture",
+            "text": "The platform team owns cluster upgrades; application teams own workloads."
+          }
+        ],
+        "retrieved_excerpts": [
+          {
+            "source_id": "S1",
+            "text": "The platform team owns cluster upgrades; application teams own workloads."
+          }
+        ],
+        "claims": [
+          {
+            "claim_index": 0,
+            "text": "Application teams own cluster upgrades.",
+            "citations": [
+              {
+                "citation_index": 0,
+                "source_id": "S1",
+                "quote": "The platform team owns cluster upgrades; application teams own workloads."
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "all_claims_faithful": false,
+        "all_claims_correct": false,
+        "all_citations_supported": false,
+        "covered_required_facts": [
+          false
+        ]
+      }
+    },
+    {
+      "id": "unrelated-authentic-quote",
+      "task": {
+        "question": "Evaluate the requested facts.",
+        "required_facts": [
+          "The ledger IP address is 10.42.8.17."
+        ],
+        "reference_evidence": [
+          {
+            "document_id": "fixture",
+            "text": "The ledger IP address is 10.42.8.17."
+          }
+        ],
+        "retrieved_excerpts": [
+          {
+            "source_id": "S1",
+            "text": "The ledger IP address is 10.42.8.17."
+          }
+        ],
+        "claims": [
+          {
+            "claim_index": 0,
+            "text": "The database password is hunter2.",
+            "citations": [
+              {
+                "citation_index": 0,
+                "source_id": "S1",
+                "quote": "The ledger IP address is 10.42.8.17."
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "all_claims_faithful": false,
+        "all_claims_correct": false,
+        "all_citations_supported": false,
+        "covered_required_facts": [
+          false
+        ]
+      }
+    },
+    {
+      "id": "incomplete-answer",
+      "task": {
+        "question": "Evaluate the requested facts.",
+        "required_facts": [
+          "A replica requests 500m CPU.",
+          "A replica requests 768Mi memory."
+        ],
+        "reference_evidence": [
+          {
+            "document_id": "fixture",
+            "text": "A replica requests 500m CPU and 768Mi memory."
+          }
+        ],
+        "retrieved_excerpts": [
+          {
+            "source_id": "S1",
+            "text": "A replica requests 500m CPU and 768Mi memory."
+          }
+        ],
+        "claims": [
+          {
+            "claim_index": 0,
+            "text": "A replica requests 500m CPU.",
+            "citations": [
+              {
+                "citation_index": 0,
+                "source_id": "S1",
+                "quote": "A replica requests 500m CPU and 768Mi memory."
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "all_claims_faithful": true,
+        "all_claims_correct": true,
+        "all_citations_supported": true,
+        "covered_required_facts": [
+          true,
+          false
+        ]
+      }
+    },
+    {
+      "id": "configured-not-observed",
+      "task": {
+        "question": "Evaluate the requested facts.",
+        "required_facts": [
+          "The certificate requests a 90-day validity period."
+        ],
+        "reference_evidence": [
+          {
+            "document_id": "fixture",
+            "text": "The certificate requests a 90-day validity period."
+          }
+        ],
+        "retrieved_excerpts": [
+          {
+            "source_id": "S1",
+            "text": "The certificate requests a 90-day validity period."
+          }
+        ],
+        "claims": [
+          {
+            "claim_index": 0,
+            "text": "The currently served certificate expires in exactly 90 days.",
+            "citations": [
+              {
+                "citation_index": 0,
+                "source_id": "S1",
+                "quote": "The certificate requests a 90-day validity period."
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "all_claims_faithful": false,
+        "all_claims_correct": false,
+        "all_citations_supported": false,
+        "covered_required_facts": [
+          false
+        ]
+      }
+    }
+  ]
+}

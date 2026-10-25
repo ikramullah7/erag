@@ -1,0 +1,375 @@
+{
+  "status": "PROPOSED_ONLY_NOT_APPLIED",
+  "question_count": 14,
+  "correction_count": 15,
+  "changes": [
+    {
+      "question_id": "Q0002",
+      "case_ids": [
+        "heldout-v3-17"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Should Azure NSG and firewall denials be treated as the same control or owner?",
+      "kind": "removed_positive",
+      "unit_id": "C005",
+      "chunk_id": "7d6abd65-e318-5751-aa40-3ee06bfd456d",
+      "document_id": "aks-platform",
+      "before_grade": 2,
+      "proposed_grade": 0,
+      "original_evidence": [
+        "NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other."
+      ],
+      "proposed_judgment": null,
+      "source_text": "## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+      "source_review_reason": "The old evidence compares Kubernetes NetworkPolicy with Azure NSGs, not Azure NSGs with Azure Firewall or their owners. It does not answer this query."
+    },
+    {
+      "question_id": "Q0007",
+      "case_ids": [
+        "heldout-v4-47"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Are an Azure network-security-group rejection and a firewall rejection owned by the same control team?",
+      "kind": "removed_positive",
+      "unit_id": "C005",
+      "chunk_id": "7d6abd65-e318-5751-aa40-3ee06bfd456d",
+      "document_id": "aks-platform",
+      "before_grade": 2,
+      "proposed_grade": 0,
+      "original_evidence": [
+        "NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other."
+      ],
+      "proposed_judgment": null,
+      "source_text": "## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+      "source_review_reason": "The old evidence compares NetworkPolicy with NSG, while the query asks whether NSG and firewall rejections share an owner. That comparison is absent."
+    },
+    {
+      "question_id": "Q0009",
+      "case_ids": [
+        "heldout-08"
+      ],
+      "source_file": "heldout.json",
+      "query": "Does readiness failure always restart the container?",
+      "kind": "grade_change",
+      "unit_id": "C026",
+      "chunk_id": "d300e0eb-c24a-51ea-a759-d2d08fcf43bf",
+      "document_id": "observability",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "a readiness failure can reduce availability without increasing restart count."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C026",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "a readiness failure can reduce availability without increasing restart count."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Crash and readiness alerts\n\nKubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates.",
+      "source_review_reason": "The source explicitly states that readiness failure can reduce availability without increasing restart count, fully answering the yes/no question."
+    },
+    {
+      "question_id": "Q0044",
+      "case_ids": [
+        "heldout-v4-21"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Which part of a certificate secret must stay out of support tickets?",
+      "kind": "added_full_answer",
+      "unit_id": "C017",
+      "chunk_id": "b349687e-56e8-5be8-915e-b7c52ad73a0a",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C017",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "Record certificate serial number and notAfter before and after recovery, but never copy tls.key."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Incident renewal procedure\n\nIf the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal. Confirm the replacement secret is in namespace payments and referenced by the ingress. Record certificate serial number and notAfter before and after recovery, but never copy tls.key. Restarting payment pods does not fix a failing ACME DNS challenge. Use runbook RB-PKI-006 and notify the certificate owner.",
+      "source_review_reason": "The incident-renewal procedure explicitly says never to copy tls.key, directly identifying secret material to withhold."
+    },
+    {
+      "question_id": "Q0051",
+      "case_ids": [
+        "heldout-v4-54"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Is it sensible to troubleshoot certificate validation when the HTTPS connection has not completed its TCP handshake?",
+      "kind": "removed_positive",
+      "unit_id": "C022",
+      "chunk_id": "8990c444-6660-5cf3-a556-965c54373290",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 2,
+      "proposed_grade": 0,
+      "original_evidence": [
+        "A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity."
+      ],
+      "proposed_judgment": null,
+      "source_text": "## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+      "source_review_reason": "The old evidence contrasts DNS NXDOMAIN and TCP timeout. It does not establish when TLS certificate verification occurs relative to TCP completion."
+    },
+    {
+      "question_id": "Q0111",
+      "case_ids": [
+        "tuning-07"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which checks distinguish DNS trouble from a blocked ledger connection?",
+      "kind": "grade_change",
+      "unit_id": "C022",
+      "chunk_id": "8990c444-6660-5cf3-a556-965c54373290",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C022",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "For an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+      "source_review_reason": "The source specifies ledger name lookup, CoreDNS, TCP 443 and the NXDOMAIN-versus-timeout distinction, covering the requested DNS/connectivity checks."
+    },
+    {
+      "question_id": "Q0139",
+      "case_ids": [
+        "heldout-v4-17"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Do the Azure balancer and the Kubernetes application readiness probe check the same hop?",
+      "kind": "grade_change",
+      "unit_id": "C004",
+      "chunk_id": "85cb2744-45f2-50f0-acd1-a2fe92787f33",
+      "document_id": "aks-platform",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "Azure Load Balancer health probes and Kubernetes readiness probes test different network hops."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C004",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "Azure Load Balancer health probes and Kubernetes readiness probes test different network hops."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Ingress and workload certificates\n\nThe public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments. A ClusterIP service forwards traffic to ready pods on port 8080. Azure Load Balancer health probes and Kubernetes readiness probes test different network hops. The platform owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.",
+      "source_review_reason": "The source explicitly states that Azure Load Balancer and Kubernetes readiness probes test different hops, fully answering the question."
+    },
+    {
+      "question_id": "Q0140",
+      "case_ids": [
+        "heldout-v3-09"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "If cluster DNS works, does that establish that VPN users can resolve the private API?",
+      "kind": "removed_positive",
+      "unit_id": "C001",
+      "chunk_id": "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+      "document_id": "aks-platform",
+      "before_grade": 2,
+      "proposed_grade": 0,
+      "original_evidence": [
+        "A successful VPN connection does not prove that private DNS resolution works."
+      ],
+      "proposed_judgment": null,
+      "source_text": "# AKS production platform runbook\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Cluster identity and access\n\nThe production cluster aks-payments-prod-01 runs private AKS in the platform subscription. Its API hostname resolves through the privatelink.eastus.azmk8s.io private DNS zone. The platform team owns cluster upgrades; application teams own workloads in namespace payments. Access requires the corporate VPN and the platform-reader Azure role. A successful VPN connection does not prove that private DNS resolution works.",
+      "source_review_reason": "The old evidence says VPN connectivity does not prove DNS resolution. It does not compare in-cluster DNS success with remote VPN API resolution."
+    },
+    {
+      "question_id": "Q0143",
+      "case_ids": [
+        "heldout-v2-17"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "Does a load-balancer health probe verify the same thing as pod readiness?",
+      "kind": "grade_change",
+      "unit_id": "C004",
+      "chunk_id": "85cb2744-45f2-50f0-acd1-a2fe92787f33",
+      "document_id": "aks-platform",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "Azure Load Balancer health probes and Kubernetes readiness probes test different network hops."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C004",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "Azure Load Balancer health probes and Kubernetes readiness probes test different network hops."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Ingress and workload certificates\n\nThe public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments. A ClusterIP service forwards traffic to ready pods on port 8080. Azure Load Balancer health probes and Kubernetes readiness probes test different network hops. The platform owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.",
+      "source_review_reason": "The source explicitly states the two probe types test different hops, giving a complete negative answer rather than only a partial answer."
+    },
+    {
+      "question_id": "Q0165",
+      "case_ids": [
+        "heldout-v4-39"
+      ],
+      "source_file": "heldout-v4.json",
+      "query": "Does successful name lookup inside Kubernetes tell us whether remote VPN users can resolve the control-plane name?",
+      "kind": "removed_positive",
+      "unit_id": "C001",
+      "chunk_id": "e1eba0df-7322-5f64-a533-bbd05d5e344e",
+      "document_id": "aks-platform",
+      "before_grade": 2,
+      "proposed_grade": 0,
+      "original_evidence": [
+        "A successful VPN connection does not prove that private DNS resolution works."
+      ],
+      "proposed_judgment": null,
+      "source_text": "# AKS production platform runbook\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Cluster identity and access\n\nThe production cluster aks-payments-prod-01 runs private AKS in the platform subscription. Its API hostname resolves through the privatelink.eastus.azmk8s.io private DNS zone. The platform team owns cluster upgrades; application teams own workloads in namespace payments. Access requires the corporate VPN and the platform-reader Azure role. A successful VPN connection does not prove that private DNS resolution works.",
+      "source_review_reason": "The old evidence concerns a working VPN connection, not the relationship between successful cluster DNS and remote VPN DNS."
+    },
+    {
+      "question_id": "Q0166",
+      "case_ids": [
+        "heldout-v2-21"
+      ],
+      "source_file": "heldout-v2.json",
+      "query": "What secret material must never be pasted into an incident ticket?",
+      "kind": "added_full_answer",
+      "unit_id": "C017",
+      "chunk_id": "b349687e-56e8-5be8-915e-b7c52ad73a0a",
+      "document_id": "certificate-management",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C017",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "Record certificate serial number and notAfter before and after recovery, but never copy tls.key."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Incident renewal procedure\n\nIf the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal. Confirm the replacement secret is in namespace payments and referenced by the ingress. Record certificate serial number and notAfter before and after recovery, but never copy tls.key. Restarting payment pods does not fix a failing ACME DNS challenge. Use runbook RB-PKI-006 and notify the certificate owner.",
+      "source_review_reason": "The incident-renewal procedure explicitly says never to copy tls.key, independently supporting the requested protected secret material."
+    },
+    {
+      "question_id": "Q0167",
+      "case_ids": [
+        "tuning-03"
+      ],
+      "source_file": "tuning.json",
+      "query": "Where is payments-api-tls stored and who manages it?",
+      "kind": "added_full_answer",
+      "unit_id": "C004",
+      "chunk_id": "85cb2744-45f2-50f0-acd1-a2fe92787f33",
+      "document_id": "aks-platform",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C004",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "Secret payments-api-tls is created by cert-manager in namespace payments."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Ingress and workload certificates\n\nThe public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments. A ClusterIP service forwards traffic to ready pods on port 8080. Azure Load Balancer health probes and Kubernetes readiness probes test different network hops. The platform owner checks ingress health; the security team owns certificate policy. A healthy node pool does not guarantee a valid certificate.",
+      "source_review_reason": "The quoted sentence explicitly supplies the requested secret name, managing controller and namespace; all three match the question."
+    },
+    {
+      "question_id": "Q0168",
+      "case_ids": [
+        "heldout-v3-24"
+      ],
+      "source_file": "heldout-v3.json",
+      "query": "Should a connection timeout be diagnosed as certificate verification failure?",
+      "kind": "removed_positive",
+      "unit_id": "C022",
+      "chunk_id": "8990c444-6660-5cf3-a556-965c54373290",
+      "document_id": "kubernetes-troubleshooting",
+      "before_grade": 2,
+      "proposed_grade": 0,
+      "original_evidence": [
+        "A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity."
+      ],
+      "proposed_judgment": null,
+      "source_text": "## DNS and upstream timeouts\n\nFor an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity. Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname.",
+      "source_review_reason": "The old evidence contrasts DNS and TCP failures, but the query asks whether a connection timeout is a certificate-verification failure; the TLS ordering fact is absent."
+    },
+    {
+      "question_id": "Q0171",
+      "case_ids": [
+        "tuning-15"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which firewall and route control payment worker egress?",
+      "kind": "grade_change",
+      "unit_id": "C005",
+      "chunk_id": "7d6abd65-e318-5751-aa40-3ee06bfd456d",
+      "document_id": "aks-platform",
+      "before_grade": 2,
+      "proposed_grade": 3,
+      "original_evidence": [
+        "The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01."
+      ],
+      "proposed_judgment": {
+        "unit_id": "C005",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "## Outbound dependencies\n\nPayment workers reach the internal ledger through private endpoint pe-ledger-prod-01. The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01. Inspect DNS and effective routes before restarting healthy pods. Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other.",
+      "source_review_reason": "The source explicitly names the route and firewall in the approved outbound path; it fully answers both requested identifiers."
+    },
+    {
+      "question_id": "Q0171",
+      "case_ids": [
+        "tuning-15"
+      ],
+      "source_file": "tuning.json",
+      "query": "Which firewall and route control payment worker egress?",
+      "kind": "added_full_answer",
+      "unit_id": "C007",
+      "chunk_id": "cd9ba3f4-2630-57dc-94b8-6015692b1770",
+      "document_id": "azure-networking",
+      "before_grade": 0,
+      "proposed_grade": 3,
+      "original_evidence": [],
+      "proposed_judgment": {
+        "unit_id": "C007",
+        "grade": 3,
+        "coverage": "full",
+        "evidence": [
+          "The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress."
+        ],
+        "rationale": "Explicitly establishes all requested facts."
+      },
+      "source_text": "# Azure private networking and DNS RB-NET-008\n\nOwner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture\n\n## Address plan\n\nSpoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other.",
+      "source_review_reason": "The source names both fw-hub-prod-01 and rt-payments-egress together; it directly answers which firewall and route."
+    }
+  ],
+  "audit_sha256": "23f6ffc7aa806b12c95e6ab0dd833bd8c87bbbf39641b41003b722b25cfc5937",
+  "selection_basis": "Primary source verification of explicit requested facts, not retrieval ranks or metric effects. Includes removals as well as additions and grade corrections.",
+  "metric_recalculation_performed": false,
+  "thresholds_changed": false
+}

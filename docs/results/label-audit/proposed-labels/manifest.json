@@ -1,0 +1,132 @@
+{
+  "status": "PROPOSAL_NOT_APPROVED_OR_ACTIVE",
+  "date": "2026-10-25",
+  "unit_label_corrections": 15,
+  "questions_changed": 14,
+  "original_case_count": 171,
+  "question_text_changed": false,
+  "thresholds_changed": false,
+  "metrics_recalculated": false,
+  "original_hashes": {
+    "tuning.json": "12fa00022db1d59e7887b3e94b7e234083f5d67fc5a21c0b28982b8fdf2b3f23",
+    "heldout.json": "ada207d28690723a255327ca913c1617fbcf87851f5f872f760fb1549a18aa31",
+    "heldout-v2.json": "1082a256fff9515cb678366bd22f5d7945196ddb800bbd78de011abc87c79154",
+    "heldout-v3.json": "ccec724963682b05d034e46c9caec1d9d502b539abcefaa18acb0b9c9f9dbdeb",
+    "heldout-v4.json": "0cb489572981ebe32fffba65e2a893924be75e4650439796eab9010ef4c233a8"
+  },
+  "proposed_hashes": {
+    "tuning.json": "f3e71f9bbecf841e2df7e4d1bb776abc397b1cdcd32f124f6b234ff6d3f0bfb0",
+    "heldout.json": "ebc44285281e44d77801ac055ac3b2d4d5eedbc067aa08e9a255046f5b2e39da",
+    "heldout-v2.json": "69baa944b8d366d46b142d57ffd3d661a77b552adf800ea9fc282c5f5be97e52",
+    "heldout-v3.json": "0f049c259adfdf3520b0ebbc672bcd1c9dcb16001fd94dc547fcbb2a38992990",
+    "heldout-v4.json": "82d40d26227c93dc064cd17d48308d3a5ba927094b12082aba62599bfc1cd161"
+  },
+  "changes": [
+    {
+      "case_id": "heldout-v3-17",
+      "file": "heldout-v3.json",
+      "unit_id": "C005",
+      "old": 2,
+      "proposed": 0
+    },
+    {
+      "case_id": "heldout-v4-47",
+      "file": "heldout-v4.json",
+      "unit_id": "C005",
+      "old": 2,
+      "proposed": 0
+    },
+    {
+      "case_id": "heldout-08",
+      "file": "heldout.json",
+      "unit_id": "C026",
+      "old": 2,
+      "proposed": 3
+    },
+    {
+      "case_id": "heldout-v4-21",
+      "file": "heldout-v4.json",
+      "unit_id": "C017",
+      "old": 0,
+      "proposed": 3
+    },
+    {
+      "case_id": "heldout-v4-54",
+      "file": "heldout-v4.json",
+      "unit_id": "C022",
+      "old": 2,
+      "proposed": 0
+    },
+    {
+      "case_id": "tuning-07",
+      "file": "tuning.json",
+      "unit_id": "C022",
+      "old": 2,
+      "proposed": 3
+    },
+    {
+      "case_id": "heldout-v4-17",
+      "file": "heldout-v4.json",
+      "unit_id": "C004",
+      "old": 2,
+      "proposed": 3
+    },
+    {
+      "case_id": "heldout-v3-09",
+      "file": "heldout-v3.json",
+      "unit_id": "C001",
+      "old": 2,
+      "proposed": 0
+    },
+    {
+      "case_id": "heldout-v2-17",
+      "file": "heldout-v2.json",
+      "unit_id": "C004",
+      "old": 2,
+      "proposed": 3
+    },
+    {
+      "case_id": "heldout-v4-39",
+      "file": "heldout-v4.json",
+      "unit_id": "C001",
+      "old": 2,
+      "proposed": 0
+    },
+    {
+      "case_id": "heldout-v2-21",
+      "file": "heldout-v2.json",
+      "unit_id": "C017",
+      "old": 0,
+      "proposed": 3
+    },
+    {
+      "case_id": "tuning-03",
+      "file": "tuning.json",
+      "unit_id": "C004",
+      "old": 0,
+      "proposed": 3
+    },
+    {
+      "case_id": "heldout-v3-24",
+      "file": "heldout-v3.json",
+      "unit_id": "C022",
+      "old": 2,
+      "proposed": 0
+    },
+    {
+      "case_id": "tuning-15",
+      "file": "tuning.json",
+      "unit_id": "C005",
+      "old": 2,
+      "proposed": 3
+    },
+    {
+      "case_id": "tuning-15",
+      "file": "tuning.json",
+      "unit_id": "C007",
+      "old": 0,
+      "proposed": 3
+    }
+  ],
+  "remaining_auditor_proposals_not_applied": 88
+}

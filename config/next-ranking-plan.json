@@ -1,0 +1,27 @@
+{
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "date": "2026-10-25",
+  "max_iterations": 3,
+  "starting_profile": "artifacts/revision-v5/selected.yaml",
+  "label_version": "source-audit-v1",
+  "targets_changed": false,
+  "new_model_downloads": false,
+  "source_documents": 5,
+  "rounds": [
+    {
+      "round": 1,
+      "change": "Configurable standard technical-acronym normalization before retrieval/reranking. No document IDs, answers, or query-specific rules."
+    },
+    {
+      "round": 2,
+      "change": "Remove page metadata boilerplate from model input while preserving original source text, offsets and evidence."
+    },
+    {
+      "round": 3,
+      "change": "Include consistent document-title context in the full-passage reranker input."
+    }
+  ],
+  "validation": "Freeze a prospectively authored query set before tuning; use existing observed questions for development/regression, not as new independent proof.",
+  "agent_task_proposed": "A blind agent authors source-grounded prospective evaluation questions before tuning.",
+  "no_promotion_before_all_gates_pass": true
+}

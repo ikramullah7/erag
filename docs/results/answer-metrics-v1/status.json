@@ -1,0 +1,180 @@
+{
+  "answer_model": "qwen3:14b",
+  "summary": {
+    "faithfulness": null,
+    "faithfulness_counts": {
+      "supported": 0,
+      "total": 0
+    },
+    "answer_correctness": null,
+    "citation_accuracy": null,
+    "citation_accuracy_counts": {
+      "supported": 0,
+      "total": 0
+    },
+    "abstention_accuracy": 1.0,
+    "unsupported_abstention_recall": 1.0,
+    "false_abstentions": 0,
+    "judge_errors": [],
+    "semantic_scoring_complete": false
+  },
+  "cases": [
+    {
+      "id": "answer-01",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-02",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-03",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-04",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-05",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-06",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-07",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-08",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-09",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-10",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-11",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-12",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-13",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-14",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-15",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-16",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-17",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-18",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-19",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "abstention_decision_correct": true
+    },
+    {
+      "id": "answer-20",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "abstention_decision_correct": true
+    }
+  ],
+  "status": "semantic_scoring_blocked_by_judge_calibration",
+  "answer_input_sha256": "a0f81ca91eefc1db24e2a01def4f89f450696aaae56fffe04bfebbc308e39bd4",
+  "reference_sha256": "65aae6a4cdad75cf10d69cc50c9ed34a7e3cca101098d09670759eff9a896b12",
+  "implementation": "Four metrics implemented; semantic estimates gated by judge calibration.",
+  "calibration_attempts": [
+    {
+      "rubric": "v1",
+      "judge": "qwen3:8b",
+      "passed": 2,
+      "cases": 6
+    },
+    {
+      "rubric": "v2",
+      "judge": "qwen3:8b",
+      "passed": 2,
+      "cases": 6
+    },
+    {
+      "rubric": "v2",
+      "judge": "qwen3:14b",
+      "passed": 4,
+      "cases": 6
+    }
+  ],
+  "next_action": "Two-pass coverage redesign implemented and unit-tested; next local calibration run awaits user decision.",
+  "proposed_rubric_version": "answer-semantics-v3-two-pass",
+  "software_tests": {
+    "passed": 141,
+    "skipped": 2,
+    "failed": 0,
+    "real_cached_model_tests_executed": true
+  },
+  "static_checks": {
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "git_diff_check": "passed"
+  }
+}

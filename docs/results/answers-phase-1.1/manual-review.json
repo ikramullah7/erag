@@ -1,0 +1,16 @@
+{
+  "reviewer": "primary coding agent",
+  "independent": false,
+  "scope": "All returned factual claims and exact quotes for both models in v1 and v2 were inspected; all abstentions and rejected cases checked.",
+  "limitations": [
+    "No formal semantic entailment verifier.",
+    "Fourteen-B answer-04 describes validity from a configured 90-day certificate request; this is not a live served-certificate verification.",
+    "Some answers include additional source-grounded context beyond the requested facts.",
+    "Development questions reused for prompt refinement; no independent validation claim."
+  ],
+  "observed_failures_v1": {
+    "qwen3:14b": "Cluster identifier in claim absent from its cited quote; correctly rejected.",
+    "qwen3:8b": "Answered a partial question and cited networking text for missing-password commentary."
+  },
+  "v2_failed_cases": []
+}

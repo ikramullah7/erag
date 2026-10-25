@@ -1,0 +1,6 @@
+# User-approved Stage 1.1 chunk-level targets. No-answer cases are excluded.
+hit@1: 0.95
+hit@3: 0.98
+recall@5: 0.95
+mrr: 0.95
+ndcg@10: 0.95

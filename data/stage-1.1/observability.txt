@@ -1,0 +1,27 @@
+# Payments monitoring and observability RB-OBS-011
+
+Owner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture
+
+## Signals and dashboards
+
+Dashboard payments-prod-overview joins Prometheus metrics, Loki logs and Tempo traces for namespace payments. Metrics describe aggregate health, logs record events, and traces connect requests across services. Propagate W3C traceparent from the ingress through payments-api to ledger calls. A trace ID links logs to the distributed request path; it is not the Kubernetes pod UID. Dashboard access does not itself prove signal freshness.
+
+## Crash and readiness alerts
+
+KubePodCrashLooping fires when a payment container restarts more than five times in ten minutes. Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count. For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates.
+
+## Certificate alert
+
+CertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining. The probe targets api.payments.example.test with the correct TLS server name. Its alert annotation links RB-PKI-006 and secret payments-api-tls. An absent certificate metric is not proof of successful renewal. Inspect the actual certificate notAfter and the monitoring target state. Do not interpret a private endpoint timeout as a certificate expiry measurement.
+
+## Missing telemetry
+
+An empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes. Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure.
+
+## Latency and traces
+
+PaymentLatencyHigh fires when the 95th percentile request duration exceeds 750 milliseconds for ten minutes. Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo. A high request latency with normal CPU can indicate waiting on an upstream dependency. LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness. Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation.
+
+## Recovery verification
+
+After remediation, confirm ready replicas, successful synthetic payment checks, fresh metrics and traces without ledger timeout spans. Observe for 15 minutes before closing the incident. Capture the dashboard time range and alert evaluation window. Certificate changes, DNS cache TTL and scrape intervals can delay visible recovery. Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels.

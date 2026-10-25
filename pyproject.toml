@@ -1,0 +1,19 @@
+[project]
+name = "enterprise-rag"
+version = "0.1.0"
+description = "Deterministic retrieval and ranking foundation"
+requires-python = ">=3.13,<3.14"
+dependencies = ["qdrant-client", "rank-bm25", "sentence-transformers", "PyYAML", "numpy"]
+[project.scripts]
+erag = "erag.cli:main"
+[dependency-groups]
+dev = ["pytest", "ruff"]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+[tool.ruff]
+line-length = 100
+[tool.hatch.build.targets.wheel]
+packages = ["src/erag"]

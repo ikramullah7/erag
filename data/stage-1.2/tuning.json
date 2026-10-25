@@ -1,0 +1,310 @@
+[
+  {
+    "id": "legacy-01",
+    "query": "What is the IP address of pe-ledger-prod-01?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "text": "The ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3
+    }
+  },
+  {
+    "id": "legacy-02",
+    "query": "What CPU and memory does a payments API replica request?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "text": "The payments API requests 500m CPU and 768Mi memory per replica.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "legacy-03",
+    "query": "What are the minimum and maximum paynp autoscaler node counts?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "aks-platform",
+        "text": "The cluster autoscaler scales paynp between 3 and 12 nodes.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "aks-platform": 3
+    }
+  },
+  {
+    "id": "legacy-04",
+    "query": "How long is payments-api-cert valid, and how early is renewal configured?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "certificate-management",
+        "text": "payments-api-cert requests a 90 day certificate and sets renewBefore to 30 days.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "certificate-management": 3
+    }
+  },
+  {
+    "id": "legacy-05",
+    "query": "What readiness path and port does the payments service use?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "kubernetes-troubleshooting",
+        "text": "The payments readiness path is /ready on port 8080.",
+        "grade": 3
+      },
+      {
+        "document_id": "redis-availability",
+        "text": "Check payments /ready on port 8080 separately before attributing HTTP 503 to a Redis failover.",
+        "grade": 3
+      },
+      {
+        "document_id": "release-management",
+        "text": "Before promotion, verify ingress health, payments /ready on port 8080 and the synthetic payment transaction.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-troubleshooting": 3,
+      "redis-availability": 3,
+      "release-management": 3
+    }
+  },
+  {
+    "id": "legacy-06",
+    "query": "Where does corporate DNS forward the AKS private zone?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "azure-networking",
+        "text": "Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "azure-networking": 3
+    }
+  },
+  {
+    "id": "legacy-07",
+    "query": "When does CertificateExpirySoon fire?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "text": "CertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "legacy-08",
+    "query": "What missing-sample interval triggers MetricsScrapeMissing?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "text": "Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "legacy-09",
+    "query": "What request latency and duration trigger PaymentLatencyHigh?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "text": "PaymentLatencyHigh fires when the 95th percentile request duration exceeds 750 milliseconds for ten minutes.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3
+    }
+  },
+  {
+    "id": "legacy-10",
+    "query": "How long should recovery be observed before an incident is closed?",
+    "category": "legacy-regression",
+    "evidence": [
+      {
+        "document_id": "observability",
+        "text": "Observe for 15 minutes before closing the incident.",
+        "grade": 3
+      },
+      {
+        "document_id": "incident-response",
+        "text": "Before closing a payments incident, verify successful synthetic payment checks and observe recovery for 15 minutes as defined by the observability runbook.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "observability": 3,
+      "incident-response": 3
+    }
+  },
+  {
+    "id": "new-16",
+    "query": "What is the current production backup retention for pg-payments-prod?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "postgresql-recovery",
+        "text": "Production database pg-payments-prod uses a configured backup retention period of 35 days.",
+        "grade": 3
+      },
+      {
+        "document_id": "postgresql-recovery",
+        "text": "These staging values are historical and do not replace the current production 35-day retention and 60-minute recovery time objective.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "postgresql-recovery": 3
+    }
+  },
+  {
+    "id": "new-17",
+    "query": "What are the production PostgreSQL recovery point and recovery time objectives?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "postgresql-recovery",
+        "text": "The production recovery point objective is 5 minutes and the recovery time objective is 60 minutes.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "postgresql-recovery": 3
+    }
+  },
+  {
+    "id": "new-19",
+    "query": "Which isolated PostgreSQL server is used for a restore drill, and may the production server be overwritten?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "postgresql-recovery",
+        "text": "Restore pg-payments-prod into isolated server pg-payments-restore-check; never overwrite the production server during a drill.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "postgresql-recovery": 3
+    }
+  },
+  {
+    "id": "new-20",
+    "query": "What are the required steps for a planned production Redis failover?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "redis-availability",
+        "text": "Before a planned production failover, confirm replica health and notify the payments on-call engineer.",
+        "grade": 3
+      },
+      {
+        "document_id": "redis-availability",
+        "text": "Initiate the managed service planned failover, then verify that clients reconnect and session cache operations recover.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "redis-availability": 3
+    }
+  },
+  {
+    "id": "new-22",
+    "query": "What does PaymentsCacheReachability test, and does it establish ledger transaction correctness?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "redis-availability",
+        "text": "PaymentsCacheReachability checks a cache read and write; it does not validate payment-ledger transactions.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "redis-availability": 3
+    }
+  },
+  {
+    "id": "new-24",
+    "query": "Which vault role is granted to mi-payments-prod, on which vault, and who approves role assignments?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "workload-identity",
+        "text": "Managed identity mi-payments-prod receives Key Vault Secrets User on vault kv-payments-prod.",
+        "grade": 3
+      },
+      {
+        "document_id": "workload-identity",
+        "text": "Platform Identity approves role assignments.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "workload-identity": 3
+    }
+  },
+  {
+    "id": "new-25",
+    "query": "What traffic percentage and observation duration are configured for the production application canary?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "release-management",
+        "text": "For a production payments-api release, send 10 percent of traffic to the canary for 15 minutes before promotion.",
+        "grade": 3
+      }
+    ],
+    "relevant_documents": {
+      "release-management": 3
+    }
+  },
+  {
+    "id": "new-27",
+    "query": "During a SEV1 payments incident, what are the acknowledgement target and customer-update interval?",
+    "category": "fresh",
+    "evidence": [
+      {
+        "document_id": "incident-response",
+        "text": "For a SEV1 payments incident, the incident commander must acknowledge the page within 5 minutes.",
+        "grade": 2
+      },
+      {
+        "document_id": "incident-response",
+        "text": "Post a customer-impact update every 20 minutes while the SEV1 incident remains active.",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "incident-response": 2
+    }
+  }
+]

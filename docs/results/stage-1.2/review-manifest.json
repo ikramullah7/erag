@@ -1,0 +1,8 @@
+{
+  "review_inputs": {
+    "data/stage-1.2/answer-reviewed-baseline-v1.json": "01619bc55aa7115f8aee1145bb52758fa75c04527222f16a1ce5a6f783e01309",
+    "data/stage-1.2/answer-semantic-references-v1.json": "8f5fc528a107995bc2e3b774d8025f75161afd10bfa7b9193dc96b99fbd3387a",
+    "docs/results/stage-1.2/answers.json.gz": "4f9dcb9c11e95e98bba8a9dc71752609aa394f9189163a00aeb595e4e39fe6b8"
+  },
+  "source_manifest": "data/stage-1.2/stage-manifest.json"
+}

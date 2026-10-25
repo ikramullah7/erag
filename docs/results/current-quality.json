@@ -1,0 +1,39 @@
+{
+  "passed": false,
+  "label_version": "source-audit-v1",
+  "label_version_approved": true,
+  "frozen_profiles_evaluated": 6,
+  "any_profile_qualified": false,
+  "displayed_profile": "bge-full-context",
+  "displayed_profile_is_descriptive_only": true,
+  "chunk_metrics": {
+    "mrr": 0.9477777777777777,
+    "hit@1": 0.9166666666666666,
+    "hit@3": 0.9833333333333333,
+    "recall@3": 0.9666666666666667,
+    "recall@5": 1.0,
+    "ndcg@5": 0.9518595042528653,
+    "recall@10": 1.0,
+    "ndcg@10": 0.9518595042528653
+  },
+  "checks": {
+    "document_recall@3": true,
+    "document_mrr": true,
+    "document_ndcg@5": true,
+    "chunk_hit@1": false,
+    "chunk_hit@3": true,
+    "chunk_recall@5": true,
+    "chunk_mrr": false,
+    "chunk_ndcg@10": true,
+    "latency": true
+  },
+  "answerable_count": 60,
+  "no_answer_count": 5,
+  "source_documents": 5,
+  "profile_promoted": false,
+  "parameters_tuned": false,
+  "original_label_files_changed": false,
+  "disputed_proposals_applied": false,
+  "independent_validation_claimed": false,
+  "next_action": "Await approval for three bounded ranking iterations and prospective blind question authoring."
+}

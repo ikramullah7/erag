@@ -1,0 +1,16 @@
+{
+  "frozen_unix": 1792864705.76239,
+  "source_documents": 5,
+  "answerable_queries": 60,
+  "no_answer_queries": 5,
+  "query_split_only": true,
+  "source_facts_overlap_development": true,
+  "annotation_policy": "Original evidence and grades copied unchanged; new query phrasings frozen before tuning. This is not an external or intent-disjoint benchmark.",
+  "previous_validation_failures_preserved": true,
+  "label_hashes": {
+    "heldout-v2.json": "1082a256fff9515cb678366bd22f5d7945196ddb800bbd78de011abc87c79154",
+    "heldout-v3.json": "ccec724963682b05d034e46c9caec1d9d502b539abcefaa18acb0b9c9f9dbdeb",
+    "tuning-v4.json": "79176cd5966f9396491ca6762fb87cdc98af2015b38eed5567d0217257781354",
+    "heldout-v4.json": "0cb489572981ebe32fffba65e2a893924be75e4650439796eab9010ef4c233a8"
+  }
+}

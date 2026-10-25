@@ -1,0 +1,27 @@
+# Azure private networking and DNS RB-NET-008
+
+Owner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture
+
+## Address plan
+
+Spoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20. Reserve surge capacity before node pool upgrades. The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress. Overlapping address spaces prevent reliable peering. A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other.
+
+## Ledger private endpoint
+
+The ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17. The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address. Restarting an application does not create a missing private DNS zone link.
+
+## AKS private API access
+
+The private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4. VPN clients must use the corporate DNS resolver to access aks-payments-prod-01. If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC. An authorization error occurs after network and TLS establishment.
+
+## NSG and firewall checks
+
+For ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable.
+
+## Load balancer probes
+
+Azure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks. For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall. A certificate name mismatch is not repaired by opening port 443. Preserve source address, destination address, port and timestamp when escalating a suspected network block.
+
+## Change verification
+
+After a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client. Respect resolver cache TTL; this environment uses a 60 second TTL for the ledger record. Record the effective route and firewall policy version with the change ticket. Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records. Escalate with RB-NET-008.

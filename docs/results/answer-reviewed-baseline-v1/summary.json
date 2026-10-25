@@ -1,0 +1,55 @@
+{
+  "phase": "answer-1.1",
+  "documents": 5,
+  "answer_model": "qwen3:14b",
+  "answer_model_digest": "bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8",
+  "review_kind": "agent-reviewed",
+  "reviewer": "primary coding agent; direct source review, no local Ollama judge",
+  "summary": {
+    "faithfulness": 0.9666666666666667,
+    "faithfulness_counts": {
+      "supported": 29,
+      "total": 30
+    },
+    "answer_correctness": 0.9666666666666667,
+    "citation_accuracy": 0.9655172413793104,
+    "citation_accuracy_counts": {
+      "supported": 28,
+      "total": 29
+    },
+    "abstention_accuracy": 1.0,
+    "unsupported_abstention_recall": 1.0,
+    "false_abstentions": 0,
+    "judge_errors": [],
+    "semantic_scoring_complete": true
+  },
+  "answer_input_sha256": "a0f81ca91eefc1db24e2a01def4f89f450696aaae56fffe04bfebbc308e39bd4",
+  "reference_sha256": "65aae6a4cdad75cf10d69cc50c9ed34a7e3cca101098d09670759eff9a896b12",
+  "review_sha256": "f9da4ae8faf99e1e3d219535b051eecf9c1b6a9a57d8275da6f3b76181e8732d",
+  "corpus_hash": "82a195647c98ce0e155023fce27984de2cabd1f62265c0076547fb32a525467e",
+  "limitations": [
+    "Agent-reviewed development baseline, not independent human validation.",
+    "Observed 20-case set; no production or held-out accuracy claim.",
+    "Strict qualifier interpretation and atomic decomposition affect scores."
+  ],
+  "quality_gate": "No new acceptance thresholds applied.",
+  "correctness_definition": "Macro-average per-answer factual precision/required-fact recall F1 on 15 answerable cases; 14 score 1.0 and answer-04 scores 0.5.",
+  "reviewed_issue": {
+    "case": "answer-04",
+    "claim": "The payments-api-cert is valid for 90 days.",
+    "source": "payments-api-cert requests a 90 day certificate and sets renewBefore to 30 days.",
+    "judgment": "Unsupported actual-validity certainty; source establishes requested duration only. Conservative qualifier interpretation, not an incorrect numerical value.",
+    "supported_wording": "payments-api-cert requests a 90-day certificate; renewal is configured 30 days before expiry."
+  },
+  "reproduce": "uv run python scripts/score_reviewed_answers.py --output artifacts/reviewed-replay.json",
+  "software_tests": {
+    "passed": 148,
+    "skipped": 2,
+    "failed": 0
+  },
+  "static_checks": {
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "git_diff_check": "passed"
+  }
+}

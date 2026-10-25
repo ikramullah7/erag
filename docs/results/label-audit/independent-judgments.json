@@ -1,0 +1,4202 @@
+{
+  "rubric_version": "blind-source-audit-v1",
+  "input_hashes": {
+    "questions.json": "011a258073c1274be487e237d4970c9ba5e406491e7e051de256c198e4c3e4aa",
+    "units.json": "b7ae750cf0663da897c5d80d603235623ef94a4a3092c1c289339add89ae6e8d"
+  },
+  "coverage_question_count": 171,
+  "judgments": [
+    {
+      "question_id": "Q0001",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect conditional forwarding and VPN DNS settings before changing RBAC."
+      ],
+      "positives": [
+        {
+          "unit_id": "C009",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C001",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "A successful VPN connection does not prove that private DNS resolution works."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0002",
+      "answerability": "answerable",
+      "expected_facts": [
+        "NSG flow denials and firewall denials have different owners."
+      ],
+      "positives": [
+        {
+          "unit_id": "C010",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An NSG flow denial and a firewall denial have different owners."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0003",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Propagate W3C traceparent through ingress, payments-api and ledger calls."
+      ],
+      "positives": [
+        {
+          "unit_id": "C025",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Propagate W3C traceparent from the ingress through payments-api to ledger calls."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0004",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0005",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Kubernetes payments-egress, Azure effective NSG rules and firewall allow-ledger-https must permit ledger TCP 443."
+      ],
+      "positives": [
+        {
+          "unit_id": "C010",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C005",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Network policy payments-egress permits TCP 443 to the ledger service. NetworkPolicy and Azure NSG rules are separate controls; allowing one does not override a denial in the other."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C022",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Check CoreDNS logs and outbound TCP 443 policy."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0006",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Security owns issuer policy; platform operates cert-manager."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The security team owns issuer policy; the platform team operates cert-manager."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0007",
+      "answerability": "answerable",
+      "expected_facts": [
+        "NSG flow denials and firewall denials have different owners."
+      ],
+      "positives": [
+        {
+          "unit_id": "C010",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An NSG flow denial and a firewall denial have different owners."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0008",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0009",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Readiness removes service endpoints without necessarily restarting; liveness may restart."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "a readiness failure can reduce availability without increasing restart count."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0010",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Record certificate serial number and notAfter before and after recovery; never copy tls.key."
+      ],
+      "positives": [
+        {
+          "unit_id": "C017",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Record certificate serial number and notAfter before and after recovery, but never copy tls.key."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C016",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "verify the leaf certificate dates, issuer chain and subject alternative name."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0011",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0012",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Node label workload=payments; taint dedicated=payments:NoSchedule."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The user pool carries label workload=payments and taint dedicated=payments:NoSchedule."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0013",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Observe staging for 24 hours before production in the approved window."
+      ],
+      "positives": [
+        {
+          "unit_id": "C003",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Upgrade the staging cluster first, observe for 24 hours, and then upgrade production during the approved maintenance window."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0014",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Escalate with RB-K8S-021 and redact credentials from logs."
+      ],
+      "positives": [
+        {
+          "unit_id": "C024",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Escalate with runbook RB-K8S-021 and redact credentials from logs."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0015",
+      "answerability": "answerable",
+      "expected_facts": [
+        "A trace ID links logs to distributed request paths; propagate W3C traceparent."
+      ],
+      "positives": [
+        {
+          "unit_id": "C025",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Propagate W3C traceparent from the ingress through payments-api to ledger calls. A trace ID links logs to the distributed request path; it is not the Kubernetes pod UID."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Preserve a failing request trace ID for the observability team."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C029",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Preserve trace IDs and UTC timestamps for RB-OBS-011 escalation."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0016",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Probe api.payments.example.test with its correct TLS server name."
+      ],
+      "positives": [
+        {
+          "unit_id": "C027",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The probe targets api.payments.example.test with the correct TLS server name."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C016",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Run openssl s_client with server name api.payments.example.test"
+          ],
+          "rationale": "Explicitly supplies the verification TLS server name, but does not describe the monitoring probe itself."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0017",
+      "answerability": "answerable",
+      "expected_facts": [
+        "PaymentsReadyReplicasLow monitors available replicas; readiness can reduce availability without restarts."
+      ],
+      "positives": [
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C021",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0018",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Running pods can yield HTTP 503 through empty EndpointSlice, selector mismatch or failed readiness."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An ingress HTTP 503 with running pods can result from an empty EndpointSlice. Compare service selector app=payments-api against pod labels and inspect readiness probe failures."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C011",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0019",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0020",
+      "answerability": "answerable",
+      "expected_facts": [
+        "VPN clients must use corporate DNS."
+      ],
+      "positives": [
+        {
+          "unit_id": "C009",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "VPN clients must use the corporate DNS resolver to access aks-payments-prod-01."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0021",
+      "answerability": "answerable",
+      "expected_facts": [
+        "95th percentile duration exceeds 750 milliseconds for ten minutes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C029",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "PaymentLatencyHigh fires when the 95th percentile request duration exceeds 750 milliseconds for ten minutes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0022",
+      "answerability": "answerable",
+      "expected_facts": [
+        "The SAN contains api.payments.example.test."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The certificate covers api.payments.example.test as a subject alternative name."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0023",
+      "answerability": "answerable",
+      "expected_facts": [
+        "LedgerDependencyReachability checks DNS and TCP 443, not business transaction correctness."
+      ],
+      "positives": [
+        {
+          "unit_id": "C029",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C012",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0024",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Each replica requests 500m CPU and 768Mi memory."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The payments API requests 500m CPU and 768Mi memory per replica."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0025",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Forward privatelink.eastus.azmk8s.io to Azure Private Resolver inbound endpoint 10.40.0.4."
+      ],
+      "positives": [
+        {
+          "unit_id": "C009",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The private AKS API uses privatelink.eastus.azmk8s.io. Corporate DNS forwards that zone to Azure Private Resolver inbound endpoint 10.40.0.4."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0026",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Overlapping address spaces prevent reliable peering."
+      ],
+      "positives": [
+        {
+          "unit_id": "C007",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Overlapping address spaces prevent reliable peering."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0027",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Check node selectors, quotas, persistent volume binding and taint tolerations."
+      ],
+      "positives": [
+        {
+          "unit_id": "C020",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Messages mentioning untolerated taint dedicated=payments require a matching toleration. Insufficient memory messages require resource or node capacity investigation. Check node selectors, quotas and persistent volume binding separately."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C002",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "The user pool carries label workload=payments and taint dedicated=payments:NoSchedule. Payments pods need a matching toleration and node selector."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0028",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Propagate W3C traceparent through ingress, payments-api and ledger calls."
+      ],
+      "positives": [
+        {
+          "unit_id": "C025",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Propagate W3C traceparent from the ingress through payments-api to ledger calls."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0029",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Record effective route and firewall policy version with the change ticket."
+      ],
+      "positives": [
+        {
+          "unit_id": "C012",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Record the effective route and firewall policy version with the change ticket."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0030",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Check node selectors, quotas, persistent volume binding and taint tolerations."
+      ],
+      "positives": [
+        {
+          "unit_id": "C020",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Messages mentioning untolerated taint dedicated=payments require a matching toleration. Insufficient memory messages require resource or node capacity investigation. Check node selectors, quotas and persistent volume binding separately."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C002",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "The user pool carries label workload=payments and taint dedicated=payments:NoSchedule. Payments pods need a matching toleration and node selector."
+          ],
+          "rationale": "Supplies the required node selector and toleration as concrete placement constraints, but does not establish quota or volume-binding checks requested here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0031",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Do not delete the system pool to repair application routing."
+      ],
+      "positives": [
+        {
+          "unit_id": "C006",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Do not delete the system pool to repair application routing."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0032",
+      "answerability": "answerable",
+      "expected_facts": [
+        "The SAN contains api.payments.example.test."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The certificate covers api.payments.example.test as a subject alternative name."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0033",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Expiry alert monitors served certificates; check metric freshness when it clears and verify actual notAfter and target state."
+      ],
+      "positives": [
+        {
+          "unit_id": "C018",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "CertificateExpirySoon monitors served ingress certificates; AKS control-plane certificate rotation is a separate platform concern. The certificate dashboard is linked from payments-prod-overview. Check metric freshness when an alert unexpectedly clears."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C027",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An absent certificate metric is not proof of successful renewal. Inspect the actual certificate notAfter and the monitoring target state."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C014",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Inspect Certificate status.renewalTime and the notAfter date of the actual served certificate."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C030",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Certificate changes, DNS cache TTL and scrape intervals can delay visible recovery."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C028",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "A stale series can make a resolved incident look active or hide a new failure."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0034",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0035",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0036",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Compare service selector app=payments-api with pod labels."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Compare service selector app=payments-api against pod labels and inspect readiness probe failures."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0037",
+      "answerability": "answerable",
+      "expected_facts": [
+        "More than five container restarts in ten minutes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "KubePodCrashLooping fires when a payment container restarts more than five times in ten minutes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0038",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Link private DNS zone to vnet-payments-prod and verify corporate conditional forwarding."
+      ],
+      "positives": [
+        {
+          "unit_id": "C008",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0039",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Metrics aggregate health; logs record events; traces connect requests across services."
+      ],
+      "positives": [
+        {
+          "unit_id": "C025",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Metrics describe aggregate health, logs record events, and traces connect requests across services."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0040",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0041",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Retain public certificate serials and change ticket IDs."
+      ],
+      "positives": [
+        {
+          "unit_id": "C018",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Certificate compliance records retain public certificate serials and change ticket IDs."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0042",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Raising the node maximum does not fix an untolerated taint; add matching toleration."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Pending pods caused by untolerated taints do not become schedulable merely by raising the maximum node count."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C020",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Messages mentioning untolerated taint dedicated=payments require a matching toleration."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0043",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Public TXT under _acme-challenge.api.payments.example.test."
+      ],
+      "positives": [
+        {
+          "unit_id": "C015",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0044",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Never paste private keys / tls.key into incident tickets."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Keep private keys in Kubernetes secrets and never paste them into incident tickets."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C017",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Record certificate serial number and notAfter before and after recovery, but never copy tls.key."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0045",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Platform owner checks ingress health; security owns certificate policy."
+      ],
+      "positives": [
+        {
+          "unit_id": "C004",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The platform owner checks ingress health; the security team owns certificate policy."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C013",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "The security team owns issuer policy; the platform team operates cert-manager."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0046",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Subnet exhaustion to Azure networking team; repeated NotReady to platform team."
+      ],
+      "positives": [
+        {
+          "unit_id": "C006",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team"
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0047",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Missing zone link can yield NXDOMAIN or an unexpected public address."
+      ],
+      "positives": [
+        {
+          "unit_id": "C008",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A missing zone link can produce NXDOMAIN or an unexpected public address."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0048",
+      "answerability": "answerable",
+      "expected_facts": [
+        "vnet-payments-prod 10.42.0.0/16; snet-aks-payments 10.42.16.0/20."
+      ],
+      "positives": [
+        {
+          "unit_id": "C007",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Spoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0049",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Escalate with RB-K8S-021 and redact credentials from logs."
+      ],
+      "positives": [
+        {
+          "unit_id": "C024",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Escalate with runbook RB-K8S-021 and redact credentials from logs."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0050",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Normal CPU with latency can indicate upstream waiting; examine duration histogram and ledger client spans, DNS/TCP 443 probe."
+      ],
+      "positives": [
+        {
+          "unit_id": "C029",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo. A high request latency with normal CPU can indicate waiting on an upstream dependency. LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C022",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C010",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "For ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0051",
+      "answerability": "answerable",
+      "expected_facts": [
+        "TCP timeout precedes certificate verification; investigate connectivity first."
+      ],
+      "positives": [
+        {
+          "unit_id": "C016",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A TCP timeout occurs before certificate verification and should be investigated as connectivity first."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C027",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Do not interpret a private endpoint timeout as a certificate expiry measurement."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0052",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0053",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0054",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0055",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect CertificateRequest, Order, Challenge and managed identity permission to modify public DNS; check propagation."
+      ],
+      "positives": [
+        {
+          "unit_id": "C015",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources. A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation. Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C023",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C017",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "If the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0056",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Dedicated taint requires matching toleration and node selector."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The user pool carries label workload=payments and taint dedicated=payments:NoSchedule. Payments pods need a matching toleration and node selector."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C020",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Messages mentioning untolerated taint dedicated=payments require a matching toleration."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0057",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Routes change packets, DNS zone links change name resolution; neither substitutes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C007",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0058",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Use kubectl logs --previous before deleting the pod."
+      ],
+      "positives": [
+        {
+          "unit_id": "C019",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Inspect kubectl logs --previous before deleting the pod, then inspect the last termination reason."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0059",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Platform owner checks ingress health; security owns certificate policy."
+      ],
+      "positives": [
+        {
+          "unit_id": "C004",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The platform owner checks ingress health; the security team owns certificate policy."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C013",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "The security team owns issuer policy; the platform team operates cert-manager."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0060",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Renewal updates payments-api-tls and becomes visible at ingress."
+      ],
+      "positives": [
+        {
+          "unit_id": "C014",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A successful renewal must update payments-api-tls and become visible at ingress."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C017",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Confirm the replacement secret is in namespace payments and referenced by the ingress."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0061",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Preserve source address, destination address, port and timestamp."
+      ],
+      "positives": [
+        {
+          "unit_id": "C011",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Preserve source address, destination address, port and timestamp when escalating a suspected network block."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0062",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Authorization error occurs after network and TLS establishment."
+      ],
+      "positives": [
+        {
+          "unit_id": "C009",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An authorization error occurs after network and TLS establishment."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0063",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect service EndpointSlice/backend endpoints, selector against pod labels, and /ready failures."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An ingress HTTP 503 with running pods can result from an empty EndpointSlice. Compare service selector app=payments-api against pod labels and inspect readiness probe failures. The payments readiness path is /ready on port 8080. A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C011",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0064",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0065",
+      "answerability": "answerable",
+      "expected_facts": [
+        "PaymentsReadyReplicasLow monitors available replicas; readiness can reduce availability without restarts."
+      ],
+      "positives": [
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C021",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0066",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Autoscaler scales paynp between 3 and 12 nodes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The cluster autoscaler scales paynp between 3 and 12 nodes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0067",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Probe api.payments.example.test with its correct TLS server name."
+      ],
+      "positives": [
+        {
+          "unit_id": "C027",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The probe targets api.payments.example.test with the correct TLS server name."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C016",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Run openssl s_client with server name api.payments.example.test"
+          ],
+          "rationale": "Explicitly supplies the verification TLS server name, but does not describe the monitoring probe itself."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0068",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect CertificateRequest, Order and Challenge."
+      ],
+      "positives": [
+        {
+          "unit_id": "C015",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C023",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0069",
+      "answerability": "answerable",
+      "expected_facts": [
+        "payments_http_request_duration_seconds histogram buckets; ledger client spans in Tempo."
+      ],
+      "positives": [
+        {
+          "unit_id": "C029",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0070",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Use kubectl logs --previous before deleting the pod."
+      ],
+      "positives": [
+        {
+          "unit_id": "C019",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Inspect kubectl logs --previous before deleting the pod, then inspect the last termination reason."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0071",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Metrics aggregate health; logs record events; traces connect requests across services."
+      ],
+      "positives": [
+        {
+          "unit_id": "C025",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Metrics describe aggregate health, logs record events, and traces connect requests across services."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0072",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Node label workload=payments; taint dedicated=payments:NoSchedule."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The user pool carries label workload=payments and taint dedicated=payments:NoSchedule."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0073",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Preserve source address, destination address, port and timestamp."
+      ],
+      "positives": [
+        {
+          "unit_id": "C011",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Preserve source address, destination address, port and timestamp when escalating a suspected network block."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0074",
+      "answerability": "answerable",
+      "expected_facts": [
+        "MetricsScrapeMissing detects no payment samples for five minutes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C028",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0075",
+      "answerability": "answerable",
+      "expected_facts": [
+        "vnet-payments-prod 10.42.0.0/16; snet-aks-payments 10.42.16.0/20."
+      ],
+      "positives": [
+        {
+          "unit_id": "C007",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Spoke vnet-payments-prod uses address range 10.42.0.0/16 and AKS subnet snet-aks-payments uses 10.42.16.0/20."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0076",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Do not silence MetricsScrapeMissing solely due to no red panels; check freshness."
+      ],
+      "positives": [
+        {
+          "unit_id": "C030",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C028",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0077",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0078",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0079",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0080",
+      "answerability": "answerable",
+      "expected_facts": [
+        "payments-prod-overview joins Prometheus metrics, Loki logs and Tempo traces."
+      ],
+      "positives": [
+        {
+          "unit_id": "C025",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Dashboard payments-prod-overview joins Prometheus metrics, Loki logs and Tempo traces for namespace payments."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview. Preserve a failing request trace ID for the observability team."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C018",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "The certificate dashboard is linked from payments-prod-overview."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C006",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Link the incident to dashboard payments-prod-overview and runbook RB-AKS-014."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events. PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count."
+          ],
+          "rationale": "Specifies concrete payments restart, memory and readiness signals; does not name the dashboard or its logging/tracing systems."
+        },
+        {
+          "unit_id": "C029",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo."
+          ],
+          "rationale": "Specifies concrete payment latency metrics and dependency tracing signals; does not name the dashboard."
+        },
+        {
+          "unit_id": "C027",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "CertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining."
+          ],
+          "rationale": "Specifies a concrete certificate health alert relevant to payments incidents; does not establish the dashboard and other signal types."
+        },
+        {
+          "unit_id": "C028",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Check the newest sample timestamp. A stale series can make a resolved incident look active or hide a new failure."
+          ],
+          "rationale": "Specifies sample freshness as a concrete diagnostic check; does not identify the dashboard or all signal types."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0081",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Record image digest and recent configuration changes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C019",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Record the image digest and recent configuration changes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Capture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window."
+          ],
+          "rationale": "Explicitly supplies image digest as the workload image identity, but not the recent configuration changes."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0082",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect service EndpointSlice/backend endpoints, selector against pod labels, and /ready failures."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An ingress HTTP 503 with running pods can result from an empty EndpointSlice. Compare service selector app=payments-api against pod labels and inspect readiness probe failures. The payments readiness path is /ready on port 8080. A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it. Check endpoints before changing TLS certificates."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C011",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For intermittent HTTP 503, inspect the ingress backend endpoints and the payments /ready probe before editing the firewall."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0083",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Corporate VPN and platform-reader Azure role required."
+      ],
+      "positives": [
+        {
+          "unit_id": "C001",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Access requires the corporate VPN and the platform-reader Azure role."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C009",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "VPN clients must use the corporate DNS resolver to access aks-payments-prod-01."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0084",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0085",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Fewer than 14 days remain on served ingress certificate."
+      ],
+      "positives": [
+        {
+          "unit_id": "C027",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "CertificateExpirySoon fires when the served ingress certificate has fewer than 14 days remaining."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C014",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Alert CertificateExpirySoon fires when fewer than 14 days remain."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0086",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Replacement secret in namespace payments and referenced by ingress."
+      ],
+      "positives": [
+        {
+          "unit_id": "C017",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Confirm the replacement secret is in namespace payments and referenced by the ingress."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C013",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C004",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Secret payments-api-tls is created by cert-manager in namespace payments."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0087",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Observe recovery for 15 minutes before closure."
+      ],
+      "positives": [
+        {
+          "unit_id": "C030",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Observe for 15 minutes before closing the incident."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0088",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Platform owns cluster upgrades; application teams own payments namespace workloads."
+      ],
+      "positives": [
+        {
+          "unit_id": "C001",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The platform team owns cluster upgrades; application teams own workloads in namespace payments."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0089",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Firewall allow-ledger-https and Kubernetes payments-egress permit ledger TCP 443."
+      ],
+      "positives": [
+        {
+          "unit_id": "C010",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C005",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Network policy payments-egress permits TCP 443 to the ledger service."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0090",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Raising the node maximum does not fix an untolerated taint; add matching toleration."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Pending pods caused by untolerated taints do not become schedulable merely by raising the maximum node count."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C020",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Messages mentioning untolerated taint dedicated=payments require a matching toleration."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0091",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Confirm ready replicas, successful synthetic payments, fresh metrics and traces without ledger timeouts."
+      ],
+      "positives": [
+        {
+          "unit_id": "C030",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "After remediation, confirm ready replicas, successful synthetic payment checks, fresh metrics and traces without ledger timeout spans."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C028",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Check the newest sample timestamp."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count."
+          ],
+          "rationale": "Provides the concrete availability signal associated with the requested ready-replica check; does not establish synthetic payment or telemetry recovery."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0092",
+      "answerability": "answerable",
+      "expected_facts": [
+        "ClusterIssuer letsencrypt-prod uses ACME DNS-01."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C015",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0093",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Pending pod has not started a container, so logs may be absent."
+      ],
+      "positives": [
+        {
+          "unit_id": "C020",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A Pending pod has not started a container, so application log absence is expected."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0094",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Ledger record TTL is 60 seconds."
+      ],
+      "positives": [
+        {
+          "unit_id": "C012",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "this environment uses a 60 second TTL for the ledger record."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0095",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect CertificateRequest, Order, Challenge and managed identity permission to modify public DNS; check propagation."
+      ],
+      "positives": [
+        {
+          "unit_id": "C015",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources. A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation. Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C023",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C017",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "If the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0096",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Subnet exhaustion to Azure networking team; repeated NotReady to platform team."
+      ],
+      "positives": [
+        {
+          "unit_id": "C006",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Escalate exhausted subnet capacity to the Azure networking team, repeated node NotReady events to the platform team"
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0097",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Link private DNS zone to vnet-payments-prod and verify corporate conditional forwarding."
+      ],
+      "positives": [
+        {
+          "unit_id": "C008",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0098",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Verify PDB permits one unavailable replica, one surge node, and subnet address headroom."
+      ],
+      "positives": [
+        {
+          "unit_id": "C003",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Before an AKS upgrade, confirm that PodDisruptionBudget payments-api-pdb allows at least one unavailable replica. Use surge capacity of one node and verify subnet address headroom."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C007",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Reserve surge capacity before node pool upgrades."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0099",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0100",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Compare service selector app=payments-api with pod labels."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Compare service selector app=payments-api against pod labels and inspect readiness probe failures."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0101",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Trace endpoint presenting expired certificate; inspect dates and SAN via openssl; distinguish ingress, API and proxy."
+      ],
+      "positives": [
+        {
+          "unit_id": "C023",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An x509 certificate has expired error should be traced to the endpoint that presents the certificate. Inspect certificate dates and subject alternative names with openssl s_client. Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C016",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Run openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0102",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0103",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Record effective route and firewall policy version with the change ticket."
+      ],
+      "positives": [
+        {
+          "unit_id": "C012",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Record the effective route and firewall policy version with the change ticket."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0104",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Readiness removes endpoints without necessarily restarting; liveness failure can restart."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "a readiness failure can reduce availability without increasing restart count."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0105",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Security owns issuer policy; platform operates cert-manager."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The security team owns issuer policy; the platform team operates cert-manager."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0106",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Routes change packets, DNS zone links change name resolution; neither substitutes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C007",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A route change affects packets, while a DNS zone link affects name resolution; neither substitutes for the other."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0107",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Retain public certificate serials and change ticket IDs."
+      ],
+      "positives": [
+        {
+          "unit_id": "C018",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Certificate compliance records retain public certificate serials and change ticket IDs."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0108",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Authorization error occurs after network and TLS establishment."
+      ],
+      "positives": [
+        {
+          "unit_id": "C009",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An authorization error occurs after network and TLS establishment."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0109",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Replacement secret in namespace payments and referenced by ingress."
+      ],
+      "positives": [
+        {
+          "unit_id": "C017",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Confirm the replacement secret is in namespace payments and referenced by the ingress."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C013",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C004",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Secret payments-api-tls is created by cert-manager in namespace payments."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0110",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Autoscaler scales paynp between 3 and 12 nodes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The cluster autoscaler scales paynp between 3 and 12 nodes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0111",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Resolve ledger from debug pod, compare private endpoint address, inspect CoreDNS and TCP 443 controls, effective routes/NSG/firewall."
+      ],
+      "positives": [
+        {
+          "unit_id": "C022",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy. A DNS NXDOMAIN response differs from a TCP connection timeout: first repair name resolution, then test connectivity."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C010",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface. Route rt-payments-egress sends outbound traffic through fw-hub-prod-01. Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow. A DNS response alone is not evidence that TCP 443 is reachable."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C008",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "The name ledger.internal.example.test must resolve to 10.42.8.17 from payment pods. Link the private DNS zone to vnet-payments-prod and verify conditional forwarding from corporate DNS. A missing zone link can produce NXDOMAIN or an unexpected public address."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C005",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Inspect DNS and effective routes before restarting healthy pods."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C029",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C012",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "After a DNS change, verify resolution from a payment pod, a spoke VM and a VPN client."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0112",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Opening 443 does not repair SAN hostname mismatch."
+      ],
+      "positives": [
+        {
+          "unit_id": "C011",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A certificate name mismatch is not repaired by opening port 443."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C016",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "A name mismatch means the requested hostname is absent from the SAN list."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0113",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect previous logs and termination reason; OOMKilled/137 implies memory investigation; compare peak working set with limit."
+      ],
+      "positives": [
+        {
+          "unit_id": "C019",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Inspect kubectl logs --previous before deleting the pod, then inspect the last termination reason. An OOMKilled termination with exit code 137 indicates a memory limit investigation; compare peak working set against the container limit."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0114",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Repeated container exits cause Kubernetes restart delay."
+      ],
+      "positives": [
+        {
+          "unit_id": "C019",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "CrashLoopBackOff means a container repeatedly exits and Kubernetes delays its next restart."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0115",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Correlate restart counter with memory working set and OOMKilled; inspect last termination, exit 137 and limit."
+      ],
+      "positives": [
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C019",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Inspect kubectl logs --previous before deleting the pod, then inspect the last termination reason. An OOMKilled termination with exit code 137 indicates a memory limit investigation; compare peak working set against the container limit."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0116",
+      "answerability": "partially_answerable",
+      "expected_facts": [
+        "Overlapping address spaces prevent reliable peering; mechanism is not explained."
+      ],
+      "positives": [
+        {
+          "unit_id": "C007",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Overlapping address spaces prevent reliable peering."
+          ],
+          "rationale": "States the adverse effect of overlap but does not explain the routing/address ambiguity mechanism requested by why."
+        }
+      ],
+      "ambiguity": "The source states that overlap prevents reliable peering but supplies no causal explanation.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0117",
+      "answerability": "answerable",
+      "expected_facts": [
+        "VPN clients must use corporate DNS."
+      ],
+      "positives": [
+        {
+          "unit_id": "C009",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "VPN clients must use the corporate DNS resolver to access aks-payments-prod-01."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0118",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Confirm ready replicas, successful synthetic payments, fresh metrics and traces without ledger timeouts."
+      ],
+      "positives": [
+        {
+          "unit_id": "C030",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "After remediation, confirm ready replicas, successful synthetic payment checks, fresh metrics and traces without ledger timeout spans."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C028",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Check the newest sample timestamp."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "PaymentsReadyReplicasLow monitors available replicas; a readiness failure can reduce availability without increasing restart count."
+          ],
+          "rationale": "Provides the concrete availability signal associated with the requested ready-replica check; does not establish synthetic payment or telemetry recovery."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0119",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Missing intermediate certificate or untrusted corporate proxy CA can cause unknown authority."
+      ],
+      "positives": [
+        {
+          "unit_id": "C016",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0120",
+      "answerability": "answerable",
+      "expected_facts": [
+        "LedgerDependencyReachability checks DNS and TCP 443, not business transaction correctness."
+      ],
+      "positives": [
+        {
+          "unit_id": "C029",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C012",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Monitoring probe LedgerDependencyReachability confirms application connectivity but is not a substitute for checking private DNS records."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0121",
+      "answerability": "answerable",
+      "expected_facts": [
+        "pe-ledger-prod-01 is 10.42.8.17."
+      ],
+      "positives": [
+        {
+          "unit_id": "C008",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The ledger private endpoint pe-ledger-prod-01 has address 10.42.8.17."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0122",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0123",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Empty dashboard during scrape outage does not establish service health; verify target and sample freshness."
+      ],
+      "positives": [
+        {
+          "unit_id": "C028",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C025",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Dashboard access does not itself prove signal freshness."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0124",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect Prometheus targets page, ServiceMonitor label selector, policy permitting TCP 9090, newest timestamp."
+      ],
+      "positives": [
+        {
+          "unit_id": "C028",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0125",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Missing intermediate certificate or untrusted corporate proxy CA can cause unknown authority."
+      ],
+      "positives": [
+        {
+          "unit_id": "C016",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0126",
+      "answerability": "answerable",
+      "expected_facts": [
+        "More than five container restarts in ten minutes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "KubePodCrashLooping fires when a payment container restarts more than five times in ten minutes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0127",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0128",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Firewall allow-ledger-https and Kubernetes payments-egress permit ledger TCP 443."
+      ],
+      "positives": [
+        {
+          "unit_id": "C010",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Firewall application rule allow-ledger-https permits ledger.internal.example.test on TCP 443. An NSG flow denial and a firewall denial have different owners. Kubernetes network policy payments-egress must also permit the flow."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C005",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Network policy payments-egress permits TCP 443 to the ledger service."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0129",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0130",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Capture namespace, pod UID, node name, image digest, event timestamps and UTC incident window."
+      ],
+      "positives": [
+        {
+          "unit_id": "C024",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Capture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0131",
+      "answerability": "unanswerable",
+      "expected_facts": [
+        "No source unit supplies the requested information."
+      ],
+      "positives": [],
+      "ambiguity": "The requested system, policy, secret or procedure is not documented in the supplied sources.",
+      "requires_human_review": true
+    },
+    {
+      "question_id": "Q0132",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect Prometheus targets page, ServiceMonitor label selector, policy permitting TCP 9090, newest timestamp."
+      ],
+      "positives": [
+        {
+          "unit_id": "C028",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Inspect the Prometheus targets page, ServiceMonitor label selector and network policy allowing TCP 9090. Check the newest sample timestamp."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0133",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Renewal updates payments-api-tls and becomes visible at ingress."
+      ],
+      "positives": [
+        {
+          "unit_id": "C014",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A successful renewal must update payments-api-tls and become visible at ingress."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C017",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Confirm the replacement secret is in namespace payments and referenced by the ingress."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0134",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Do not silence MetricsScrapeMissing solely due to no red panels; check freshness."
+      ],
+      "positives": [
+        {
+          "unit_id": "C030",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Do not silence MetricsScrapeMissing solely because the payments dashboard has no red panels."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A green dashboard can hide a scrape outage, so check monitoring freshness before declaring recovery."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C028",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An empty dashboard may mean the Prometheus scrape target is down rather than the application being healthy. Alert MetricsScrapeMissing fires when payments targets have produced no samples for five minutes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0135",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Missing zone link can yield NXDOMAIN or an unexpected public address."
+      ],
+      "positives": [
+        {
+          "unit_id": "C008",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A missing zone link can produce NXDOMAIN or an unexpected public address."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0136",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Platform owns cluster upgrades; application teams own payments namespace workloads."
+      ],
+      "positives": [
+        {
+          "unit_id": "C001",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The platform team owns cluster upgrades; application teams own workloads in namespace payments."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0137",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Correlate restart counter with memory working set and OOMKilled; inspect last termination, exit 137 and limit."
+      ],
+      "positives": [
+        {
+          "unit_id": "C026",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Correlate kube_pod_container_status_restarts_total with container memory working set and OOMKilled events."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C019",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Inspect kubectl logs --previous before deleting the pod, then inspect the last termination reason. An OOMKilled termination with exit code 137 indicates a memory limit investigation; compare peak working set against the container limit."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C024",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Correlate restarts with KubePodCrashLooping and memory metrics on payments-prod-overview."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0138",
+      "answerability": "answerable",
+      "expected_facts": [
+        "90 day certificate, renewBefore 30 days."
+      ],
+      "positives": [
+        {
+          "unit_id": "C014",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "payments-api-cert requests a 90 day certificate and sets renewBefore to 30 days."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0139",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Azure Load Balancer checks node-facing endpoint; Kubernetes readiness is a separate hop."
+      ],
+      "positives": [
+        {
+          "unit_id": "C004",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Azure Load Balancer health probes and Kubernetes readiness probes test different network hops."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C011",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Azure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0140",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Cluster DNS success does not prove VPN resolution of private AKS API."
+      ],
+      "positives": [
+        {
+          "unit_id": "C022",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C009",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0141",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Record image digest and recent configuration changes."
+      ],
+      "positives": [
+        {
+          "unit_id": "C019",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Record the image digest and recent configuration changes."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0142",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Each replica requests 500m CPU and 768Mi memory."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The payments API requests 500m CPU and 768Mi memory per replica."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0143",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Azure Load Balancer checks node-facing endpoint; Kubernetes readiness is a separate hop."
+      ],
+      "positives": [
+        {
+          "unit_id": "C004",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Azure Load Balancer health probes and Kubernetes readiness probes test different network hops."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C011",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Azure Load Balancer probes validate the configured node-facing probe endpoint. Ingress readiness and application readiness are separate checks."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0144",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Trace endpoint presenting expired certificate; inspect dates and SAN via openssl; distinguish ingress, API and proxy."
+      ],
+      "positives": [
+        {
+          "unit_id": "C023",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An x509 certificate has expired error should be traced to the endpoint that presents the certificate. Inspect certificate dates and subject alternative names with openssl s_client. Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C016",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "Run openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0145",
+      "answerability": "answerable",
+      "expected_facts": [
+        "sysnp runs cluster services; paynp runs payment workloads."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "System pool sysnp runs cluster services; user pool paynp runs payment workloads."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0146",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Pending pod has not started a container, so logs may be absent."
+      ],
+      "positives": [
+        {
+          "unit_id": "C020",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A Pending pod has not started a container, so application log absence is expected."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0147",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Readiness uses /ready on port 8080."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The payments readiness path is /ready on port 8080."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C011",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "the payments /ready probe"
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For HTTP 503 compare service EndpointSlice membership and /ready failures before attributing the incident to certificates."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C004",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "A ClusterIP service forwards traffic to ready pods on port 8080."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0148",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Readiness removes endpoints without necessarily restarting; liveness failure can restart."
+      ],
+      "positives": [
+        {
+          "unit_id": "C021",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A failing readiness probe removes the pod from service endpoints without necessarily restarting its container. A liveness probe failure can restart it."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C026",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "a readiness failure can reduce availability without increasing restart count."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0149",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Record certificate serial number and notAfter before and after recovery; never copy tls.key."
+      ],
+      "positives": [
+        {
+          "unit_id": "C017",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Record certificate serial number and notAfter before and after recovery, but never copy tls.key."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C016",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "verify the leaf certificate dates, issuer chain and subject alternative name."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0150",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Public ACME DNS-01 needs public TXT challenge; private ledger record does not satisfy it."
+      ],
+      "positives": [
+        {
+          "unit_id": "C015",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0151",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Inspect CertificateRequest, Order and Challenge."
+      ],
+      "positives": [
+        {
+          "unit_id": "C015",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C023",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For certificate Ready=False, consult cert-manager events and the ACME challenge status rather than repeatedly restarting ingress-nginx."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0152",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Capture namespace, pod UID, node name, image digest, event timestamps and UTC incident window."
+      ],
+      "positives": [
+        {
+          "unit_id": "C024",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Capture namespace, pod UID, node name, image digest, event timestamps and the UTC incident window."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0153",
+      "answerability": "answerable",
+      "expected_facts": [
+        "ClusterIssuer letsencrypt-prod uses ACME DNS-01."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C015",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0154",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Application manifests can roll back independently of cluster version."
+      ],
+      "positives": [
+        {
+          "unit_id": "C003",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Roll back application manifests independently of the cluster version."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0155",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Preserve kubectl get events and node pool operation ID."
+      ],
+      "positives": [
+        {
+          "unit_id": "C006",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For a failed upgrade, preserve kubectl get events output and record the node pool operation ID."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0156",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Normal CPU with latency can indicate upstream waiting; examine duration histogram and ledger client spans, DNS/TCP 443 probe."
+      ],
+      "positives": [
+        {
+          "unit_id": "C029",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo. A high request latency with normal CPU can indicate waiting on an upstream dependency. LedgerDependencyReachability probes DNS and TCP 443 but does not confirm business transaction correctness."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C022",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "For an upstream timeout, resolve ledger.internal.example.test from a debug pod and compare the returned private address with pe-ledger-prod-01. Check CoreDNS logs and outbound TCP 443 policy."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C010",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "For ledger connection timeouts, inspect effective routes and effective NSG rules on the source interface."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0157",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Do not delete the system pool to repair application routing."
+      ],
+      "positives": [
+        {
+          "unit_id": "C006",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Do not delete the system pool to repair application routing."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0158",
+      "answerability": "answerable",
+      "expected_facts": [
+        "payments_http_request_duration_seconds histogram buckets; ledger client spans in Tempo."
+      ],
+      "positives": [
+        {
+          "unit_id": "C029",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Use the histogram buckets for payments_http_request_duration_seconds and inspect ledger client spans in Tempo."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0159",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Ingress TLS secret/certificate is distinct from AKS API server certificate; control-plane rotation is separate."
+      ],
+      "positives": [
+        {
+          "unit_id": "C023",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Do not confuse ingress secret payments-api-tls with the AKS API server certificate or the corporate proxy CA."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C018",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "CertificateExpirySoon monitors served ingress certificates; AKS control-plane certificate rotation is a separate platform concern."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C013",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments.",
+            "This runbook does not manage the AKS API server certificate."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        },
+        {
+          "unit_id": "C004",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "The public endpoint api.payments.example.test terminates TLS at ingress-nginx. Secret payments-api-tls is created by cert-manager in namespace payments."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0160",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Repeated container exits cause Kubernetes restart delay."
+      ],
+      "positives": [
+        {
+          "unit_id": "C019",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "CrashLoopBackOff means a container repeatedly exits and Kubernetes delays its next restart."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0161",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Controller may not have reloaded secret."
+      ],
+      "positives": [
+        {
+          "unit_id": "C014",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "An old ingress certificate after a successful renewal may indicate that the controller did not reload the secret."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0162",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Corporate VPN and platform-reader Azure role required."
+      ],
+      "positives": [
+        {
+          "unit_id": "C001",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Access requires the corporate VPN and the platform-reader Azure role."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C009",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "VPN clients must use the corporate DNS resolver to access aks-payments-prod-01."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0163",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Preserve kubectl get events and node pool operation ID."
+      ],
+      "positives": [
+        {
+          "unit_id": "C006",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "For a failed upgrade, preserve kubectl get events output and record the node pool operation ID."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0164",
+      "answerability": "answerable",
+      "expected_facts": [
+        "sysnp runs cluster services; paynp runs payment workloads."
+      ],
+      "positives": [
+        {
+          "unit_id": "C002",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "System pool sysnp runs cluster services; user pool paynp runs payment workloads."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0165",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Cluster DNS success does not prove VPN resolution of private AKS API."
+      ],
+      "positives": [
+        {
+          "unit_id": "C022",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Cluster DNS success does not prove that the corporate VPN can resolve the AKS private API hostname."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C009",
+          "grade": 2,
+          "coverage": "partial",
+          "evidence": [
+            "If the API name resolves on a VM in the spoke but not over VPN, inspect conditional forwarding and VPN DNS settings before changing Kubernetes RBAC."
+          ],
+          "rationale": "Explicitly establishes a substantial component; the remaining requested facts are not established here."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0166",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Never paste private keys / tls.key into incident tickets."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Keep private keys in Kubernetes secrets and never paste them into incident tickets."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C017",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Record certificate serial number and notAfter before and after recovery, but never copy tls.key."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0167",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Secret payments-api-tls is in namespace payments and managed/created by cert-manager."
+      ],
+      "positives": [
+        {
+          "unit_id": "C013",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C004",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Secret payments-api-tls is created by cert-manager in namespace payments."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C017",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Confirm the replacement secret is in namespace payments and referenced by the ingress."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0168",
+      "answerability": "answerable",
+      "expected_facts": [
+        "TCP timeout precedes certificate verification; investigate connectivity first."
+      ],
+      "positives": [
+        {
+          "unit_id": "C016",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "A TCP timeout occurs before certificate verification and should be investigated as connectivity first."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C027",
+          "grade": 1,
+          "coverage": "supporting",
+          "evidence": [
+            "Do not interpret a private endpoint timeout as a certificate expiry measurement."
+          ],
+          "rationale": "Provides a specific useful supporting fact, but does not establish the complete requested answer."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0169",
+      "answerability": "answerable",
+      "expected_facts": [
+        "Application manifests can roll back independently of cluster version."
+      ],
+      "positives": [
+        {
+          "unit_id": "C003",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Roll back application manifests independently of the cluster version."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0170",
+      "answerability": "answerable",
+      "expected_facts": [
+        "PDB payments-api-pdb must allow at least one unavailable replica."
+      ],
+      "positives": [
+        {
+          "unit_id": "C003",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Before an AKS upgrade, confirm that PodDisruptionBudget payments-api-pdb allows at least one unavailable replica."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    },
+    {
+      "question_id": "Q0171",
+      "answerability": "answerable",
+      "expected_facts": [
+        "rt-payments-egress routes worker egress to fw-hub-prod-01."
+      ],
+      "positives": [
+        {
+          "unit_id": "C005",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The approved outbound path uses user-defined route rt-payments-egress to Azure Firewall fw-hub-prod-01."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C007",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "The hub firewall fw-hub-prod-01 is reached through route table rt-payments-egress."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        },
+        {
+          "unit_id": "C010",
+          "grade": 3,
+          "coverage": "full",
+          "evidence": [
+            "Route rt-payments-egress sends outbound traffic through fw-hub-prod-01."
+          ],
+          "rationale": "Explicitly establishes all requested facts."
+        }
+      ],
+      "ambiguity": null,
+      "requires_human_review": false
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "audit_date": "2026-10-25",
+  "question_count": 171,
+  "unit_count": 30,
+  "documents": 5,
+  "source_sha256": {
+    "aks-platform.txt": "a06e688b18f1c6d6dc08f23f4279893f68228b8a3933ac561d232bc6bf1855a7",
+    "azure-networking.txt": "614ec2284c20db672d97a016e011ef78b9049c97f6f3693e84dc5d52b3bf252a",
+    "certificate-management.txt": "ba3028a792dd72672646c8280af8d606600b9dca676236a8eb71e0952db5e34b",
+    "kubernetes-troubleshooting.txt": "45bfd1a824656989b16a4dd531e686211667bfd53a4decb31e8b7a51d461729c",
+    "observability.txt": "6fe35193a18f1176287654df48fd0fcfc903cf163cc60486f69998a852502ae0"
+  },
+  "original_label_sha256": {
+    "tuning.json": "12fa00022db1d59e7887b3e94b7e234083f5d67fc5a21c0b28982b8fdf2b3f23",
+    "heldout.json": "ada207d28690723a255327ca913c1617fbcf87851f5f872f760fb1549a18aa31",
+    "heldout-v2.json": "1082a256fff9515cb678366bd22f5d7945196ddb800bbd78de011abc87c79154",
+    "heldout-v3.json": "ccec724963682b05d034e46c9caec1d9d502b539abcefaa18acb0b9c9f9dbdeb",
+    "heldout-v4.json": "0cb489572981ebe32fffba65e2a893924be75e4650439796eab9010ef4c233a8"
+  },
+  "input_sha256": {
+    "questions.json": "011a258073c1274be487e237d4970c9ba5e406491e7e051de256c198e4c3e4aa",
+    "units.json": "b7ae750cf0663da897c5d80d603235623ef94a4a3092c1c289339add89ae6e8d"
+  },
+  "blindness": "Only source text and query text; no existing annotations, ranks, scores, targets or experiment results in inputs."
+}

@@ -1,0 +1,27 @@
+# Certificate lifecycle and ACME RB-PKI-006
+
+Owner: Platform Engineering | Dataset: stage-1.1-v1 | Status: synthetic training fixture
+
+## Ownership and storage
+
+cert-manager manages ingress certificate payments-api-cert and secret payments-api-tls in namespace payments. The certificate covers api.payments.example.test as a subject alternative name. ClusterIssuer letsencrypt-prod uses ACME DNS-01 validation. The security team owns issuer policy; the platform team operates cert-manager. Keep private keys in Kubernetes secrets and never paste them into incident tickets. This runbook does not manage the AKS API server certificate.
+
+## Renewal policy
+
+payments-api-cert requests a 90 day certificate and sets renewBefore to 30 days. Inspect Certificate status.renewalTime and the notAfter date of the actual served certificate. A successful renewal must update payments-api-tls and become visible at ingress. Alert CertificateExpirySoon fires when fewer than 14 days remain. An old ingress certificate after a successful renewal may indicate that the controller did not reload the secret.
+
+## DNS-01 failure
+
+For Certificate Ready=False, inspect the CertificateRequest, Order and Challenge resources. A DNS-01 challenge requires a public TXT record under _acme-challenge.api.payments.example.test. An internal private DNS record for ledger.internal.example.test does not satisfy public ACME validation. Check the cert-manager managed identity permission to modify the public DNS zone and inspect propagation before retrying. Do not replace DNS-01 with HTTP-01 without a reviewed policy change.
+
+## TLS verification
+
+Run openssl s_client with server name api.payments.example.test and verify the leaf certificate dates, issuer chain and subject alternative name. A name mismatch means the requested hostname is absent from the SAN list. An unknown authority can mean a missing intermediate certificate or an untrusted corporate proxy CA. A TCP timeout occurs before certificate verification and should be investigated as connectivity first.
+
+## Incident renewal procedure
+
+If the ingress certificate is expired, verify the issuer and challenge status before requesting a renewal. Confirm the replacement secret is in namespace payments and referenced by the ingress. Record certificate serial number and notAfter before and after recovery, but never copy tls.key. Restarting payment pods does not fix a failing ACME DNS challenge. Use runbook RB-PKI-006 and notify the certificate owner.
+
+## Monitoring and scope
+
+CertificateExpirySoon monitors served ingress certificates; AKS control-plane certificate rotation is a separate platform concern. The certificate dashboard is linked from payments-prod-overview. Check metric freshness when an alert unexpectedly clears. Certificate expiry, private endpoint DNS failure and readiness failures can all appear as payment availability incidents, but require different evidence and owners. Certificate compliance records retain public certificate serials and change ticket IDs.

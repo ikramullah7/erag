@@ -1,0 +1,23 @@
+# PostgreSQL payments recovery RB-DB-031
+
+Owner: Database Reliability | Dataset: stage-1.2-v1 | Status: synthetic training fixture
+
+## Production backup policy
+
+Production database pg-payments-prod uses a configured backup retention period of 35 days. The production recovery point objective is 5 minutes and the recovery time objective is 60 minutes. These objectives are targets, not evidence that a particular restore succeeded. Database Reliability owns backup policy and approves production restores. Payment data is not stored in Redis as its system of record.
+
+## Restore isolation and verification
+
+Restore pg-payments-prod into isolated server pg-payments-restore-check; never overwrite the production server during a drill. Use private DNS zone privatelink.postgres.database.azure.com for the restore server. This PostgreSQL zone is distinct from the AKS private API zone privatelink.eastus.azmk8s.io. A successful name lookup does not prove transaction recovery. Validate the newest committed payment timestamp and reconcile payment totals before accepting the restore.
+
+## Drill evidence
+
+A recovery drill must record backup timestamp, selected recovery timestamp, restore start and finish times, and reconciled payment totals. The runbook does not contain the last successful backup time or the outcome of the latest recovery drill. A configured 35-day retention period does not establish the age of an available recovery point. Observe restored application readiness separately from database consistency.
+
+## Archived staging policy
+
+An archived staging drill used pg-payments-stage with 7-day retention and a 30-minute recovery target. These staging values are historical and do not replace the current production 35-day retention and 60-minute recovery time objective. Do not use an archived staging policy to approve a production restore.
+
+## Restore authorization
+
+Database passwords are held in an approved secret store; no password value is documented here. The application team performs payment consistency checks, while Database Reliability authorizes restoration. Escalate private DNS failures to the Azure networking team. Restored database readiness is not proof that the ingress certificate or external ledger connection is healthy.

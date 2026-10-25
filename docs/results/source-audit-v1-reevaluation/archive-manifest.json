@@ -1,0 +1,26 @@
+{
+  "weighted-hybrid.json.gz": {
+    "raw_sha256": "8ff3df71b4564888333f28ea954bed0378ecc919b14d1c2206a996b5e6b17720",
+    "compressed_sha256": "f7e0dc7f70cd5f9dd03eb8b2f12703dcefbfd4eee85cd233a92c9bb459f375f2"
+  },
+  "bge-windows.json.gz": {
+    "raw_sha256": "d215457278ae62cfd9ace2f09068fc137b180eca1faf2515d22b1d51ee74d155",
+    "compressed_sha256": "73d55a4c5c8a734fcc9b72e5703d2d8db835a595778fa6fb1a2a7f47b4e45670"
+  },
+  "original-bm25.json.gz": {
+    "raw_sha256": "f6f88d31dd8388b9665374953d2a96fd45db4d754d7e1f26318fb2a0df5a5396",
+    "compressed_sha256": "35d48df3977bb22696e4d9bee8702eb3209f65f20c66c63facbe6c93896197dc"
+  },
+  "original-hybrid.json.gz": {
+    "raw_sha256": "fb6a4afd17248ea511fc5c6444aae7c9e494795ca4f82745e314e2d28f57460e",
+    "compressed_sha256": "1d4f68052b14ce8ef711026f7a79637222c405d816797f772e0f0613f694678d"
+  },
+  "bge-full-context.json.gz": {
+    "raw_sha256": "f6c4be24c55df85763823c40638a6ec298943343120bd98e0c5ee93b03ddcfd0",
+    "compressed_sha256": "4011e109064a75941c8cfa0245f1c4355cd71d460c378a9e4c27867553d7f170"
+  },
+  "bge-rank-fusion.json.gz": {
+    "raw_sha256": "b977242a517074ce1dc4986842fd96d11fd4040039211b442a1ac9e9738f1ffe",
+    "compressed_sha256": "5dde3ba1d4f6efff82da332d1349b2b7a43f8567274d387b9fa6e87e3add26ed"
+  }
+}

@@ -1,0 +1,11 @@
+model: qwen3:8b
+model_digest: 500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41
+base_url: http://127.0.0.1:11434
+retrieval_config: config/answer-retrieval.yaml
+context_chunks: 6
+context_max_chars: 16000
+num_ctx: 16384
+num_predict: 3072
+timeout_seconds: 180
+temperature: 0
+seed: 0
