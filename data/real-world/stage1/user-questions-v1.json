@@ -1,0 +1,85 @@
+{
+  "author": "User supplied in conversation; human authorship not independently verified",
+  "questions": [
+    {
+      "id": "q01",
+      "query": "What happens to running applications if a Kubernetes Deployment is deleted?"
+    },
+    {
+      "id": "q02",
+      "query": "How does Kubernetes handle a failed application pod in a Deployment?"
+    },
+    {
+      "id": "q03",
+      "query": "Can I roll back a Deployment after a bad application update?"
+    },
+    {
+      "id": "q04",
+      "query": "How can I update my application without causing downtime?"
+    },
+    {
+      "id": "q05",
+      "query": "When should I use a StatefulSet instead of a Deployment?"
+    },
+    {
+      "id": "q06",
+      "query": "If a StatefulSet pod crashes, will it keep the same identity?"
+    },
+    {
+      "id": "q07",
+      "query": "Does each StatefulSet pod get its own persistent storage?"
+    },
+    {
+      "id": "q08",
+      "query": "Can StatefulSet pods be scaled down in any order?"
+    },
+    {
+      "id": "q09",
+      "query": "How can I run a monitoring agent on every Kubernetes node?"
+    },
+    {
+      "id": "q10",
+      "query": "What happens when I add another node to a cluster that uses a DaemonSet?"
+    },
+    {
+      "id": "q11",
+      "query": "How can I stop a DaemonSet from running on certain nodes?"
+    },
+    {
+      "id": "q12",
+      "query": "What happens to DaemonSet pods when their nodes become unavailable?"
+    },
+    {
+      "id": "q13",
+      "query": "How do Kubernetes Services find the correct application pods?"
+    },
+    {
+      "id": "q14",
+      "query": "What's the difference between ClusterIP, NodePort and LoadBalancer?"
+    },
+    {
+      "id": "q15",
+      "query": "If a pod's IP address changes, will its Service still work?"
+    },
+    {
+      "id": "q16",
+      "query": "Can a Kubernetes Service route traffic to pods in another namespace?"
+    },
+    {
+      "id": "q17",
+      "query": "What's the difference between an Ingress and a LoadBalancer Service?"
+    },
+    {
+      "id": "q18",
+      "query": "Can one Ingress expose multiple applications using different URL paths?"
+    },
+    {
+      "id": "q19",
+      "query": "Does creating an Ingress automatically make my application accessible?"
+    },
+    {
+      "id": "q20",
+      "query": "What should I check if my Ingress returns a 404 error?"
+    }
+  ]
+}

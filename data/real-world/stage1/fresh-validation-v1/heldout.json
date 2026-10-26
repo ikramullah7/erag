@@ -1,0 +1,431 @@
+[
+  {
+    "id": "fresh-q01",
+    "query": "Topic: Deployments\nQuestion: Why might a Deployment show all replicas as desired but fewer replicas as available?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": "DESIRED displays the desired number of replicas of the application, which you define ",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": ".spec.minReadySeconds is an optional field that specifies the minimum number of secon",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-1-deployment": 2
+    }
+  },
+  {
+    "id": "fresh-q02",
+    "query": "Topic: Deployments\nQuestion: What happens if a Deployment's readiness probes keep failing during an update?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": "Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever com",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": "Readiness probe failures",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": ".spec.progressDeadlineSeconds denotes the number of seconds the Deployment controller",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": "Kubernetes takes no action on a stalled Deployment other than to report a status cond",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-1-deployment": 2
+    }
+  },
+  {
+    "id": "fresh-q03",
+    "query": "Topic: Deployments\nQuestion: How can I pause an application rollout while investigating an issue?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": "kubectl rollout pause deployment/nginx-deployment",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": ".spec.paused is an optional boolean field for pausing and resuming a Deployment.",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-1-deployment": 2
+    }
+  },
+  {
+    "id": "fresh-q04",
+    "query": "Topic: Deployments\nQuestion: What is the difference between changing a Deployment's replica count and changing its pod template?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": "A Deployment's rollout is triggered if and only if the Deployment's Pod template (tha",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-1-deployment",
+        "text": "Other updates, such as scaling the Deployment, do not trigger a rollout.",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-1-deployment": 2
+    }
+  },
+  {
+    "id": "fresh-q05",
+    "query": "Topic: StatefulSets\nQuestion: Why might a StatefulSet be unable to start its second replica?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "OrderedReady pod management is the default for StatefulSets.",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "Before a scaling operation is applied to a Pod, all of its predecessors must be Runni",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-2-statefulset": 2
+    }
+  },
+  {
+    "id": "fresh-q06",
+    "query": "Topic: StatefulSets\nQuestion: What happens to a StatefulSet's persistent volume claims when the StatefulSet is deleted?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "Retain (default): PVCs from the volumeClaimTemplate are not affected when their Pod i",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "With the whenDeleted policy all PVCs from the volumeClaimTemplate are deleted after t",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-2-statefulset": 2
+    }
+  },
+  {
+    "id": "fresh-q07",
+    "query": "Topic: StatefulSets\nQuestion: Why would a database application need stable network identities for individual pods?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "This is useful for managing applications that need persistent storage or a stable, un",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "The identity sticks to the Pod, regardless of which node it's (re)scheduled on.",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "A StatefulSet can use a Headless Service to control the domain of its Pods.",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-2-statefulset": 2
+    }
+  },
+  {
+    "id": "fresh-q08",
+    "query": "Topic: StatefulSets\nQuestion: What is the practical difference between OrderedReady and Parallel pod management?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "OrderedReady pod management is the default for StatefulSets.",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "Before a scaling operation is applied to a Pod, all of its predecessors must be Runni",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-2-statefulset",
+        "text": "Parallel pod management tells the StatefulSet controller to launch or terminate all P",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-2-statefulset": 2
+    }
+  },
+  {
+    "id": "fresh-q09",
+    "query": "Topic: DaemonSets\nQuestion: Why might a DaemonSet have fewer ready pods than the number of nodes in the cluster?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-3-daemonset",
+        "text": "If you specify a .spec.template.spec.nodeSelector, then the DaemonSet controller will",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-3-daemonset": 2
+    }
+  },
+  {
+    "id": "fresh-q10",
+    "query": "Topic: DaemonSets\nQuestion: What happens if I change the container image in a DaemonSet?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-3-daemonset",
+        "text": "If any Pods need replacing the DaemonSet replaces them according to its updateStrateg",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-3-daemonset",
+        "text": "You can perform a rolling update on a DaemonSet.",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-3-daemonset": 2
+    }
+  },
+  {
+    "id": "fresh-q11",
+    "query": "Topic: DaemonSets\nQuestion: Can a DaemonSet run multiple pods on the same node?\nScope: Normal steady-state behavior of one DaemonSet",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-3-daemonset",
+        "text": "The DaemonSet controller creates a Pod for each eligible node",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-3-daemonset": 2
+    }
+  },
+  {
+    "id": "fresh-q12",
+    "query": "Topic: DaemonSets\nQuestion: How do node selectors and tolerations affect DaemonSet scheduling?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-3-daemonset",
+        "text": "If you specify a .spec.template.spec.nodeSelector, then the DaemonSet controller will",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-3-daemonset",
+        "text": "The DaemonSet controller automatically adds a set of tolerations to DaemonSet Pods:",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-3-daemonset",
+        "text": "You can add your own tolerations to the Pods of a DaemonSet as well, by defining thes",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-3-daemonset": 2
+    }
+  },
+  {
+    "id": "fresh-q13",
+    "query": "Topic: Services\nQuestion: Why might a Kubernetes Service exist but have no ready endpoints?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-4-service",
+        "text": "The set of Pods targeted by a Service is usually determined by a selector that you de",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-4-service",
+        "text": "Because this Service has no selector, the corresponding EndpointSlice objects are not",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-4-service": 2
+    }
+  },
+  {
+    "id": "fresh-q14",
+    "query": "Topic: Services\nQuestion: What happens if a Service's targetPort doesn't match the port used by the application?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-4-service",
+        "text": "A Service can map any incoming port to a targetPort.",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-4-service",
+        "text": "Port definitions in Pods have names, and you can reference these names in the targetP",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-4-service": 2
+    }
+  },
+  {
+    "id": "fresh-q15",
+    "query": "Topic: Services\nQuestion: How does a headless Service differ from a normal ClusterIP Service?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-4-service",
+        "text": "For headless Services, a cluster IP is not allocated, kube-proxy does not handle thes",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-4-service",
+        "text": "A headless Service allows a client to connect to whichever Pod it prefers, directly.",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-4-service": 2
+    }
+  },
+  {
+    "id": "fresh-q16",
+    "query": "Topic: Services\nQuestion: Can a Service continue routing traffic while its backing pods are being replaced?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-4-service",
+        "text": "While the actual Pods that compose the backend set may change, the frontend clients s",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-4-service",
+        "text": "Kubernetes updates the EndpointSlices for a Service whenever the set of Pods in a Ser",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-4-service": 2
+    }
+  },
+  {
+    "id": "fresh-q17",
+    "query": "Topic: Ingress\nQuestion: Why might an Ingress route traffic to the wrong backend application?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-5-ingress",
+        "text": "Both the host and path must match the content of an incoming request before the load ",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-5-ingress",
+        "text": "A backend is a combination of Service and port names as described in the Service doc",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-5-ingress": 2
+    }
+  },
+  {
+    "id": "fresh-q18",
+    "query": "Topic: Ingress\nQuestion: What is the difference between TLS termination at an Ingress controller and TLS inside application pods?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-5-ingress",
+        "text": "assumes TLS termination at the ingress point (traffic to the Service and its Pods is ",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-5-ingress": 2
+    }
+  },
+  {
+    "id": "fresh-q19",
+    "query": "Topic: Ingress\nQuestion: How does an Ingress controller decide which rule to apply when multiple paths match?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-5-ingress",
+        "text": "precedence will be given first to the longest matching path.",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-5-ingress",
+        "text": "If two paths are still equally matched, precedence will be given to paths with an exa",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-5-ingress": 2
+    }
+  },
+  {
+    "id": "fresh-q20",
+    "query": "Topic: Ingress\nQuestion: Why might an Ingress work inside the cluster but fail for users outside it?",
+    "category": "fresh-user-supplied",
+    "evidence": [
+      {
+        "document_id": "kubernetes-5-ingress",
+        "text": "You must have an Ingress controller to satisfy an Ingress. Only creating an Ingress r",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-5-ingress",
+        "text": "The Ingress controller provisions an implementation-specific load balancer that satis",
+        "grade": 2
+      },
+      {
+        "document_id": "kubernetes-5-ingress",
+        "text": "Both the host and path must match the content of an incoming request before the load ",
+        "grade": 2
+      }
+    ],
+    "relevant_documents": {
+      "kubernetes-5-ingress": 2
+    }
+  },
+  {
+    "id": "reused-control-01",
+    "query": "What is the actual external IP address of the LoadBalancer Service currently running in my cluster?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  },
+  {
+    "id": "reused-control-02",
+    "query": "Which Ingress controller is currently installed in my cluster?",
+    "category": "no-answer",
+    "evidence": [],
+    "relevant_documents": {}
+  }
+]

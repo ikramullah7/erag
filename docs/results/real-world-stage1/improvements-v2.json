@@ -1,0 +1,200 @@
+{
+  "status": "implemented_and_measured; answer expected-fact gate passes; ranking targets fail; no stage expansion or production acceptance",
+  "scope": {
+    "documents": 5,
+    "chunks": 292,
+    "user_questions": 20,
+    "agent_authored_unsupported_controls": 2,
+    "fresh_heldout": false
+  },
+  "active_profiles": {
+    "retrieval": "config/real-stage1-v2.yaml",
+    "answer": "config/answer-real-stage1-v2.yaml"
+  },
+  "provider_switch": {
+    "field": "provider",
+    "default": "ollama",
+    "local_model": "qwen3:14b",
+    "alternative": "codex",
+    "codex_model_override": "codex_model; null uses CLI default",
+    "no_automatic_provider_fallback": true,
+    "live_codex_dummy_smoke_passed": true,
+    "document_content_sent_to_codex": false,
+    "codex_smoke_model_identity": "codex-cli:default@codex-cli 0.164.0-alpha.11.1",
+    "codex_real_question_accuracy": "not benchmarked"
+  },
+  "fixes": [
+    "Balanced fusion and separate branch/candidate budgets remove vector-candidate starvation.",
+    "Document/heading-aware retrieval representations use an isolated versioned index.",
+    "Exact neighboring context retains definitions and conditions.",
+    "Answer catalog inherits original-document fence state; a closing fence cannot hide following prose.",
+    "Long table rows and adjacent explanatory paragraphs retain their conditions.",
+    "Source-fact ID selection binds claim text and citations programmatically; no rewritten definitions or generated quote spelling.",
+    "Bounded additive coverage review preserves valid primary facts and adds missing alternatives; same pinned local model.",
+    "Explicit provider factory and Codex CLI transport; isolated ephemeral/read-only process, shell/apps/search disabled, tool events rejected."
+  ],
+  "ranking": [
+    {
+      "metric": "hit@1",
+      "target": 0.95,
+      "result": 0.45,
+      "passed": false,
+      "baseline": 0.25
+    },
+    {
+      "metric": "hit@3",
+      "target": 0.98,
+      "result": 0.7,
+      "passed": false,
+      "baseline": 0.55
+    },
+    {
+      "metric": "recall@5",
+      "target": 0.95,
+      "result": 0.65,
+      "passed": false,
+      "baseline": 0.475
+    },
+    {
+      "metric": "mrr",
+      "target": 0.95,
+      "result": 0.5996794871794872,
+      "passed": false,
+      "baseline": 0.4232954545454545
+    },
+    {
+      "metric": "ndcg@10",
+      "target": 0.95,
+      "result": 0.6200096110622432,
+      "passed": false,
+      "baseline": 0.44634552288329
+    }
+  ],
+  "ranking_document": {
+    "mrr": 0.975,
+    "hit@1": 0.95,
+    "hit@3": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "ndcg@5": 0.9815464876785729
+  },
+  "ranking_gate": {
+    "passed": false,
+    "checks": {
+      "document_recall@3": true,
+      "document_mrr": true,
+      "document_ndcg@5": true,
+      "chunk_hit@1": false,
+      "chunk_hit@3": false,
+      "chunk_recall@5": false,
+      "chunk_mrr": false,
+      "chunk_ndcg@10": false,
+      "latency": false
+    }
+  },
+  "answer_expected_fact_checks": {
+    "cases": 22,
+    "known_fact_cases_passed": 20,
+    "known_fact_cases": 20,
+    "known_fact_case_rate": 1.0,
+    "correct_abstentions": 2,
+    "unsupported_cases": 2,
+    "abstention_rate": 1.0,
+    "valid_responses": 22,
+    "invalid_responses": 0,
+    "provider_errors": 0,
+    "unsupported_answers": 0,
+    "citation_provenance_rate": 1.0,
+    "generation_ms_p50": 47058.977479013265,
+    "generation_ms_p95": 111832.20903301261,
+    "failed_cases": []
+  },
+  "answer_expected_fact_gate": true,
+  "reviewed_answer_comparison": {
+    "faithfulness": {
+      "baseline": 0.9347826086956522,
+      "result": 1.0
+    },
+    "answer_correctness": {
+      "baseline": 0.5203703703703704,
+      "result": 0.95
+    },
+    "citation_accuracy": {
+      "baseline": 0.7727272727272727,
+      "result": 1.0
+    },
+    "abstention_accuracy": {
+      "baseline": 0.7727272727272727,
+      "result": 1.0
+    }
+  },
+  "reviewed_answer_summary": {
+    "faithfulness": 1.0,
+    "faithfulness_counts": {
+      "supported": 443,
+      "total": 443
+    },
+    "answer_correctness": 0.95,
+    "citation_accuracy": 1.0,
+    "citation_accuracy_counts": {
+      "supported": 113,
+      "total": 113
+    },
+    "abstention_accuracy": 1.0,
+    "unsupported_abstention_recall": 1.0,
+    "false_abstentions": 0,
+    "judge_errors": [],
+    "semantic_scoring_complete": true
+  },
+  "review_provenance": "Provisional primary-agent source/requirement review; not independently human-adjudicated.",
+  "review_method_caveat": "The new mode is extractive. Faithfulness and citation support benefit from exact source-fact copying; not a free-form generation capability comparison. Sentence/bullet assertion granularity differs from earlier paraphrase decomposition.",
+  "known_semantic_miss": {
+    "id": "q13",
+    "finding": "Mentions selector but does not explicitly explain matching Pod labels; strict frozen-reference recall scored zero, despite loose expected-fact pattern pass."
+  },
+  "latency": {
+    "generation_median_seconds": 47.058977479013265,
+    "generation_p95_seconds": 111.8322090330126,
+    "scope": "Fresh primary+coverage inference; retrieval diagnostics cached from actual ranking evaluation. These model times exclude retrieval/fact-reranking CPU time; not fresh full-pipeline latency."
+  },
+  "verification": {
+    "software_tests": {
+      "passed": 215,
+      "skipped": 2,
+      "failed": 0
+    },
+    "ruff": "passed",
+    "format": "passed",
+    "whitespace": "passed",
+    "local_cli_cross_namespace_smoke": "passed with real index and local14B",
+    "codex_transport_smoke": "passed with dummy JSON only",
+    "baseline_hashes_unchanged": true,
+    "canonical_corpus_and_chunk_hashes_unchanged": true,
+    "synthetic_indexes_validated": [
+      30,
+      52,
+      82
+    ]
+  },
+  "limitations": [
+    "Original chunk labels are selected evidence spans, not an exhaustive relevance pool.",
+    "Observed questions were used for development; a new held-out set and human scope/label adjudication remain necessary.",
+    "Answers are verbatim excerpts, can be verbose, and may include unrelated source background.",
+    "The semantic review still carries the original q02/q04/q15/q20 scope caveats.",
+    "No ten-document expansion approved or performed."
+  ],
+  "artifacts": {
+    "ranking": "artifacts/real-world/stage1/run-002/heldout.json",
+    "answers": "artifacts/real-world/stage1/answers-v2-grounded-final/answers.json",
+    "agent_annotations": "artifacts/real-world/stage1/answers-v2-grounded-final/agent-reviewed-v2.json",
+    "reviewed_metrics": "artifacts/real-world/stage1/answers-v2-grounded-final/reviewed-metrics.json",
+    "local_cli_smoke": "artifacts/real-world/stage1/v2-cli-smoke.json",
+    "codex_dummy_smoke": "artifacts/real-world/stage1/codex-smoke.json",
+    "tests": "artifacts/real-world/stage1/v2-verified-tests.xml"
+  },
+  "reproduce": [
+    "HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false .venv/bin/python scripts/replay_real_answers.py --retrieval-run artifacts/real-world/stage1/run-002 --answer-config config/answer-real-stage1-v2.yaml --output artifacts/real-world/stage1/new-run-id",
+    "HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false ERAG_MODEL_TESTS=1 .venv/bin/pytest -q",
+    "Change only provider to codex to opt into Codex generation; retrieval/grounding code remains shared."
+  ]
+}

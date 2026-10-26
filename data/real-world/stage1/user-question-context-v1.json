@@ -1,0 +1,86 @@
+{
+  "source": "User-supplied topic headings",
+  "input_mode": "Initial evaluation used each standalone question text. Topic headings were not prefixed to retrieval/model queries.",
+  "questions": [
+    {
+      "id": "q01",
+      "topic": "Deployments"
+    },
+    {
+      "id": "q02",
+      "topic": "Deployments"
+    },
+    {
+      "id": "q03",
+      "topic": "Deployments"
+    },
+    {
+      "id": "q04",
+      "topic": "Deployments"
+    },
+    {
+      "id": "q05",
+      "topic": "StatefulSets"
+    },
+    {
+      "id": "q06",
+      "topic": "StatefulSets"
+    },
+    {
+      "id": "q07",
+      "topic": "StatefulSets"
+    },
+    {
+      "id": "q08",
+      "topic": "StatefulSets"
+    },
+    {
+      "id": "q09",
+      "topic": "DaemonSets"
+    },
+    {
+      "id": "q10",
+      "topic": "DaemonSets"
+    },
+    {
+      "id": "q11",
+      "topic": "DaemonSets"
+    },
+    {
+      "id": "q12",
+      "topic": "DaemonSets"
+    },
+    {
+      "id": "q13",
+      "topic": "Services"
+    },
+    {
+      "id": "q14",
+      "topic": "Services"
+    },
+    {
+      "id": "q15",
+      "topic": "Services"
+    },
+    {
+      "id": "q16",
+      "topic": "Services"
+    },
+    {
+      "id": "q17",
+      "topic": "Ingress"
+    },
+    {
+      "id": "q18",
+      "topic": "Ingress"
+    },
+    {
+      "id": "q19",
+      "topic": "Ingress"
+    },
+    {
+      "id": "q20",
+      "topic": "Ingress"
+    }
+  ]
+}

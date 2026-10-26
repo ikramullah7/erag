@@ -1,0 +1,126 @@
+{
+  "provenance": "User-supplied fresh questions, with verbatim wording and topic headers. Q11 scope clarified by user before outputs. Underlying authorship not independently verified.",
+  "cases": [
+    {
+      "id": "fresh-q01",
+      "topic": "Deployments",
+      "question": "Why might a Deployment show all replicas as desired but fewer replicas as available?",
+      "query": "Topic: Deployments\nQuestion: Why might a Deployment show all replicas as desired but fewer replicas as available?"
+    },
+    {
+      "id": "fresh-q02",
+      "topic": "Deployments",
+      "question": "What happens if a Deployment's readiness probes keep failing during an update?",
+      "query": "Topic: Deployments\nQuestion: What happens if a Deployment's readiness probes keep failing during an update?"
+    },
+    {
+      "id": "fresh-q03",
+      "topic": "Deployments",
+      "question": "How can I pause an application rollout while investigating an issue?",
+      "query": "Topic: Deployments\nQuestion: How can I pause an application rollout while investigating an issue?"
+    },
+    {
+      "id": "fresh-q04",
+      "topic": "Deployments",
+      "question": "What is the difference between changing a Deployment's replica count and changing its pod template?",
+      "query": "Topic: Deployments\nQuestion: What is the difference between changing a Deployment's replica count and changing its pod template?"
+    },
+    {
+      "id": "fresh-q05",
+      "topic": "StatefulSets",
+      "question": "Why might a StatefulSet be unable to start its second replica?",
+      "query": "Topic: StatefulSets\nQuestion: Why might a StatefulSet be unable to start its second replica?"
+    },
+    {
+      "id": "fresh-q06",
+      "topic": "StatefulSets",
+      "question": "What happens to a StatefulSet's persistent volume claims when the StatefulSet is deleted?",
+      "query": "Topic: StatefulSets\nQuestion: What happens to a StatefulSet's persistent volume claims when the StatefulSet is deleted?"
+    },
+    {
+      "id": "fresh-q07",
+      "topic": "StatefulSets",
+      "question": "Why would a database application need stable network identities for individual pods?",
+      "query": "Topic: StatefulSets\nQuestion: Why would a database application need stable network identities for individual pods?"
+    },
+    {
+      "id": "fresh-q08",
+      "topic": "StatefulSets",
+      "question": "What is the practical difference between OrderedReady and Parallel pod management?",
+      "query": "Topic: StatefulSets\nQuestion: What is the practical difference between OrderedReady and Parallel pod management?"
+    },
+    {
+      "id": "fresh-q09",
+      "topic": "DaemonSets",
+      "question": "Why might a DaemonSet have fewer ready pods than the number of nodes in the cluster?",
+      "query": "Topic: DaemonSets\nQuestion: Why might a DaemonSet have fewer ready pods than the number of nodes in the cluster?"
+    },
+    {
+      "id": "fresh-q10",
+      "topic": "DaemonSets",
+      "question": "What happens if I change the container image in a DaemonSet?",
+      "query": "Topic: DaemonSets\nQuestion: What happens if I change the container image in a DaemonSet?"
+    },
+    {
+      "id": "fresh-q11",
+      "topic": "DaemonSets",
+      "question": "Can a DaemonSet run multiple pods on the same node?",
+      "scope": "Normal steady-state behavior of one DaemonSet",
+      "query": "Topic: DaemonSets\nQuestion: Can a DaemonSet run multiple pods on the same node?\nScope: Normal steady-state behavior of one DaemonSet"
+    },
+    {
+      "id": "fresh-q12",
+      "topic": "DaemonSets",
+      "question": "How do node selectors and tolerations affect DaemonSet scheduling?",
+      "query": "Topic: DaemonSets\nQuestion: How do node selectors and tolerations affect DaemonSet scheduling?"
+    },
+    {
+      "id": "fresh-q13",
+      "topic": "Services",
+      "question": "Why might a Kubernetes Service exist but have no ready endpoints?",
+      "query": "Topic: Services\nQuestion: Why might a Kubernetes Service exist but have no ready endpoints?"
+    },
+    {
+      "id": "fresh-q14",
+      "topic": "Services",
+      "question": "What happens if a Service's targetPort doesn't match the port used by the application?",
+      "query": "Topic: Services\nQuestion: What happens if a Service's targetPort doesn't match the port used by the application?"
+    },
+    {
+      "id": "fresh-q15",
+      "topic": "Services",
+      "question": "How does a headless Service differ from a normal ClusterIP Service?",
+      "query": "Topic: Services\nQuestion: How does a headless Service differ from a normal ClusterIP Service?"
+    },
+    {
+      "id": "fresh-q16",
+      "topic": "Services",
+      "question": "Can a Service continue routing traffic while its backing pods are being replaced?",
+      "query": "Topic: Services\nQuestion: Can a Service continue routing traffic while its backing pods are being replaced?"
+    },
+    {
+      "id": "fresh-q17",
+      "topic": "Ingress",
+      "question": "Why might an Ingress route traffic to the wrong backend application?",
+      "query": "Topic: Ingress\nQuestion: Why might an Ingress route traffic to the wrong backend application?"
+    },
+    {
+      "id": "fresh-q18",
+      "topic": "Ingress",
+      "question": "What is the difference between TLS termination at an Ingress controller and TLS inside application pods?",
+      "query": "Topic: Ingress\nQuestion: What is the difference between TLS termination at an Ingress controller and TLS inside application pods?"
+    },
+    {
+      "id": "fresh-q19",
+      "topic": "Ingress",
+      "question": "How does an Ingress controller decide which rule to apply when multiple paths match?",
+      "query": "Topic: Ingress\nQuestion: How does an Ingress controller decide which rule to apply when multiple paths match?"
+    },
+    {
+      "id": "fresh-q20",
+      "topic": "Ingress",
+      "question": "Why might an Ingress work inside the cluster but fail for users outside it?",
+      "query": "Topic: Ingress\nQuestion: Why might an Ingress work inside the cluster but fail for users outside it?"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+id,category,title,url
+1,Kubernetes,Deployments,https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+2,Kubernetes,StatefulSets,https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+3,Kubernetes,DaemonSets,https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+4,Kubernetes,Services,https://kubernetes.io/docs/concepts/services-networking/service/
+5,Kubernetes,Ingress,https://kubernetes.io/docs/concepts/services-networking/ingress/
+6,Kubernetes,Network Policies,https://kubernetes.io/docs/concepts/services-networking/network-policies/
+7,Kubernetes,Persistent Volumes,https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+8,Kubernetes,Storage Classes,https://kubernetes.io/docs/concepts/storage/storage-classes/
+9,Kubernetes,Taints and Tolerations,https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
+10,Kubernetes,Assigning Pods to Nodes,https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+11,Kubernetes,Secrets,https://kubernetes.io/docs/concepts/configuration/secret/
+12,Kubernetes,Debug Running Pods,https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/
+13,Azure AKS,Manage Node Pools,https://learn.microsoft.com/en-us/azure/aks/manage-node-pools
+14,Azure AKS,Cluster Autoscaler,https://learn.microsoft.com/en-us/azure/aks/cluster-autoscaler
+15,Azure AKS,Upgrade Node Pools,https://learn.microsoft.com/en-us/azure/aks/upgrade-node-pools
+16,Azure AKS,AKS Troubleshooting,https://learn.microsoft.com/en-us/azure/aks/troubleshooting
+17,Azure AKS,Workload Identity,https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview
+18,Azure AKS,AKS Monitoring,https://learn.microsoft.com/en-us/azure/aks/monitor-aks
+19,Azure AKS,AKS Storage Options,https://learn.microsoft.com/en-us/azure/aks/concepts-storage
+20,Azure AKS,AKS Networking Concepts,https://learn.microsoft.com/en-us/azure/aks/concepts-network
+21,Azure AKS,AKS Cluster Upgrade,https://learn.microsoft.com/en-us/azure/aks/upgrade-aks-cluster
+22,Azure AKS,AKS Pod Drain Failures,https://learn.microsoft.com/en-us/troubleshoot/azure/azure-kubernetes/create-upgrade-delete/error-code-poddrainfailure
+23,Azure AKS,AKS Version Skew Troubleshooting,https://learn.microsoft.com/en-us/troubleshoot/azure/azure-kubernetes/error-codes/aks-upgrade-blocked
+24,Azure AKS,AKS Node and VM Failed State,https://learn.microsoft.com/en-us/troubleshoot/azure/azure-kubernetes/availability-performance/cluster-node-virtual-machine-failed-state
+25,Red Hat OpenShift 4.19,OpenShift Troubleshooting,https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/support/troubleshooting
+26,Red Hat OpenShift 4.19,Configuring Certificates,https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/security_and_compliance/configuring-certificates
+27,Red Hat OpenShift 4.19,Certificate Types and Descriptions,https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/security_and_compliance/certificate-types-and-descriptions
+28,Red Hat OpenShift 4.19,Networking Overview,https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/networking_overview/index
+29,Red Hat OpenShift 4.19,Monitoring Overview,https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/monitoring/monitoring-overview
+30,Red Hat OpenShift 4.19,Nodes,https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/nodes/index

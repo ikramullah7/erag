@@ -1,3 +1,133 @@
+## Corrected real-document development profile
+
+Use the same five frozen Kubernetes articles with the improved retrieval/context and extractive
+source-fact answer mode:
+
+```sh
+uv run erag answer "What is the difference between ClusterIP, NodePort and LoadBalancer?" --answer-config config/answer-real-stage1-v10.yaml
+```
+
+Switch the answer provider by changing **one field** in `config/answer-real-stage1-v10.yaml`:
+
+```yaml
+provider: ollama  # local pinned Qwen3 14B; change to codex to use Codex CLI
+```
+
+`provider: codex` uses the installed, signed-in Codex CLI and sends the selected evidence to Codex.
+It uses the CLI default model unless `codex_model` is explicitly set. The `model` and
+`model_digest` fields retain the local Ollama settings so switching back requires only the flag.
+Retrieval, fact selection, source offsets and citation validation remain shared. Provider errors
+fail explicitly; there is no automatic cloud fallback. Codex runs in an ephemeral temporary
+working directory with read-only sandboxing, shell/search disabled and user configuration ignored;
+its answer is rejected if tool activity occurs. The current app's conversation is not reused.
+
+The optional adapter has subprocess/selection tests and passed a live dummy-JSON transport smoke
+test. No document content was sent to Codex; document evaluations remain local 14B. Official interface: https://developers.openai.com/codex/noninteractive/ .
+
+Latest repair profile: same pinned local Qwen3 14B and five articles. A 43-case development
+regression uses actual local generations, followed by deterministic bounded section completion
+with no additional model calls. Source selection searches the top two retrieved documents;
+section/lexical diversity preserves distant rules, and complete short policy sections retain
+qualifiers and alternatives. One recorded timeout/truncation recovery is allowed on the same
+model; source/pin/JSON failures remain explicit.
+
+On the second 20 questions, provisional reviewed correctness improves79.80% →97.33%,
+faithfulness 99.73% →100%, citations 98.96% →100%, decision accuracy 86.36% →100%
+(including the two reused controls). Original 20 correctness is100%; the separately clarified
+Pod-failure case covers restartPolicy Always and ReplicaSet replacement. Two semantic gaps
+remain: no-automatic-rollback wording and explicit external host/path matching. Canonical
+chunk ranking is unchanged and below targets. Tests: 251 passed,2 optional skipped.
+[Results, artifacts and reproduction](docs/results/real-world-stage1/answer-repairs-v10.json).
+
+These are observed development questions. Exact source copying supports fidelity but does not
+prove concise, relevant synthesis or unseen-question generalization. The two shared negative
+controls are not independent new negatives. Original inputs/results remain available.
+
+Evidence evaluation now separates raw chunk ranking, required-fact coverage of expanded context,
+the exact model-visible fact catalog, and the quotes actually selected for the answer. Alternatives
+for one fact are ORed; complementary source spans are ANDed. Extra equivalent passages do not
+increase the fact denominator. Exact witness coverage remains separate from semantic correctness.
+The versioned `data/real-world/stage1/relevance-review-v2.json` is a source-reviewed development
+proposal, not adopted gold; original labels, results and targets are preserved.
+
+```sh
+uv run python scripts/evaluate_evidence_alignment.py \
+  --pool data/real-world/stage1/relevance-review-v2.json \
+  --manifest artifacts/real-world/stage1/index-v2/manifest.json \
+  --ranking artifacts/real-world/stage1/run-002/heldout.json \
+  --answers artifacts/real-world/stage1/answers-v2-grounded-final/answers.json \
+  --output artifacts/new-evidence-alignment.json
+```
+
+Twenty new user question wordings and source-reviewed references are frozen under
+`data/real-world/stage1/fresh-validation-v1/`. The pipeline matches an archive created before
+those questions arrived. User topic headers are supplied as query context; q11 explicitly means
+normal steady-state behavior of one DaemonSet. These inputs overlap development concepts and
+use agent-reviewed labels, so they are not independent human validation. Two reused unsupported
+controls are identified separately. `scripts/evaluate_fresh_real_stage1.py` claims one output
+directory, verifies frozen input hashes, and refuses silent reruns. Later authorized repairs are separate development experiments.
+Initial frozen-wording check, before authorized repairs: Hit@1 40%, Hit@3 70%, Recall@5 58.33%, MRR .5549,
+nDCG@10 .5706. Provisional answer review: faithfulness 99.73%, correctness 79.80%, citation
+accuracy98.96%, decision accuracy 86.36%. Two local timeouts and one false abstention remain;
+the two reused unsupported controls declined correctly. The quality gate fails. See
+[fresh results and evidence-stage diagnostics](docs/results/real-world-stage1/evaluation-alignment-v1.json).
+
+---
+
+# Real-document pilot: first five articles — quality not accepted
+
+Selected folder: `data/real-world/stage1/` (URL manifest and instructions). Only its first five
+official Kubernetes pages were acquired: Deployments, StatefulSets, DaemonSet, Service, Ingress.
+All returned HTTP 200 with verified final URLs/headings. The initial extraction was truncated,
+rejected before indexing and corrected; final extraction preserves main content, code indentation,
+definition lists and tables. Raw/extracted article copies remain in ignored local artifacts.
+Product versions are recorded as rolling/unversioned rather than inferred from navigation.
+
+The frozen five-page corpus has 292 chunks. Twenty user questions were run unchanged as
+standalone query text; original topic headers are recorded separately and were not prepended.
+Two clearly agent-authored live-state controls were added. Source evidence/expected facts were
+prepared before model outputs. Labels are agent-reviewed draft judgments, not human gold.
+
+| Frozen evidence-span ranking metric | Result | Existing target |
+|---|---:|---:|
+| Hit@1 | 25% | >=95% |
+| Hit@3 | 55% | >=98% |
+| Recall@5 | 47.50% | >=95% |
+| MRR | .4233 | >=.95 |
+| nDCG@10 | .4463 | >=.95 |
+
+These selected evidence spans are not an exhaustive human relevance pool; alternative valid
+passages may be unlabelled. Document-level Hit@1 is 90%. Treat chunk-level numbers as a frozen
+selected-evidence benchmark pending adjudication, not definitive universal retrieval accuracy.
+
+Provisional source-reviewed answers: faithfulness 93.48% (43/46 atomic facts), correctness mean
+F1 52.04%, citation precision 77.27% (34/44 links), abstention decisions 77.27% (17/22). Four
+supported-as-labelled user questions received abstentions; q05 failed quote validation; both
+live-state controls declined correctly. Clear findings include wrong ClusterIP/NodePort mapping,
+missing Parallel scaling and selector explanations, and citations supporting only part of a claim.
+Question scopes/compound references for q02/q04/q15/q20 need human adjudication.
+
+No tuning, threshold changes, label rewriting or expansion occurred. Initial results:
+`docs/results/real-world-stage1/summary.json`; detailed local artifacts/annotation locations are
+listed alongside. Synthetic benchmarks remain unchanged, and all three stored synthetic indexes
+validate. Software tests: 182 passed, two optional checks skipped. Software passes do not imply
+real-corpus quality passes.
+
+```sh
+# Fresh acquisition only when needed; choose a new path to preserve frozen copies:
+uv run python scripts/fetch_real_stage1.py --output artifacts/real-world/stage1/new-acquisition
+# Inspect the current five-page profile:
+uv run erag --config config/real-stage1.yaml validate
+uv run erag answer 'Is an Ingress controller required?' --answer-config config/answer-real-stage1.yaml
+```
+
+Keep the first five while reviewing labels and improving evidence recall/citation binding on
+separate development questions. Current user questions are now observed regression data; a tuned
+replay must not be called fresh independent validation. Approval is required before ten pages.
+Earlier synthetic-stage results follow below.
+
+---
+
 # Current stage: Phase 1.3 — twenty documents
 
 Twenty synthetic runbooks are indexed in 82 chunks. All ten prior files and 52 chunk IDs

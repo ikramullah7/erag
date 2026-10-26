@@ -193,3 +193,97 @@ with explicit timing scope. Thirty supported and six unsupported answers are sou
 atomic/citation judgments, reference coverage, grouped results and conservative ambiguities are
 preserved. Factual precision penalizes unsupported additions even when all requested facts are
 present. A reference-overconstraint note is retained without silently rewriting the gold facts.
+
+
+## First real-document track
+
+`real-1` is a separate, explicitly approved five-page pilot, not synthetic stage 1.4. Its fixed
+source IDs correspond to the first five Kubernetes URLs in the supplied manifest. Ingestion
+requires complete verified acquisition metadata and exact frozen text hashes, supplies publisher
+URLs as source identifiers and tags records as real-world-stage1-v1. It cannot ingest the other
+25 manifest URLs or bypass synthetic-stage boundaries.
+
+`article_extraction.py` selects only Kubernetes td-content and tracks explicit div boundaries to
+survive optional closing tags. Headings, preformatted code indentation, definition lists and table
+rows survive; scripts/navigation/feedback are excluded. Raw sources plus HTTP/title/hash/version
+metadata allow inspection and replay. Initial truncation was detected and rejected before indexing.
+No generic fallback publisher parser or new dependency is installed.
+
+Real retrieval uses the fixed existing profile and 14B generation. Source-reviewed selected-span
+labels are not an exhaustive relevance pool. Standalone queries do not include user topic headings;
+that limitation and partial-answer/controller scope ambiguities are explicit. Provisional reviewed
+scores reuse the existing formulas and do not imply human signoff. Software-test success and exact
+quote provenance are separate from factual/semantic quality. All full source copies stay in local
+artifacts. The first five stay fixed pending review; expansion needs approval.
+
+
+## Corrected real-pilot retrieval and configurable answer providers
+
+The v2 real profile retains all five frozen sources and canonical chunk IDs. Retrieval-only
+representations prepend the document/heading path; this changes the index fingerprint and uses
+an isolated index-v2 directory. Source text and citation offsets remain canonical. Independently
+configurable branch depth60 and rerank depth40, with balanced RRF, prevent the prior lexical
+candidate starvation. Link-only final sections remain in the corpus but are excluded from retrieval.
+
+Answer context expands anchors to exact neighboring source spans and merges overlapping ranges
+without concatenating duplicated chunk text. The answer fact catalog preserves adjacent conditions,
+paragraph headings and long table rows. Existing BGE reranks catalog facts; local 14B chooses bounded
+evidence IDs. Code renders the selected original facts with exact-span citations. This extractive
+mode prevents rewritten definitions and fabricated quotes, but does not prove question coverage
+or relevance. Expected-fact patterns remain distinct from semantic correctness.
+
+`create_generator` selects Ollama or the optional installed Codex CLI using the answer config's
+`provider` field. Existing configs default to Ollama. Both providers share grounding/validation;
+there is no automatic fallback. Codex uses isolated ephemeral/read-only execution, structured
+stdout/final output, disabled shell/search/apps and ignores user configuration. Tool events,
+timeouts and malformed/incomplete outputs fail closed. No CLI authentication files are modified
+by the adapter; normal CLI authentication is required when the provider is selected. Model names
+for local and Codex remain separate so toggling the provider does not overwrite the local pin.
+Codex transport passed a live constant-JSON smoke test without document content. Document
+quality evaluation remains local 14B.
+
+
+Source-fact extraction derives the initial Markdown-fence state from the original document's
+prefix at the excerpt's absolute start. It must not assume that an excerpt begins outside code:
+a closing fence at the start of a partial YAML example otherwise hides all following prose.
+The derived flag is answer-context metadata, not a mutation of indexed chunks or source text.
+
+Optional coverage review is bounded and additive. Primary facts are validated before review;
+new IDs must refer to supplied catalog facts and fit the six-claim limit. Empty additions retain
+the valid primary answer. Unknown IDs/model changes fail closed; original abstentions are not
+converted into factual answers by this pass. Local review uses a separate bounded non-thinking
+request by default, retaining the same pinned14B weights; primary reasoning remains configurable.
+The capture wrapper records both calls. This check can improve missing conditions but is not
+an independently calibrated semantic judge, and unrelated source background may remain.
+
+Evidence evaluation consumes saved rankings, exact context sources, the saved fact catalog and
+final citations. Source/version/offset checks bind all witnesses to the same frozen corpus.
+Raw top-k chunk metrics stay unchanged. A separate, explicitly versioned relevance proposal
+allows legitimate alternative passages; completeness counts required facts rather than chunks.
+Each fact can have OR alternatives, each containing AND source spans; coverage merges touching
+source intervals without bridging missing text. Expanded context, model-visible catalog and
+selected-quote coverage are separate stages. No-requirement controls contribute no fact-recall
+denominator. A missing exact witness is not a semantic incorrectness judgment.
+
+
+Answer repairs (real-five v10): canonical chunk ranking remains unchanged. A bounded second
+search derives prose facts from the first two distinct retrieved documents, ranks with the same
+BGE model, and reserves section/lexical coverage. Primary selection retains focused chunk facts;
+review adds source IDs without discarding validated primary evidence. Strict source supersets
+may replace clipped duplicates. An initial abstention uses a fresh combined-catalog selection;
+ordinary coverage reuses the primary prefix. Both paths reserve their full review overhead.
+All context and provider failure phases are captured; the user question is last in the payload.
+
+Ollama can recover once from thinking timeout/token exhaustion using the same pinned model,
+same messages/schema and a bounded non-thinking request. Pin changes, HTTP/protocol/tool/JSON
+errors do not trigger that recovery. Initial failure, both elapsed costs and request count are
+recorded; there is no cloud fallback.
+
+`section_context_completion` optionally completes selected extractive quotes with exact bounded
+Markdown section supersets (<=2000 chars), preferring small parent policy sections; large parents
+use closed subsection prefixes. Whole paragraphs repair clipped prose. Fenced examples are
+excluded. Duplicated/contained spans are removed without losing original selected content.
+Original model claims/source IDs/catalog remain saved. New SC sources are post-generation
+context, excluded from expanded/model-visible coverage. The step has no query/reference/model
+inputs and no effect on model prompts. CPU replay of recorded generations is explicit, preserves
+parent hashes and validates every source citation and original-assertion superset.

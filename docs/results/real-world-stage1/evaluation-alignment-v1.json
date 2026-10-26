@@ -1,0 +1,413 @@
+{
+  "version": "real-stage1-evaluation-alignment-v1",
+  "documents": 5,
+  "quality_status": "Not accepted; no threshold or pipeline tuning after fresh inputs.",
+  "implementation": [
+    "Versioned source-reviewed development alternative-relevance proposal; original labels unchanged.",
+    "Separate raw ranking, required-fact coverage of expanded context, exact saved model-visible catalog, selected quotes and semantic review.",
+    "OR equivalent passages and AND complementary spans; equivalent passages never add required facts.",
+    "Fresh20 user question wordings with frozen topic context; q11 normal steady state of one DaemonSet.",
+    "Two reused unsupported controls are scored separately.",
+    "One-shot local14B evaluation; provider failures retained without retries."
+  ],
+  "development": {
+    "status": "observed development data; proposed labels not adopted",
+    "original_ranking": {
+      "hit@1": 0.45,
+      "hit@3": 0.7,
+      "recall@5": 0.65,
+      "mrr": 0.5996794871794872,
+      "ndcg@10": 0.6200096110622433
+    },
+    "proposed_pool_ranking": {
+      "hit@1": 0.6,
+      "hit@3": 0.7,
+      "recall@5": 0.5666666666666667,
+      "mrr": 0.6882211538461538,
+      "ndcg@10": 0.6331560064672829
+    },
+    "coverage": {
+      "raw_top1": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.4083333333333333,
+        "all_facts_present_rate": 0.35,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.4083333333333333,
+        "missing_case_ids": [
+          "q02",
+          "q03",
+          "q04",
+          "q08",
+          "q09",
+          "q11",
+          "q13",
+          "q14",
+          "q15",
+          "q16",
+          "q17",
+          "q18",
+          "q20"
+        ]
+      },
+      "raw_top3": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.5583333333333333,
+        "all_facts_present_rate": 0.5,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.5583333333333333,
+        "missing_case_ids": [
+          "q02",
+          "q03",
+          "q04",
+          "q08",
+          "q11",
+          "q14",
+          "q15",
+          "q16",
+          "q18",
+          "q20"
+        ]
+      },
+      "raw_top5": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.6583333333333333,
+        "all_facts_present_rate": 0.6,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.6583333333333333,
+        "missing_case_ids": [
+          "q02",
+          "q04",
+          "q08",
+          "q11",
+          "q14",
+          "q15",
+          "q16",
+          "q20"
+        ]
+      },
+      "raw_top10": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.8583333333333334,
+        "all_facts_present_rate": 0.8,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.8583333333333334,
+        "missing_case_ids": [
+          "q02",
+          "q04",
+          "q08",
+          "q14"
+        ]
+      },
+      "expanded_context": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 1.0,
+        "all_facts_present_rate": 1.0,
+        "conservative_fact_recall_including_unmeasured_as_zero": 1.0,
+        "missing_case_ids": []
+      },
+      "model_visible": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 1.0,
+        "all_facts_present_rate": 1.0,
+        "conservative_fact_recall_including_unmeasured_as_zero": 1.0,
+        "missing_case_ids": []
+      },
+      "selected_quotes": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.875,
+        "all_facts_present_rate": 0.85,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.875,
+        "missing_case_ids": [
+          "q08",
+          "q13",
+          "q15"
+        ]
+      }
+    },
+    "example_cases": [
+      "q05: valid first chunk absent from original relevance labels; separate proposal recognizes it.",
+      "q14: top5 contain2/3 Service definitions, expanded and model-visible evidence and selected quotes contain3/3.",
+      "q13: label-matching fact reaches model but is omitted from selected answer."
+    ]
+  },
+  "fresh_validation": {
+    "ranking": {
+      "mrr": 0.5549242424242424,
+      "hit@1": 0.4,
+      "hit@3": 0.7,
+      "recall@3": 0.5416666666666666,
+      "recall@5": 0.5833333333333333,
+      "ndcg@5": 0.5033191974333676,
+      "recall@10": 0.75,
+      "ndcg@10": 0.570595914287445
+    },
+    "answer_checks": {
+      "cases": 22,
+      "known_fact_cases_passed": 16,
+      "known_fact_cases": 20,
+      "known_fact_case_rate": 0.8,
+      "correct_abstentions": 2,
+      "unsupported_cases": 2,
+      "abstention_rate": 1.0,
+      "valid_responses": 20,
+      "invalid_responses": 0,
+      "provider_errors": 2,
+      "unsupported_answers": 0,
+      "citation_provenance_rate": 1.0,
+      "generation_ms_p50": 60097.7581874904,
+      "generation_ms_p95": 169375.3695274543,
+      "failed_cases": [
+        "fresh-q05",
+        "fresh-q13",
+        "fresh-q14",
+        "fresh-q20"
+      ]
+    },
+    "semantic_review": {
+      "faithfulness": 0.997275204359673,
+      "faithfulness_counts": {
+        "supported": 366,
+        "total": 367
+      },
+      "answer_correctness": 0.798,
+      "citation_accuracy": 0.9895833333333334,
+      "citation_accuracy_counts": {
+        "supported": 95,
+        "total": 96
+      },
+      "abstention_accuracy": 0.8636363636363636,
+      "unsupported_abstention_recall": 1.0,
+      "false_abstentions": 1,
+      "judge_errors": [],
+      "semantic_scoring_complete": true
+    },
+    "semantic_review_by_group": {
+      "fresh_user_questions": {
+        "faithfulness": 0.997275204359673,
+        "faithfulness_counts": {
+          "supported": 366,
+          "total": 367
+        },
+        "answer_correctness": 0.798,
+        "citation_accuracy": 0.9895833333333334,
+        "citation_accuracy_counts": {
+          "supported": 95,
+          "total": 96
+        },
+        "abstention_accuracy": 0.85,
+        "unsupported_abstention_recall": null,
+        "false_abstentions": 1,
+        "judge_errors": [],
+        "semantic_scoring_complete": true
+      },
+      "reused_controls": {
+        "faithfulness": null,
+        "faithfulness_counts": {
+          "supported": 0,
+          "total": 0
+        },
+        "answer_correctness": null,
+        "citation_accuracy": null,
+        "citation_accuracy_counts": {
+          "supported": 0,
+          "total": 0
+        },
+        "abstention_accuracy": 1.0,
+        "unsupported_abstention_recall": 1.0,
+        "false_abstentions": 0,
+        "judge_errors": [],
+        "semantic_scoring_complete": true
+      }
+    },
+    "evidence_coverage": {
+      "raw_top1": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.25833333333333336,
+        "all_facts_present_rate": 0.2,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.25833333333333336,
+        "missing_case_ids": [
+          "fresh-q01",
+          "fresh-q02",
+          "fresh-q04",
+          "fresh-q05",
+          "fresh-q07",
+          "fresh-q08",
+          "fresh-q09",
+          "fresh-q10",
+          "fresh-q11",
+          "fresh-q12",
+          "fresh-q13",
+          "fresh-q14",
+          "fresh-q15",
+          "fresh-q16",
+          "fresh-q17",
+          "fresh-q20"
+        ]
+      },
+      "raw_top3": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.5,
+        "all_facts_present_rate": 0.45,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.5,
+        "missing_case_ids": [
+          "fresh-q01",
+          "fresh-q05",
+          "fresh-q07",
+          "fresh-q08",
+          "fresh-q09",
+          "fresh-q11",
+          "fresh-q12",
+          "fresh-q14",
+          "fresh-q16",
+          "fresh-q17",
+          "fresh-q20"
+        ]
+      },
+      "raw_top5": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.575,
+        "all_facts_present_rate": 0.5,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.575,
+        "missing_case_ids": [
+          "fresh-q01",
+          "fresh-q05",
+          "fresh-q07",
+          "fresh-q08",
+          "fresh-q09",
+          "fresh-q11",
+          "fresh-q12",
+          "fresh-q14",
+          "fresh-q17",
+          "fresh-q20"
+        ]
+      },
+      "raw_top10": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.775,
+        "all_facts_present_rate": 0.75,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.775,
+        "missing_case_ids": [
+          "fresh-q01",
+          "fresh-q05",
+          "fresh-q09",
+          "fresh-q11",
+          "fresh-q20"
+        ]
+      },
+      "expanded_context": {
+        "questions": 18,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [
+          "fresh-q13",
+          "fresh-q20"
+        ],
+        "macro_fact_recall": 0.9722222222222222,
+        "all_facts_present_rate": 0.9444444444444444,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.875,
+        "missing_case_ids": [
+          "fresh-q01"
+        ]
+      },
+      "model_visible": {
+        "questions": 18,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [
+          "fresh-q13",
+          "fresh-q20"
+        ],
+        "macro_fact_recall": 0.9444444444444444,
+        "all_facts_present_rate": 0.8888888888888888,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.85,
+        "missing_case_ids": [
+          "fresh-q01",
+          "fresh-q05"
+        ]
+      },
+      "selected_quotes": {
+        "questions": 20,
+        "questions_with_requirements": 20,
+        "unmeasured_case_ids": [],
+        "macro_fact_recall": 0.7333333333333333,
+        "all_facts_present_rate": 0.65,
+        "conservative_fact_recall_including_unmeasured_as_zero": 0.7333333333333333,
+        "missing_case_ids": [
+          "fresh-q01",
+          "fresh-q02",
+          "fresh-q05",
+          "fresh-q12",
+          "fresh-q13",
+          "fresh-q14",
+          "fresh-q20"
+        ]
+      }
+    },
+    "gate_passed": false,
+    "known_failures": {
+      "fresh-q01": "Missing readiness/minReadySeconds explanation; expanded evidence incomplete.",
+      "fresh-q05": "OrderedReady/default witness available in expanded context but absent from model-visible catalog.",
+      "fresh-q10": "Unlabelled Deployment hypothetical image-failure example; conservative scope-support penalty.",
+      "fresh-q12": "Custom Pod-template tolerations omitted from selected answer.",
+      "fresh-q13": "180-second local provider timeout; context capture unavailable.",
+      "fresh-q14": "False abstention under provisional port-mapping reference.",
+      "fresh-q20": "180-second local provider timeout; context capture unavailable."
+    }
+  },
+  "limitations": [
+    "New wordings overlap development concepts; input topics differ from old standalone queries, so this is not paired before/after performance.",
+    "Source labels and semantic review are primary-agent judgments, not independent human gold.",
+    "Faithfulness/citation scores benefit from extractive copying and do not establish relevance, concision or completeness.",
+    "Exact witness recognition is non-exhaustive and distinct from semantic entailment.",
+    "Two reused controls do not establish fresh unsupported-question accuracy.",
+    "Context coverage measured on18 recorded traces; two timeout traces are unknown. Conservative fact recall includes these as zero.",
+    "Generation timing excludes failed requests and reuses retrieval diagnostics; not full-pipeline or production latency.",
+    "Verified alignment corrects missing timeout context to unmeasured; original in-process analysis is retained. No new answers or label changes."
+  ],
+  "tests": {
+    "passed": 225,
+    "skipped_optional": 2,
+    "ruff": "passed",
+    "format": "passed",
+    "whitespace": "passed",
+    "frozen_hashes": "verified unchanged after generation"
+  },
+  "artifacts": {
+    "fresh": "artifacts/real-world/stage1/fresh-validation-v1",
+    "frozen_packet": "data/real-world/stage1/fresh-validation-v1",
+    "proposed_development_pool": "data/real-world/stage1/relevance-review-v2.json",
+    "development_alignment": "artifacts/real-world/stage1/evidence-alignment-development-v2.json",
+    "fresh_verified_alignment": "artifacts/real-world/stage1/fresh-validation-v1/evidence-alignment-verified.json",
+    "answer_review": "artifacts/real-world/stage1/fresh-validation-v1/agent-review-v1.json",
+    "reviewed_metrics": "artifacts/real-world/stage1/fresh-validation-v1/reviewed-metrics-v1.json",
+    "schema_normalization": "artifacts/real-world/stage1/fresh-validation-v1/semantic-references-normalized.json"
+  },
+  "reproduction": {
+    "alignment": "python scripts/evaluate_evidence_alignment.py --pool data/real-world/stage1/fresh-validation-v1/evidence-pool.json --manifest artifacts/real-world/stage1/index-v2/manifest.json --ranking artifacts/real-world/stage1/fresh-validation-v1/ranking.json --answers artifacts/real-world/stage1/fresh-validation-v1/answers.json --output artifacts/fresh-alignment-reproduction.json",
+    "semantic_scoring": "from erag.reviewed_metrics import score_reviewed_answers; score_reviewed_answers(\"artifacts/real-world/stage1/fresh-validation-v1/answers.json\", \"artifacts/real-world/stage1/fresh-validation-v1/semantic-references-normalized.json\", \"artifacts/real-world/stage1/fresh-validation-v1/agent-review-v1.json\", \"artifacts/fresh-review-reproduction.json\")"
+  },
+  "input_sha256": {
+    "artifacts/real-world/stage1/fresh-validation-v1/answers.json": "ed29439a8e87b4a9c5de2d008f7fa2da7a774ff80229d69e1d0cdea1b5740dd8",
+    "artifacts/real-world/stage1/fresh-validation-v1/ranking.json": "64075d502f598bd7f57817ccf1db2fa29cbcc661ff125bc50d9f05ea119ef097",
+    "artifacts/real-world/stage1/fresh-validation-v1/agent-review-v1.json": "cbd82dcf03267ad87795f3fcfe19004d6016ee76418cd89076f0d2669dabceb5",
+    "artifacts/real-world/stage1/fresh-validation-v1/evidence-alignment-verified.json": "049f1bcb98eec2fe97faf1b3314044d4c7cd4b822a4380ae30a31e3d0d267497",
+    "data/real-world/stage1/relevance-review-v2.json": "a7fbb01dc759f09499a3ad9e85b50ed917089c142c2e70c9ccd87d12128ade37",
+    "src/erag/evidence_evaluation.py": "0fa38244be7ef467eb64cf9bec5f8d411f8f76d2799b69f2a6ba340e4f3538b3"
+  }
+}

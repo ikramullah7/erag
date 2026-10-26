@@ -8,7 +8,7 @@ import pytest
 
 from erag.answer_config import AnswerConfig, load_answer_config
 from erag.answering import Generation, InvalidAnswer, answer_question, pack_sources, validate_answer
-from erag.ollama import OllamaGenerator
+from erag.ollama import OllamaGenerator, OllamaTimeout, OllamaTruncated
 
 QUOTE = "The ledger private endpoint has address 10.42.8.17."
 
@@ -228,6 +228,32 @@ def test_ollama_request_is_nonstreaming_nonthinking_and_digest_pinned(monkeypatc
     assert "a" * 64 in result.model_identity
 
 
+def test_local_coverage_uses_bounded_nonthinking_without_changing_model(monkeypatch):
+    captured = []
+
+    def generate(self, messages, schema):
+        captured.append(self.cfg)
+        return Generation({"evidence_ids": []}, "test", {}, 1)
+
+    monkeypatch.setattr(OllamaGenerator, "generate", generate)
+    cfg = settings(think=True, num_predict=4096, coverage_think=False)
+    OllamaGenerator(cfg).review([], {"type": "object"})
+    assert captured[0].think is False and captured[0].num_predict == 1024
+    assert captured[0].model == cfg.model and captured[0].model_digest == cfg.model_digest
+    assert cfg.think is True  # primary answer settings are immutable
+
+
+def test_timeout_is_reported_as_timeout_instead_of_unreachable_runtime(monkeypatch):
+    provider = OllamaGenerator(settings())
+
+    def timed_out(*args, **kwargs):
+        raise TimeoutError("inference timeout")
+
+    monkeypatch.setattr(provider.opener, "open", timed_out)
+    with pytest.raises(RuntimeError, match="timed out"):
+        provider._request("/api/version")
+
+
 def test_truncated_generation_is_not_returned(monkeypatch):
     provider, _ = stub_provider(monkeypatch, done_reason="length")
     with pytest.raises(RuntimeError, match="truncated"):
@@ -353,3 +379,82 @@ def test_ambiguous_fragment_alignment_is_rejected():
         validate_answer(
             payload(quote="Confirm replica health."), [source(text)], align_fragments=True
         )
+
+
+@pytest.mark.parametrize("failure", ["length", "timeout"])
+def test_reasoning_recovery_is_bounded_recorded_and_uses_same_pinned_model(monkeypatch, failure):
+    provider = OllamaGenerator(settings(think=True, num_predict=2048, reasoning_fallback=True))
+    chats = []
+
+    def request(path, value=None):
+        if path == "/api/tags":
+            return {"models": [{"name": provider.cfg.model, "digest": provider.cfg.model_digest}]}
+        if path == "/api/version":
+            return {"version": "test"}
+        chats.append(value)
+        if len(chats) == 1:
+            if failure == "timeout":
+                raise OllamaTimeout("timed out")
+            return {
+                "done": True,
+                "done_reason": "length",
+                "message": {"content": "rejected partial"},
+            }
+        return {"done": True, "done_reason": "stop", "message": {"content": json.dumps(payload())}}
+
+    monkeypatch.setattr(provider, "_request", request)
+    messages = [{"role": "user", "content": "untrusted question"}]
+    result = provider.generate(messages, {"type": "object"})
+    assert len(chats) == 2 and result.payload == payload()
+    assert chats[0]["think"] is True and chats[1]["think"] is False
+    assert chats[1]["options"]["num_predict"] == 512
+    assert chats[0]["messages"] == chats[1]["messages"] == messages
+    assert chats[0]["model"] == chats[1]["model"] == provider.cfg.model
+    assert result.usage["reasoning_recovery"]["requests"] == 2
+    assert result.elapsed_ms >= result.usage["reasoning_recovery"]["initial_elapsed_ms"]
+    assert provider.cfg.think is True
+
+
+def test_recovery_never_retries_a_third_time(monkeypatch):
+    provider = OllamaGenerator(settings(think=True, reasoning_fallback=True))
+    chats = []
+
+    def request(path, value=None):
+        if path == "/api/tags":
+            return {"models": [{"name": provider.cfg.model, "digest": provider.cfg.model_digest}]}
+        if path == "/api/version":
+            return {"version": "test"}
+        chats.append(value)
+        return {"done": True, "done_reason": "length"}
+
+    monkeypatch.setattr(provider, "_request", request)
+    with pytest.raises(OllamaTruncated):
+        provider.generate([], {})
+    assert len(chats) == 2
+
+
+def test_recovery_does_not_mask_model_pin_changes(monkeypatch):
+    provider = OllamaGenerator(settings(think=True, reasoning_fallback=True))
+    tags, chats = 0, 0
+
+    def request(path, value=None):
+        nonlocal tags, chats
+        if path == "/api/tags":
+            tags += 1
+            return {
+                "models": [
+                    {
+                        "name": provider.cfg.model,
+                        "digest": provider.cfg.model_digest if tags == 1 else "b" * 64,
+                    }
+                ]
+            }
+        if path == "/api/version":
+            return {"version": "test"}
+        chats += 1
+        return {"done": True, "done_reason": "length"}
+
+    monkeypatch.setattr(provider, "_request", request)
+    with pytest.raises(RuntimeError, match="digest"):
+        provider.generate([], {})
+    assert chats == 1

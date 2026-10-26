@@ -19,6 +19,9 @@ class Config:
     overlap_words: int = 20
     section_boundaries: bool = False
     candidates: int = 20
+    candidate_depth: int = 0
+    contextual_retrieval: bool = False
+    exclude_link_sections: bool = False
     rrf_k: int = 60
     bm25_weight: float = 1.0
     vector_weight: float = 1.0
@@ -35,8 +38,10 @@ class Config:
     threads: int = 2
 
     def __post_init__(self):
-        if self.stage not in ("1.1", "1.2", "1.3"):
-            raise ValueError("only approved stages 1.1, 1.2 and 1.3 are supported")
+        if self.stage not in ("1.1", "1.2", "1.3", "real-1"):
+            raise ValueError(
+                "only approved synthetic stages and the first real-document pilot are supported"
+            )
         for name in ("max_words", "overlap_words", "candidates", "rrf_k", "threads"):
             if type(getattr(self, name)) is not int:
                 raise ValueError(f"{name} must be an integer")
@@ -46,6 +51,11 @@ class Config:
             raise ValueError("overlap_words must be nonnegative and smaller than max_words")
         if min(self.candidates, self.rrf_k, self.threads) < 1:
             raise ValueError("candidates, rrf_k and threads must be positive")
+        if type(self.candidate_depth) is not int or not 0 <= self.candidate_depth <= 200:
+            raise ValueError("candidate_depth must be an integer from 0 through 200")
+        for name in ("contextual_retrieval", "exclude_link_sections"):
+            if type(getattr(self, name)) is not bool:
+                raise ValueError(f"{name} must be boolean")
         if not isinstance(self.mode, str) or self.mode not in {"bm25", "vector", "hybrid"}:
             raise ValueError("unknown retrieval mode")
         for name in ("embedding_revision", "reranker_revision"):
@@ -93,6 +103,8 @@ class Config:
         values = {k: asdict(self)[k] for k in keys}
         if self.section_boundaries:
             values["section_boundaries"] = True
+        if self.contextual_retrieval:
+            values["contextual_retrieval"] = True
         if self.stage != "1.1":
             values["stage"] = self.stage
         return digest(values)

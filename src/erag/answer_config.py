@@ -24,8 +24,51 @@ class AnswerConfig:
     seed: int = 0
     validation_retries: int = 0
     align_quote_fragments: bool = False
+    context_neighbors: int = 0
+    context_max_words: int = 420
+    evidence_selection: bool = False
+    fact_candidates: int = 0
+    provider: str = "ollama"
+    codex_model: str | None = None
+    codex_binary: str = "codex"
+    think: bool = False
+    coverage_check: bool = False
+    coverage_think: bool = False
+    document_fact_search: bool = False
+    fact_section_coverage: bool = False
+    fact_lexical_coverage: bool = False
+    reasoning_fallback: bool = False
+    section_context_completion: bool = False
 
     def __post_init__(self):
+        if not isinstance(self.provider, str) or self.provider not in {"ollama", "codex"}:
+            raise ValueError("answer provider must be ollama or codex")
+        if self.codex_model is not None and (
+            not isinstance(self.codex_model, str)
+            or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}", self.codex_model)
+        ):
+            raise ValueError("codex_model must be null or a model identifier")
+        if not isinstance(self.codex_binary, str) or not self.codex_binary.strip():
+            raise ValueError("codex_binary must be nonempty")
+        if type(self.think) is not bool:
+            raise ValueError("think must be boolean")
+        if type(self.coverage_check) is not bool:
+            raise ValueError("coverage_check must be boolean")
+        if type(self.coverage_think) is not bool:
+            raise ValueError("coverage_think must be boolean")
+        for name in ("document_fact_search", "fact_section_coverage", "fact_lexical_coverage"):
+            if type(getattr(self, name)) is not bool:
+                raise ValueError(f"{name} must be boolean")
+        if type(self.reasoning_fallback) is not bool:
+            raise ValueError("reasoning_fallback must be boolean")
+        if type(self.section_context_completion) is not bool:
+            raise ValueError("section_context_completion must be boolean")
+        if self.section_context_completion and not self.evidence_selection:
+            raise ValueError("section context completion requires extractive evidence selection")
+        if self.document_fact_search and not (
+            self.evidence_selection and self.fact_candidates and self.coverage_check
+        ):
+            raise ValueError("document fact search requires reranked evidence selection")
         if not isinstance(self.model, str) or not self.model.strip():
             raise ValueError("model must be a nonempty local model name")
         if not isinstance(self.model_digest, str) or not re.fullmatch(
@@ -50,9 +93,21 @@ class AnswerConfig:
                 raise ValueError(f"{key} must be an integer")
         if type(self.align_quote_fragments) is not bool:
             raise ValueError("align_quote_fragments must be boolean")
+        if type(self.evidence_selection) is not bool:
+            raise ValueError("evidence_selection must be boolean")
+        if type(self.fact_candidates) is not int or not 0 <= self.fact_candidates <= 40:
+            raise ValueError("fact_candidates must be from 0 through 40")
+        if type(self.context_neighbors) is not int or not 0 <= self.context_neighbors <= 2:
+            raise ValueError("context_neighbors must be from 0 through 2")
+        if type(self.context_max_words) is not int or not 140 <= self.context_max_words <= 600:
+            raise ValueError("context_max_words must be from 140 through 600")
         if type(self.validation_retries) is not int or not 0 <= self.validation_retries <= 1:
             raise ValueError("validation_retries must be 0 or 1")
-        if not 1 <= self.context_chunks <= 20 or not 100 <= self.context_max_chars <= 32000:
+        max_sources = 40 if self.evidence_selection else 20
+        if (
+            not 1 <= self.context_chunks <= max_sources
+            or not 100 <= self.context_max_chars <= 32000
+        ):
             raise ValueError("invalid answer context budget")
         if not 2048 <= self.num_ctx <= 32768 or not 64 <= self.num_predict <= 4096:
             raise ValueError("invalid model token budget")

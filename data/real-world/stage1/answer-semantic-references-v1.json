@@ -1,0 +1,532 @@
+{
+  "version": "real-stage1-evaluation-v1",
+  "authorship": "Twenty user-supplied questions frozen verbatim; two agent-authored unsupported controls clearly separated.",
+  "label_provenance": "Agent source review before model outputs; not independent human gold labels.",
+  "cases": [
+    {
+      "id": "q01",
+      "query": "What happens to running applications if a Kubernetes Deployment is deleted?",
+      "expected_status": "answered",
+      "required_facts": [
+        "By default deleting a Deployment also deletes its running Pods and can cause downtime."
+      ],
+      "fact_patterns": [
+        [
+          "delet|terminat|remov"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "By default, deleting the Deployment also deletes its running Pods, causing downtime"
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": "Orphan deletion is a documented exception; do not assert unconditional deletion for every cascading policy."
+    },
+    {
+      "id": "q02",
+      "query": "How does Kubernetes handle a failed application pod in a Deployment?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Pod replacement is controlled by the Deployment's ReplicaSet; deleted Pods receive a replacement."
+      ],
+      "fact_patterns": [
+        [
+          "ReplicaSet|replac|restart"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "If you manually delete a Pod, the lifecycle is controlled by the ReplicaSet and the replacement will be created immediately"
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "Only a .spec.template.spec.restartPolicy equal to Always is allowed"
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": "Failure may mean a container crash or a deleted/failed Pod. The source establishes Always restartPolicy and ReplicaSet replacement for deletion; do not claim every crash necessarily creates a new Pod or rolls back a bad release."
+    },
+    {
+      "id": "q03",
+      "query": "Can I roll back a Deployment after a bad application update?",
+      "expected_status": "answered",
+      "required_facts": [
+        "A Deployment can be rolled back to a retained earlier revision."
+      ],
+      "fact_patterns": [
+        [
+          "roll.?back|rollout undo"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "Rollback to an earlier Deployment revision if the current state of the Deployment is not stable."
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "Sometimes, you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q04",
+      "query": "How can I update my application without causing downtime?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Use a RollingUpdate strategy to replace Pods gradually while retaining availability."
+      ],
+      "fact_patterns": [
+        [
+          "RollingUpdate|rolling update|rollingUpdate"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "A new ReplicaSet is created, and the Deployment gradually scales it up while scaling down the old ReplicaSet"
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "It does not kill old Pods until a sufficient number of new Pods have come up"
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": "Availability depends on configuration, readiness and application capacity; a generic unconditional zero-downtime guarantee is not established."
+    },
+    {
+      "id": "q05",
+      "query": "When should I use a StatefulSet instead of a Deployment?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Use StatefulSet when stable Pod identity/storage or ordered deployment/scaling is needed, unlike interchangeable stateless replicas."
+      ],
+      "fact_patterns": [
+        [
+          "stabl|identity|persistent|ordered"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "stable is synonymous with persistence across Pod (re)scheduling."
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "If an application doesn't require any stable identifiers or ordered deployment, deletion, or scaling, you should deploy your application using a workload object that provides a set of stateless replicas."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q06",
+      "query": "If a StatefulSet pod crashes, will it keep the same identity?",
+      "expected_status": "answered",
+      "required_facts": [
+        "StatefulSet identity remains stable across Pod replacement or rescheduling."
+      ],
+      "fact_patterns": [
+        [
+          "identity|identit|same|stable"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "the persistent Pod identifiers make it easier to match existing volumes to the new Pods that replace any that have failed."
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "The identity sticks to the Pod, regardless of which node it's (re)scheduled on."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q07",
+      "query": "Does each StatefulSet pod get its own persistent storage?",
+      "expected_status": "answered",
+      "required_facts": [
+        "With volumeClaimTemplates each Pod receives its own PVC for each template, providing stable storage."
+      ],
+      "fact_patterns": [
+        [
+          "PersistentVolumeClaim|PVC|own|each"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "For each VolumeClaimTemplate entry defined in a StatefulSet, each Pod receives one PersistentVolumeClaim."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": "Do not claim every StatefulSet automatically has persistent storage without configured/provisioned volumes."
+    },
+    {
+      "id": "q08",
+      "query": "Can StatefulSet pods be scaled down in any order?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Default StatefulSet scale-down follows reverse ordinal ordering.",
+        "Parallel Pod management permits parallel scaling termination instead of waiting in order."
+      ],
+      "fact_patterns": [
+        [
+          "reverse|ordinal|highest|N-1"
+        ],
+        [
+          "Parallel|parallel"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "When Pods are being deleted, they are terminated in reverse order, from {N-1..0}."
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "Parallel pod management tells the StatefulSet controller to launch or terminate all Pods in parallel"
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q09",
+      "query": "How can I run a monitoring agent on every Kubernetes node?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Use a DaemonSet to place a monitoring-agent Pod on every eligible node."
+      ],
+      "fact_patterns": [
+        [
+          "DaemonSet"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "A DaemonSet ensures that all (or some) Nodes run a copy of a Pod."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q10",
+      "query": "What happens when I add another node to a cluster that uses a DaemonSet?",
+      "expected_status": "answered",
+      "required_facts": [
+        "The DaemonSet adds Pods on newly added eligible nodes."
+      ],
+      "fact_patterns": [
+        [
+          "add|creat|schedul"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "As nodes are added to the cluster, Pods are added to them."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q11",
+      "query": "How can I stop a DaemonSet from running on certain nodes?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Restrict eligible nodes with a nodeSelector or node affinity."
+      ],
+      "fact_patterns": [
+        [
+          "nodeSelector|node.affinity|nodeAffinity"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "If you specify a .spec.template.spec.nodeSelector, then the DaemonSet controller will create Pods on nodes which match that node selector."
+        },
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "Likewise if you specify a .spec.template.spec.affinity, then DaemonSet controller will create Pods on nodes which match that node affinity."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q12",
+      "query": "What happens to DaemonSet pods when their nodes become unavailable?",
+      "expected_status": "answered",
+      "required_facts": [
+        "DaemonSet Pods tolerate not-ready/unreachable NoExecute taints and are not evicted merely for those conditions."
+      ],
+      "fact_patterns": [
+        [
+          "not.ready|unreachable|not.{0,30}evict|tolerat"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "| node.kubernetes.io/not-ready | NoExecute | DaemonSet Pods can be scheduled onto nodes that are not healthy or ready to accept Pods. Any DaemonSet Pods running on such nodes will not be evicted. |"
+        },
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "| node.kubernetes.io/unreachable | NoExecute | DaemonSet Pods can be scheduled onto nodes that are unreachable from the node controller. Any DaemonSet Pods running on such nodes will not be evicted. |"
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": "Unreachable is not the same as a node being removed; removed-node Pods are garbage-collected. No source establishes that a DaemonSet automatically moves the same Pod to a different node."
+    },
+    {
+      "id": "q13",
+      "query": "How do Kubernetes Services find the correct application pods?",
+      "expected_status": "answered",
+      "required_facts": [
+        "A Service normally uses its selector to match Pod labels."
+      ],
+      "fact_patterns": [
+        [
+          "selector|label"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "The set of Pods targeted by a Service is usually determined by a selector that you define."
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "The controller for that Service continuously scans for Pods that match its selector"
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q14",
+      "query": "What's the difference between ClusterIP, NodePort and LoadBalancer?",
+      "expected_status": "answered",
+      "required_facts": [
+        "ClusterIP exposes a cluster-internal IP.",
+        "NodePort exposes a static port on node IPs.",
+        "LoadBalancer exposes the Service through an external load balancer."
+      ],
+      "fact_patterns": [
+        [
+          "ClusterIP"
+        ],
+        [
+          "NodePort"
+        ],
+        [
+          "LoadBalancer"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "ClusterIP: Exposes the Service on a cluster-internal IP."
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "NodePort: Exposes the Service on each Node's IP at a static port (the NodePort)."
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "LoadBalancer: Exposes the Service externally using an external load balancer."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q15",
+      "query": "If a pod's IP address changes, will its Service still work?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Service abstraction remains usable as backend Pods change, with endpoint updates tracking the Pod set."
+      ],
+      "fact_patterns": [
+        [
+          "EndpointSlice|endpoint|stable|updat"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "While the actual Pods that compose the backend set may change, the frontend clients should not need to be aware of that"
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "Kubernetes updates the EndpointSlices for a Service whenever the set of Pods in a Service changes."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q16",
+      "query": "Can a Kubernetes Service route traffic to pods in another namespace?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Services without selectors can point to a Service in another namespace using configured endpoints or DNS indirection."
+      ],
+      "fact_patterns": [
+        [
+          "without.{0,20}selector|ExternalName|EndpointSlice|different.namespace|another.namespace"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "You want to point your Service to a Service in a different Namespace or on another cluster."
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "An ExternalName Service is a special case of Service that does not have selectors and uses DNS names instead."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": "The question is broader than automatic selector-based discovery. Do not reduce it to an unconditional no; the article explicitly discusses cross-namespace Service indirection."
+    },
+    {
+      "id": "q17",
+      "query": "What's the difference between an Ingress and a LoadBalancer Service?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Ingress routes HTTP/HTTPS using routing rules to Services.",
+        "LoadBalancer Service exposes a Service using an external load balancer."
+      ],
+      "fact_patterns": [
+        [
+          "HTTP|HTTPS|host|path"
+        ],
+        [
+          "LoadBalancer|load balancer"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster."
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "LoadBalancer: Exposes the Service externally using an external load balancer."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q18",
+      "query": "Can one Ingress expose multiple applications using different URL paths?",
+      "expected_status": "answered",
+      "required_facts": [
+        "One Ingress can route different HTTP URI paths to different backend Services."
+      ],
+      "fact_patterns": [
+        [
+          "path|URI|fanout|fan.out"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "A fanout configuration routes traffic from a single IP address to more than one Service, based on the HTTP URI being requested."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q19",
+      "query": "Does creating an Ingress automatically make my application accessible?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Creating an Ingress resource alone has no effect; an Ingress controller is required."
+      ],
+      "fact_patterns": [
+        [
+          "controller"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "You must have an Ingress controller to satisfy an Ingress. Only creating an Ingress resource has no effect."
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": ""
+    },
+    {
+      "id": "q20",
+      "query": "What should I check if my Ingress returns a 404 error?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Check host/path matching and the backend Service/port routing configuration.",
+        "Unmatched-request/default-backend handling depends on the Ingress controller; do not infer a definitive live 404 cause."
+      ],
+      "fact_patterns": [
+        [
+          "host|path"
+        ],
+        [
+          "backend|controller"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "Both the host and path must match the content of an incoming request before the load balancer directs traffic to the referenced Service."
+        },
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "A backend is a combination of Service and port names as described in the Service doc"
+        },
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "If defaultBackend is not set, the handling of requests that do not match any of the rules will be up to the ingress controller"
+        }
+      ],
+      "group": "user-supplied",
+      "scope_note": "The article does not explicitly document HTTP 404 diagnosis. Routing checks are source-supported guidance, not a confirmed diagnosis; controller-specific troubleshooting needs additional evidence. Scope is reviewable."
+    },
+    {
+      "id": "control-01",
+      "query": "What is the actual external IP address of the LoadBalancer Service currently running in my cluster?",
+      "expected_status": "insufficient_evidence",
+      "required_facts": [],
+      "fact_patterns": [],
+      "source_evidence": [],
+      "group": "agent-authored-unsupported-control",
+      "scope_note": "Supplemental control, not part of the twenty user-supplied questions; static official docs do not establish live cluster values."
+    },
+    {
+      "id": "control-02",
+      "query": "Which Ingress controller is currently installed in my cluster?",
+      "expected_status": "insufficient_evidence",
+      "required_facts": [],
+      "fact_patterns": [],
+      "source_evidence": [],
+      "group": "agent-authored-unsupported-control",
+      "scope_note": "Supplemental control, not part of the twenty user-supplied questions; static official docs do not establish live cluster values."
+    }
+  ],
+  "parent_dataset_sha256": "10e05cc735677f457478ee436bb7adc92441e6ec1c0ba2d405f544683d5fa779"
+}

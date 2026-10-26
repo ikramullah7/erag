@@ -1,0 +1,13 @@
+model: qwen3:14b
+model_digest: bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8
+base_url: http://127.0.0.1:11434
+retrieval_config: config/real-stage1.yaml
+context_chunks: 6
+context_max_chars: 16000
+num_ctx: 12288
+num_predict: 1024
+timeout_seconds: 180
+temperature: 0
+seed: 0
+validation_retries: 1
+align_quote_fragments: true

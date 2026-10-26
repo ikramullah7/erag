@@ -1,0 +1,11 @@
+{
+  "raw_html": "artifacts/real-world/stage1/acquisition-001/raw",
+  "corrected_extracted_corpus": "artifacts/real-world/stage1/acquisition-003/corpus",
+  "model_outputs": "artifacts/real-world/stage1/run-001/answers.json",
+  "rankings": "artifacts/real-world/stage1/run-001/heldout.json",
+  "reviewed_scores": "artifacts/real-world/stage1/results/reviewed-baseline.json",
+  "annotations": "data/real-world/stage1/answer-reviewed-baseline-v1.json",
+  "source_labels": "data/real-world/stage1/answer-semantic-references-v1.json",
+  "question_hashes": "data/real-world/stage1/evaluation-inputs-v1.json",
+  "rejected_extraction": "acquisition-001 was truncated, rejected and never indexed. Re-extraction 003 preserves definition lists and code indentation."
+}

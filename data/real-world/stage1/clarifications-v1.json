@@ -1,0 +1,32 @@
+{
+  "version": "user-clarification-v1",
+  "original_case": "q02",
+  "user_clarification": "Both, with the distinction explained",
+  "cases": [
+    {
+      "id": "q02-clarified-v1",
+      "query": "How does Kubernetes handle a failed application pod in a Deployment?\nScope: Cover both a container crash/restart inside the existing Pod and the Pod being deleted/replaced; explain the distinction.",
+      "expected_status": "answered",
+      "fact_patterns": [
+        [
+          "Always|restartPolicy"
+        ],
+        [
+          "ReplicaSet|replacement"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "Only a .spec.template.spec.restartPolicy equal to Always is allowed"
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "If you manually delete a Pod, the lifecycle is controlled by the ReplicaSet and the replacement will be created immediately"
+        }
+      ],
+      "group": "user-clarified-development",
+      "scope_note": "User chose both behaviors with distinction. Do not equate a container crash with automatic creation of a new Pod; no undocumented kubelet/backoff details required."
+    }
+  ]
+}

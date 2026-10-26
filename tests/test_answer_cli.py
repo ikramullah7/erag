@@ -9,6 +9,7 @@ import pytest
 
 from erag import cli
 from erag.answer_config import load_answer_config
+from erag.codex import CodexGenerator
 from erag.config import load_config
 
 
@@ -63,6 +64,30 @@ def test_answer_cli_provider_failure_is_nonzero_and_closes_store(monkeypatch, ca
     monkeypatch.setattr(sys, "argv", ["erag", "answer", "Question?"])
     assert cli.main() == 1
     assert capsys.readouterr().out == "" and closed == [True]
+
+
+def test_answer_cli_routes_codex_flag_through_shared_answer_pipeline(monkeypatch, capsys):
+    cfg = replace(load_config("config/default.yaml"), mode="bm25", rerank=False)
+    answer_cfg = replace(load_answer_config("config/answer.yaml"), provider="codex")
+    monkeypatch.setattr(cli, "load_config", lambda path: cfg)
+    monkeypatch.setattr(cli, "load_answer_config", lambda path: answer_cfg)
+    monkeypatch.setattr(cli, "QdrantStore", lambda **kw: SimpleNamespace(close=lambda: None))
+    monkeypatch.setattr(cli, "Engine", lambda *args: object())
+
+    def answer(engine, generator, settings, *args):
+        assert isinstance(generator, CodexGenerator)
+        assert settings.provider == "codex"
+        return {
+            "status": "answered",
+            "answer": "Validated source fact",
+            "claims": [],
+            "sources": [],
+        }
+
+    monkeypatch.setattr(cli, "answer_question", answer)
+    monkeypatch.setattr(sys, "argv", ["erag", "answer", "Question?"])
+    assert cli.main() == 0
+    assert "Validated source fact" in capsys.readouterr().out
 
 
 def test_semantic_cli_blocks_scoring_when_judge_calibration_fails(monkeypatch, capsys, tmp_path):

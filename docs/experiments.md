@@ -105,3 +105,18 @@ Loki backend assignment, a conservative high-severity clock-anchor interpretatio
 compound-reference scope caveat. No source/expected fact was rewritten after seeing answers.
 These are agent-reviewed synthetic development observations, not independent human gold scores.
 All raw outputs, source snapshots, annotations, frozen hashes and tests: `docs/results/stage-1.3`.
+
+
+Real-five observed-question repairs, 2026-10-26: configs v3-v9 and original failed/interrupted
+artifacts retain the model-loop history. Same frozen five docs, MiniLM embeddings, BGE reranker,
+canonical chunks and pinned Qwen3 14B. Non-thinking probes lost facts; wider catalogs alone did
+not fix selection. Thinking with preserved primary context, bounded document rescue, prefix reuse,
+joint budgets and question-last selection completed 43 cases in v9-regression-001. Two recorded
+length exhaustions recovered; no final provider/invalid errors. Cached initial ranking is explicit.
+
+v10 adds only deterministic complete-section/paragraph rendering. v10-section-replay-001 reuses
+actual v9 generation, records source/code hashes, and proves lossless selected-evidence coverage.
+Second 20 correctness 79.80% ->97.33%; original 20 ->100%; two shared controls declined. Remaining
+semantic misses: second q02 no-automatic-rollback limit, q20 incoming host/path match. Initial
+ranking is unchanged. 251 software tests passed,2 optional skipped. Full artifacts, limitations,
+pins and reproduction commands: `docs/results/real-world-stage1/answer-repairs-v10.json`.

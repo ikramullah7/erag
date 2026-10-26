@@ -16,3 +16,11 @@
 
 Every later dataset must contain all earlier documents. Confluence, cloud providers,
 authentication, chat and deployment remain outside the current answer scope.
+
+
+Real-document track (separate from synthetic document stages):
+- [x] First five official pages acquired/verified and frozen; twenty user questions evaluated.
+- [ ] Human label/scope adjudication and quality improvement on first five (initial gates fail).
+- [ ] Ten official pages — requires explicit approval; not started.
+- [ ] Twenty official pages — requires explicit approval; not started.
+- [ ] Thirty official pages — requires explicit approval; not started.

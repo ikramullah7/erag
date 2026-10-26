@@ -202,3 +202,93 @@ legacy/new question groups so larger aggregates do not hide retained findings. E
 provenance remains distinct from semantic citation support. No further generation/ranking tuning
 or next-stage expansion is implied by completion. Prior stored five/ten-source indexes still
 validate under the extended configuration guard.
+
+
+## Real-document validation authorization
+
+User accepted the proposed confidence step: real documents and independently phrased questions.
+Inspect the workspace before requesting files; no selected real enterprise documents found.
+Prepare source/question hashing without pretending to ingest or evaluate unknown files. Request
+selected folder/URLs and natural team questions. Retain the existing fourteen-billion-parameter
+local model; no paid provider, connector or parser installation is implied in advance. Do not
+substitute public/synthetic documents or agent-generated questions for the intended real-world
+validation. Keep this pilot separate from versioned synthetic stages and capped at twenty selected
+sources until scope changes explicitly. Preparation tests passed; actual data/metrics pending.
+
+
+## Official-document pilot execution
+
+The supplied actual folder `data/real-world/stage1` contains a URL manifest and first-five-only
+instructions, superseding the generic preparation cap for actual ingestion. Verify the five
+canonical official pages, record title plural/singular differences, and stop at five. Reject
+truncated extraction before any model use; preserve raw sources and metadata, then re-extract
+complete main content with code indentation/definition/table handling. Keep large publisher
+copies/detailed results in ignored artifacts. Add only a manifest/hash-bound real-1 ingestion
+branch with explicit five IDs and dataset/URL provenance; synthetic configurations remain intact.
+
+Freeze the user's twenty question strings before outputs and mark authorship as user-supplied,
+not independently verified human authorship. Supplement with two explicitly agent-authored
+live-state controls. The baseline used standalone queries, omitting supplied topic headers; record
+this input limitation rather than silently adding scope after seeing results. Source-grounded
+evidence/labels were independently constructed from the frozen corpus before model outputs.
+They are provisional agent judgments. Record scope ambiguities and selected-span non-exhaustivity
+rather than claiming certified true-relevance accuracy or rewriting labels to raise results.
+
+Initial real-corpus quality failed despite passing software tests and correct source acquisition.
+Document discovery is stronger than selected-evidence chunk recall; incomplete evidence,
+unconditional/storage/type misstatements and citation misbinding remain visible. Compare to
+synthetic results descriptively, not as a controlled paired causal experiment. Do not tune on
+these observed questions and call their replay independent validation. Human adjudication and
+separate development questions are next; no ten-page expansion authorized.
+
+
+## 2026-10-26: Real-pilot fixes and optional Codex answers
+
+User authorized repairing the observed real-document failures and adding a single answer-provider
+config switch. Keep synthetic profiles and original real baseline intact; all observed-question
+replays are development results. Use balanced RRF, richer retrieval representations, independent
+candidate depth and bounded original-source context. Do not adopt new labels or thresholds to make
+the metrics pass. The ranking quality gate remains separate from answer expected-fact checks.
+
+Tested a source-fact selector to prevent quote/definition rewriting. Early variants falsely
+abstained and are retained as failed experiments. Heading/paragraph preservation, table-row
+handling, fact-level reranking and a bounded ID-only selection contract improve coverage. The
+extractive output may be verbose and still requires semantic review; a matching regex is not an
+answer-correctness judgment. The thinking option is explicit and local-only, with a latency cost.
+
+Answer `provider: codex` invokes the installed CLI through the existing generator protocol; it
+is opt-in and sends retrieved evidence to Codex when used. Local14B stays default. Codex model
+selection is independent of the pinned local model. There is no new Python dependency, automatic
+model download or silent cloud fallback. Tests simulate the CLI subprocess; a live constant-JSON transport smoke also passed with no
+document content sent. Official noninteractive/schema interface was checked alongside the installed CLI's
+help: https://developers.openai.com/codex/noninteractive/ .
+
+
+A full unbounded-thinking coverage experiment timed out. Keep it as a failed experiment; use
+bounded non-thinking coverage on the same pinned model instead. A replacement-style review
+removed relevant toleration facts, so coverage is additive and cannot discard validated primary
+facts. Found and fixed excerpt fence inversion: code-tail excerpts were hiding the actual prose
+needed for cross-namespace routing. This was an answer-catalog bug, not missing corpus content.
+
+2026-10-26: Keep the real-document pilot at five articles. Separate ranking relevance from
+required-fact availability and final-answer completeness. Store source-reviewed development
+alternatives as an unadopted v2 proposal; retain all original labels and metrics. Freeze the
+existing pipeline against its pre-question source archive, then run the20 new user question
+wordings once. Preserve user topic context and the explicit steady-state q11 scope. Concepts
+overlap development questions; labels are agent-reviewed, and two unsupported controls are
+reused, so do not claim independent human or wholly disjoint validation. No post-run tuning.
+
+
+2026-10-26, authorized real-five repairs: keep both observed sets as development data. Retain
+all initial results and failed/interrupted probes; do not reuse the fresh-validation label for
+new tuning. Keep local 14B/BGE/MiniLM pins and the same five documents. Restore thinking primary
+selection after non-thinking probes lost useful facts; use bounded recorded recovery for actual
+timeout/exhaustion. Fresh combined selection handles abstention rescue; prompt layout places
+catalog first and question last. Full 43-case inference completed before integrating deterministic
+section completion, so its postflight input checks remain meaningful.
+
+Use document structure to retain defaults, alternatives and complete paragraph context in final
+quotes. This is a bounded source-only renderer, not query/reference-conditioned answer patching.
+Record model-visible versus post-generation sources separately. Reuse actual recorded selections
+for this deterministic step and disclose that reuse; verify identical model inputs under the flag.
+Do not claim fresh end-to-end timing, independent validation or a passing initial-ranking gate.

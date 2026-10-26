@@ -1,0 +1,46 @@
+{
+  "version": "real-stage1-fresh-validation-v1",
+  "source_archive": "artifacts/real-world/stage1/v2-source.json.gz",
+  "source_archive_sha256": "806a482dd6b213666eff1600dd9c02cb43d00a91c1f3ab337f3ac95c12411b95",
+  "provenance": "Archive created in previous implementation turn, before fresh user questions were supplied. Current pipeline matches archive; evaluation tooling may change, retrieval/answer behavior may not.",
+  "pipeline_hashes": {
+    "src/erag/bm25.py": "953d527d4e124af2f2f96d3169ddbd76c7099f69d952381509b0b62760d88029",
+    "src/erag/ingestion.py": "16ec9b884a93b463cdd0f6136bd6e8c3c1e84e0dbd53a4a2c7e53e925058d14f",
+    "src/erag/chunking.py": "91dfd26420c59031c3b8ba5058b436f8c276c994dbca43014721f5f4f1c4893e",
+    "src/erag/config.py": "f647794b20c5194669545f674b6954531f00bd5655fe9bf39f4f98466cb6b8f1",
+    "src/erag/evidence_answer.py": "bbe0a1e44d450ab1d0cd3e8613a03e3f4da0c4480474bc7dac3a93db7b2e45a9",
+    "src/erag/models.py": "59efa2a300dcad3202bb502275609cd78b2608023443f3cedd1064f511d23b91",
+    "src/erag/answering.py": "04d42519cbecb93d01e44466cabd3c9eb5fddcf0368d63196acb50607404622a",
+    "src/erag/codex.py": "fa69270e0fc70d95aae57101b052c9dca90986dcd56ef2224c7c45acf39c4d3d",
+    "src/erag/diagnostics.py": "9ce50c79a88b2e46e8b7b32662c0a7e6f37db220060e7fec3af87b3ba0d02e40",
+    "src/erag/article_extraction.py": "658bed57d964b2f095f24b80d969ce70c07310e64fc0ba3eb41d9947ef5730c6",
+    "src/erag/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/erag/types.py": "50278254c1d15196f56c88b56000c47a71562441693d0df0bd627b164991de34",
+    "src/erag/generators.py": "21dbde26adb43f7919aa45f38dafb81638c994fb6b59893209b79e0395e90311",
+    "src/erag/context.py": "d4ae9db4ec88eadbfaf65e7ace5aa1285c99f1e4ae7652ff6979dbe2ccf7d6b9",
+    "src/erag/cli.py": "5db682b7f78ed8c8d70539204bb8416d904741722ec42c75cfdbcebd70defa6d",
+    "src/erag/pipeline.py": "8112151aa83a7e8a19b3a58793805100d65212e7eb80838ae2b9a66194f9c4ee",
+    "src/erag/answer_config.py": "5497e242c4ea9169764fbd4c158443f8a7a98cc11a386410521358709747d40a",
+    "src/erag/fusion.py": "d5c936b8f04846cdcd0af0bb95dbce3d54cff82e3efb2330ae51adeb43a0b8d6",
+    "src/erag/storage.py": "28e52fe6de9ac9ca09837af1808b2dccd990d0e91dcde677299ba34a386151ce",
+    "src/erag/ollama.py": "5518a920dc9dda3c6bddfe7407ca3b4dd3fb8e2ca500ce7b0ae4c132f719dbea",
+    "config/real-stage1-v2.yaml": "4e769d1cf25ba970b49b904d4f99ebea635cd85e15a8b8ba5cf0a3478cfdaedb",
+    "config/answer-real-stage1-v2.yaml": "12df6063352fa9a02a716033fc730f037362cc094ad114f5e6e29eaf61945ed0"
+  },
+  "input_policy": "Render Topic: <user topic>\\nQuestion: <verbatim question>; append Scope: <verbatim user clarification> when supplied. Old development questions were standalone, so this is not a paired before/after comparison.",
+  "status": "pipeline_and_source_checked_labels_frozen_before_model_outputs",
+  "model_output_policy": "One final fresh evaluation only; no tuning on these questions after outputs.",
+  "label_hashes": {
+    "data/real-world/stage1/fresh-validation-v1/answer-cases.json": "9675507f6293fbbf7e6a54148866c4a84a3d8d543bf4baecf16b2b1c2b0f4f0c",
+    "data/real-world/stage1/fresh-validation-v1/evidence-pool.json": "f481571354e7102d339451c7fc656f8259415aca9c47cf2b90507778c9b7d423",
+    "data/real-world/stage1/fresh-validation-v1/user-questions.json": "152fdb3c5903053c8e8ec5d5afaa27de3a1f0def407d0483360ed70593c33d73",
+    "data/real-world/stage1/fresh-validation-v1/heldout.json": "d867b1243cea44b09c3b1ad4dd22f9d1ccf8ed286bdfb42d630b24fb98c275f0",
+    "data/real-world/stage1/fresh-validation-v1/semantic-references.json": "b5fce9979452d5b948ffede542b9fba47cd267f9be0010452415beb1adca46fe"
+  },
+  "validation_limitations": [
+    "New question wordings were supplied after the archived pipeline; concepts overlap development.",
+    "User-provided topic headers and Q11 scope are included; older development queries were standalone.",
+    "Initial labels source-reviewed by primary agent, not independently human-adjudicated.",
+    "Two controls are reused agent-authored cases; report separately from the twenty fresh user questions."
+  ]
+}

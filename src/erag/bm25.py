@@ -19,11 +19,14 @@ def tokenize(text: str) -> list[str]:
 
 
 class BM25:
-    def __init__(self, chunks: list[Chunk]):
+    def __init__(self, chunks: list[Chunk], texts: list[str] | None = None):
         if not chunks:
             raise ValueError("cannot index empty chunks")
         self.chunks = chunks
-        self.index = BM25Okapi([tokenize(c.text) for c in chunks])
+        texts = [c.text for c in chunks] if texts is None else texts
+        if len(texts) != len(chunks):
+            raise ValueError("retrieval texts must match chunks")
+        self.index = BM25Okapi([tokenize(t) for t in texts])
 
     def search(self, query: str, limit: int) -> list[tuple[str, float]]:
         scores = self.index.get_scores(tokenize(query))

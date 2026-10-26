@@ -68,6 +68,11 @@ def evaluate_answers(
             self.history.append(asdict(self.last))
             return self.last
 
+        def review(self, messages, schema):
+            self.last = getattr(generator, "review", generator.generate)(messages, schema)
+            self.history.append(asdict(self.last))
+            return self.last
+
     captured = Capture()
     for case in cases:
         captured.last = None
@@ -109,8 +114,57 @@ def evaluate_answers(
         # Preserve partial evidence if a later local inference fails or is interrupted.
         atomic_json(
             output.with_suffix(".partial.json"),
-            {"model": cfg.model, "completed": len(rows), "cases": rows},
+            {
+                "provider": cfg.provider,
+                "model": cfg.model
+                if cfg.provider == "ollama"
+                else cfg.codex_model or "codex-default",
+                "completed": len(rows),
+                "cases": rows,
+            },
         )
+    summary, checks = summarize_answer_rows(rows)
+    report = {
+        "phase": "answer-" + engine.cfg.stage,
+        "documents": len(engine.snapshot["documents"]),
+        "provider": cfg.provider,
+        "model": cfg.model if cfg.provider == "ollama" else cfg.codex_model or "codex-default",
+        "model_digest": cfg.model_digest if cfg.provider == "ollama" else None,
+        "config": asdict(cfg),
+        "retrieval_config": asdict(engine.cfg),
+        "prompt_version": rows[0]["result"].get("prompt_version", PROMPT_VERSION),
+        "dataset_hash": hashlib.sha256(Path(cases_path).read_bytes()).hexdigest(),
+        "corpus_hash": engine.snapshot["corpus_hash"],
+        "chunk_hash": engine.snapshot["chunk_hash"],
+        "environment": environment(),
+        "created_unix": time.time(),
+        "summary": summary,
+        "checks": checks,
+        "passed": all(checks.values()),
+        "cases": rows,
+        "limitation": "Expected-fact regexes and quote provenance do not prove full semantic entailment; inspect claims against evidence.",
+    }
+    atomic_json(output, report)
+    output.with_suffix(".partial.json").unlink(missing_ok=True)
+    return report
+
+
+def format_answer_checks(report: dict) -> str:
+    s = report["summary"]
+    median = s["generation_ms_p50"]
+    generation_time = f"{median / 1000:.2f}s" if median is not None else "unavailable"
+    return (
+        f"{report['model']} | {report['phase']} | {report['documents']} documents\n"
+        f"Known-fact cases: {s['known_fact_cases_passed']}/{s['known_fact_cases']} (target >=90%)\n"
+        f"Correct abstentions: {s['correct_abstentions']}/{s['unsupported_cases']} (target 100%)\n"
+        f"Citation provenance: {s['citation_provenance_rate']:.0%} (target 100%)\n"
+        f"Invalid responses: {s['invalid_responses']}; provider errors: {s['provider_errors']}\n"
+        f"Generation median: {generation_time}\n"
+        f"Gate: {'PASS' if report['passed'] else 'FAIL'}"
+    )
+
+
+def summarize_answer_rows(rows):
     known = [r for r in rows if r["expected_status"] == "answered"]
     unknown = [r for r in rows if r["expected_status"] == "insufficient_evidence"]
     answered = [r for r in rows if r["result"]["status"] == "answered"]
@@ -151,40 +205,4 @@ def evaluate_answers(
         and summary["provider_errors"] == 0,
         "all_answered_citations_have_valid_provenance": summary["citation_provenance_rate"] == 1,
     }
-    report = {
-        "phase": "answer-" + engine.cfg.stage,
-        "documents": len(engine.snapshot["documents"]),
-        "model": cfg.model,
-        "model_digest": cfg.model_digest,
-        "config": asdict(cfg),
-        "retrieval_config": asdict(engine.cfg),
-        "prompt_version": PROMPT_VERSION,
-        "dataset_hash": hashlib.sha256(Path(cases_path).read_bytes()).hexdigest(),
-        "corpus_hash": engine.snapshot["corpus_hash"],
-        "chunk_hash": engine.snapshot["chunk_hash"],
-        "environment": environment(),
-        "created_unix": time.time(),
-        "summary": summary,
-        "checks": checks,
-        "passed": all(checks.values()),
-        "cases": rows,
-        "limitation": "Expected-fact regexes and quote provenance do not prove full semantic entailment; inspect claims against evidence.",
-    }
-    atomic_json(output, report)
-    output.with_suffix(".partial.json").unlink(missing_ok=True)
-    return report
-
-
-def format_answer_checks(report: dict) -> str:
-    s = report["summary"]
-    median = s["generation_ms_p50"]
-    generation_time = f"{median / 1000:.2f}s" if median is not None else "unavailable"
-    return (
-        f"{report['model']} | {report['phase']} | {report['documents']} documents\n"
-        f"Known-fact cases: {s['known_fact_cases_passed']}/{s['known_fact_cases']} (target >=90%)\n"
-        f"Correct abstentions: {s['correct_abstentions']}/{s['unsupported_cases']} (target 100%)\n"
-        f"Citation provenance: {s['citation_provenance_rate']:.0%} (target 100%)\n"
-        f"Invalid responses: {s['invalid_responses']}; provider errors: {s['provider_errors']}\n"
-        f"Generation median: {generation_time}\n"
-        f"Gate: {'PASS' if report['passed'] else 'FAIL'}"
-    )
+    return summary, checks

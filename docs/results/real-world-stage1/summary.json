@@ -1,0 +1,276 @@
+{
+  "track": "real-world-stage1",
+  "status": "initial_baseline_complete_quality_failed_human_label_adjudication_pending",
+  "documents": 5,
+  "chunks": 292,
+  "source_article_words": 23368,
+  "sources": [
+    {
+      "id": "kubernetes-1-deployment",
+      "title": "Deployments | Kubernetes",
+      "requested_url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+      "final_url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-25T23:31:47.494708+00:00",
+      "html_sha256": "a14384e81e3b7babac98ce739a8e1e16e67fb6810fd85d22546001d7b78e9db8",
+      "text_sha256": "2d63d81e447de40fc85b927a8b46ed4bad4f08e2951e779e951b001ff277a487",
+      "product_version": "Unversioned rolling Kubernetes documentation; no product version inferred from navigation.",
+      "words": 7583,
+      "title_note": null
+    },
+    {
+      "id": "kubernetes-2-statefulset",
+      "title": "StatefulSets | Kubernetes",
+      "requested_url": "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+      "final_url": "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-25T23:31:47.947786+00:00",
+      "html_sha256": "cc8842880d5365b1c639fe33887118290847f6143d4b441551900268a5358701",
+      "text_sha256": "42d044eb4aa6b7f29c108a9d5878d8b4b3060a6eae05e06cec9ec652728350b7",
+      "product_version": "Unversioned rolling Kubernetes documentation; no product version inferred from navigation.",
+      "words": 4000,
+      "title_note": null
+    },
+    {
+      "id": "kubernetes-3-daemonset",
+      "title": "DaemonSet | Kubernetes",
+      "requested_url": "https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/",
+      "final_url": "https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-25T23:31:47.789265+00:00",
+      "html_sha256": "ac16cb678401017a317032f1436e50353da9681b4800c091d60db381a97ac90a",
+      "text_sha256": "7f3beef1bc5a3b4c89a046b710438da51a4b050c89d1dfac9bc405956abab299",
+      "product_version": "Unversioned rolling Kubernetes documentation; no product version inferred from navigation.",
+      "words": 1909,
+      "title_note": "Manifest plural vs official singular title recorded, without changing page"
+    },
+    {
+      "id": "kubernetes-4-service",
+      "title": "Service | Kubernetes",
+      "requested_url": "https://kubernetes.io/docs/concepts/services-networking/service/",
+      "final_url": "https://kubernetes.io/docs/concepts/services-networking/service/",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-25T23:31:47.494691+00:00",
+      "html_sha256": "94b5ad58a0ea38ea040a0fa27728fe8297d929777d23c4116fb5b7255419b9e9",
+      "text_sha256": "c22855f9a37845ebf5b6d5bd17567b69c9a72dd03c3ad152fb0f573e87cca296",
+      "product_version": "Unversioned rolling Kubernetes documentation; no product version inferred from navigation.",
+      "words": 6259,
+      "title_note": "Manifest plural vs official singular title recorded, without changing page"
+    },
+    {
+      "id": "kubernetes-5-ingress",
+      "title": "Ingress | Kubernetes",
+      "requested_url": "https://kubernetes.io/docs/concepts/services-networking/ingress/",
+      "final_url": "https://kubernetes.io/docs/concepts/services-networking/ingress/",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-25T23:31:47.494308+00:00",
+      "html_sha256": "9b2763fbf3b71f8affa3587bd4f40e1e24f134dc8c45093523ef4f77f434c78a",
+      "text_sha256": "08fd9b5e6196f07dd4f78d6e941f60bef2deccccda8c4d5628334a59eca3a70d",
+      "product_version": "Unversioned rolling Kubernetes documentation; no product version inferred from navigation.",
+      "words": 3617,
+      "title_note": null
+    }
+  ],
+  "questions": {
+    "user_supplied": 20,
+    "agent_authored_unsupported_controls": 2,
+    "authorship": "Supplied by user, independently human authorship not verified",
+    "input_mode": "Initial evaluation used each standalone question text. Topic headings were not prefixed to retrieval/model queries."
+  },
+  "ranking_chunk_selected_evidence": {
+    "mrr": 0.4232954545454545,
+    "hit@1": 0.25,
+    "hit@3": 0.55,
+    "recall@3": 0.425,
+    "recall@5": 0.475,
+    "ndcg@5": 0.39217022766683074,
+    "recall@10": 0.625,
+    "ndcg@10": 0.44634552288329
+  },
+  "ranking_document": {
+    "mrr": 0.9416666666666667,
+    "hit@1": 0.9,
+    "hit@3": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "ndcg@5": 0.9565464876785729
+  },
+  "ranking_targets": [
+    {
+      "metric": "hit@1",
+      "target": 0.95,
+      "result": 0.25,
+      "passed": false
+    },
+    {
+      "metric": "hit@3",
+      "target": 0.98,
+      "result": 0.55,
+      "passed": false
+    },
+    {
+      "metric": "recall@5",
+      "target": 0.95,
+      "result": 0.475,
+      "passed": false
+    },
+    {
+      "metric": "mrr",
+      "target": 0.95,
+      "result": 0.4232954545454545,
+      "passed": false
+    },
+    {
+      "metric": "ndcg@10",
+      "target": 0.95,
+      "result": 0.44634552288329,
+      "passed": false
+    }
+  ],
+  "ranking_gate": {
+    "passed": false,
+    "checks": {
+      "document_recall@3": true,
+      "document_mrr": true,
+      "document_ndcg@5": true,
+      "chunk_hit@1": false,
+      "chunk_hit@3": false,
+      "chunk_recall@5": false,
+      "chunk_mrr": false,
+      "chunk_ndcg@10": false,
+      "latency": true
+    }
+  },
+  "ranking_label_caveat": "Source-checked selected evidence spans, not an exhaustive human relevance pool. Valid alternative passages may be unlabelled; chunk-level numbers require adjudication before treating them as definitive retrieval accuracy.",
+  "labeled_evidence_absent_from_twenty_candidates": [
+    "q01",
+    "q04",
+    "q05",
+    "q13",
+    "q15"
+  ],
+  "answer_fact_pattern_checks": {
+    "cases": 22,
+    "known_fact_cases_passed": 12,
+    "known_fact_cases": 20,
+    "known_fact_case_rate": 0.6,
+    "correct_abstentions": 2,
+    "unsupported_cases": 2,
+    "abstention_rate": 1.0,
+    "valid_responses": 21,
+    "invalid_responses": 1,
+    "provider_errors": 0,
+    "unsupported_answers": 0,
+    "citation_provenance_rate": 1.0,
+    "generation_ms_p50": 16235.835979488911,
+    "generation_ms_p95": 42413.583639307755,
+    "failed_cases": [
+      "q01",
+      "q02",
+      "q04",
+      "q05",
+      "q08",
+      "q13",
+      "q15",
+      "q20"
+    ]
+  },
+  "reviewed_answer_metrics": {
+    "faithfulness": 0.9347826086956522,
+    "faithfulness_counts": {
+      "supported": 43,
+      "total": 46
+    },
+    "answer_correctness": 0.5203703703703704,
+    "citation_accuracy": 0.7727272727272727,
+    "citation_accuracy_counts": {
+      "supported": 34,
+      "total": 44
+    },
+    "abstention_accuracy": 0.7727272727272727,
+    "unsupported_abstention_recall": 1.0,
+    "false_abstentions": 4,
+    "judge_errors": [],
+    "semantic_scoring_complete": true
+  },
+  "review_provenance": "Agent-reviewed provisional source labels, not human gold adjudication.",
+  "human_adjudication_needed": [
+    "Alternative valid passages and exhaustive relevance coverage.",
+    "q02 container failure versus Pod deletion/replacement.",
+    "q04 conceptual update guidance versus unconditional live zero-downtime guarantee; supplied Deployment topic was not added to the query.",
+    "q15 frontend virtual IP interpretation and compound endpoint-update reference.",
+    "q20 basic routing checks versus controller-specific 404 diagnosis."
+  ],
+  "clear_findings": [
+    "Four answerable-as-labelled user questions declined; q05 failed quote validation after repair.",
+    "q08 omitted Parallel scaling despite its selected evidence being retrieved.",
+    "q13 supplied background instead of selector matching.",
+    "q14 incorrectly attributed NodePort behavior to ClusterIP.",
+    "Several citations support only a part of a combined claim, or quote related facts rather than the assertion.",
+    "Both live-cluster unsupported controls declined correctly."
+  ],
+  "software_tests": {
+    "passed": 182,
+    "skipped": 2,
+    "failed": 0,
+    "real_cached_models_executed": true
+  },
+  "synthetic_indexes_unchanged_and_validated": {
+    "1.1": 30,
+    "1.2": 52,
+    "1.3": 82
+  },
+  "profile": "config/real-stage1.yaml; config/answer-real-stage1.yaml",
+  "tuning": "None; no threshold, source or label changes after model outputs.",
+  "publisher_content_storage": "Full raw/extracted publisher copies and detailed outputs remain in local ignored artifacts/real-world/stage1; no vendor article bundles published.",
+  "timing_scope": "Fresh local14B generation; retrieval diagnostics reused from actual six-strategy evaluation. Not a fresh full-pipeline latency benchmark.",
+  "generation_model": "qwen3:14b",
+  "generation_summary": {
+    "attempts": 25,
+    "median_ms": 16235.835979488911
+  },
+  "stage_policy": "No URLs beyond the first five ingested. Approval required before ten; current results do not justify expansion.",
+  "next_step": "Adjudicate labels/scopes, improve candidate/context retrieval and atomic citation binding on separate development questions, then validate on new user questions.",
+  "static_checks": {
+    "ruff": "passed",
+    "format": "passed",
+    "whitespace": "passed"
+  },
+  "synthetic_comparison": {
+    "synthetic_stage1_3": {
+      "documents": 20,
+      "chunks": 82,
+      "ranking": {
+        "mrr": 1.0,
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "ndcg@10": 1.0
+      },
+      "answers": {
+        "faithfulness": 0.9594594594594594,
+        "faithfulness_counts": {
+          "supported": 71,
+          "total": 74
+        },
+        "answer_correctness": 0.9625252525252525,
+        "citation_accuracy": 0.9571428571428572,
+        "citation_accuracy_counts": {
+          "supported": 67,
+          "total": 70
+        },
+        "abstention_accuracy": 1.0,
+        "unsupported_abstention_recall": 1.0,
+        "false_abstentions": 0,
+        "judge_errors": [],
+        "semantic_scoring_complete": true
+      }
+    },
+    "caveat": "Different corpora, question authors, scopes and label coverage; descriptive comparison, not a controlled paired ablation."
+  },
+  "reviewed_replay": "Exact report equality from frozen annotations; no model call.",
+  "runtime_smoke": "Fresh first-five CLI question about Ingress-controller necessity passed; not evidence that quality gates passed."
+}

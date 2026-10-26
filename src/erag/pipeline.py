@@ -11,6 +11,7 @@ from uuid import uuid4
 from .bm25 import BM25
 from .chunking import chunk_document, validate_chunks
 from .config import Config, digest
+from .context import retrieval_text
 from .diagnostics import event
 from .fusion import rrf
 from .ingestion import approved_ids, ingest
@@ -57,7 +58,13 @@ def build_index(
         for d in active
         for c in chunk_document(d, cfg.max_words, cfg.overlap_words, cfg.section_boundaries)
     ]
-    vectors = embedder.encode([c.text for c in chunks])
+    texts = {d.id: d.text for d in documents}
+    vectors = embedder.encode(
+        [
+            retrieval_text(c, texts[c.document_id]) if cfg.contextual_retrieval else c.text
+            for c in chunks
+        ]
+    )
     collection = f"erag_{uuid4().hex}"
     store.build(collection, chunks, vectors)
     snapshot = {
@@ -119,7 +126,14 @@ class Engine:
         if embedder is not None and embedder.identity != self.snapshot["embedding_identity"]:
             raise ValueError("embedding identity mismatch")
         self.by_id = {c.id: c for c in self.chunks}
-        self.bm25 = BM25(self.chunks)
+        documents_by_id = {d.id: d.text for d in documents}
+        self.retrieval_texts = {
+            c.id: retrieval_text(c, documents_by_id[c.document_id])
+            if cfg.contextual_retrieval
+            else c.text
+            for c in self.chunks
+        }
+        self.bm25 = BM25(self.chunks, [self.retrieval_texts[c.id] for c in self.chunks])
 
     def search(
         self, query: str, mode: str | None = None, rerank: bool = False, top_k: int = 10
@@ -132,16 +146,27 @@ class Engine:
         started = time.perf_counter()
         timings = {}
         lexical, vector = [], []
+        depth = self.cfg.candidate_depth or self.cfg.candidates
+        fetch = min(len(self.chunks), depth * 2) if self.cfg.exclude_link_sections else depth
+
+        def eligible(rows):
+            return [
+                row
+                for row in rows
+                if not self.cfg.exclude_link_sections
+                or self.by_id[row[0]].heading.casefold() not in {"what's next", "further reading"}
+            ][:depth]
+
         if mode in {"bm25", "hybrid"}:
             t = time.perf_counter()
-            lexical = self.bm25.search(query, self.cfg.candidates)
+            lexical = eligible(self.bm25.search(query, fetch))
             timings["bm25_ms"] = (time.perf_counter() - t) * 1000
         if mode in {"vector", "hybrid"}:
             if self.embedder is None:
                 raise ValueError("vector retrieval requires embedding provider")
             t = time.perf_counter()
             encoded = self.embedder.encode([query])[0].tolist()
-            vector = self.store.search(self.snapshot["collection"], encoded, self.cfg.candidates)
+            vector = eligible(self.store.search(self.snapshot["collection"], encoded, fetch))
             timings["vector_ms"] = (time.perf_counter() - t) * 1000
         fused = (
             rrf([lexical, vector], self.cfg.rrf_k, [self.cfg.bm25_weight, self.cfg.vector_weight])
@@ -156,7 +181,7 @@ class Engine:
             if self.reranker is None:
                 raise ValueError("reranking requires reranker provider")
             t = time.perf_counter()
-            scores = self.reranker.score(query, [self.by_id[cid].text for cid, _ in initial])
+            scores = self.reranker.score(query, [self.retrieval_texts[cid] for cid, _ in initial])
             if len(scores) != len(initial) or not all(math.isfinite(s) for s in scores):
                 raise ValueError("invalid reranker scores")
             reranked = {cid: float(s) for (cid, _), s in zip(initial, scores, strict=True)}

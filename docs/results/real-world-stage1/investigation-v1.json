@@ -1,0 +1,133 @@
+{
+  "status": "investigation_complete; baseline/default profiles unchanged; no acceptance claim",
+  "scope": "Same five frozen articles, twenty observed user questions and two separate controls; no new documents/models/dependencies.",
+  "diagnostic_artifact": "artifacts/real-world/stage1/investigation-002/diagnosis.json",
+  "candidate_ablations": {
+    "lexical": {
+      "mrr": 0.4232954545454546,
+      "hit@1": 0.25,
+      "hit@3": 0.55,
+      "recall@5": 0.475,
+      "ndcg@5": 0.39217022766683074,
+      "recall@10": 0.625,
+      "ndcg@10": 0.44634552288329,
+      "pool_any": 0.75
+    },
+    "balanced20": {
+      "mrr": 0.5179166666666666,
+      "hit@1": 0.35,
+      "hit@3": 0.65,
+      "recall@5": 0.55,
+      "ndcg@5": 0.45159626009129283,
+      "recall@10": 0.75,
+      "ndcg@10": 0.5271697636476834,
+      "pool_any": 0.85
+    },
+    "union": {
+      "mrr": 0.5204166666666666,
+      "hit@1": 0.35,
+      "hit@3": 0.65,
+      "recall@5": 0.5,
+      "ndcg@5": 0.4322536197295658,
+      "recall@10": 0.775,
+      "ndcg@10": 0.534165015518852,
+      "pool_any": 0.9
+    }
+  },
+  "candidate_score_method": "Reuse independently measured BGE pair scores from BM25/vector reranked runs; change candidate selection only, not scores or labels.",
+  "maximum_shared_cached_score_delta": 1.6689300537109375e-06,
+  "findings": [
+    {
+      "cause": "Weighted fusion suppresses vector-only candidates before reranking.",
+      "evidence": "22/22 hybrid pools equal BM25 pools. At k=60 and branch depth20, 3/80 exceeds 1/61; even the weakest lexical-only candidate outranks the strongest vector-only candidate. The reranker then discards initial rank, making this hybrid reranked profile effectively BM25 plus reranking."
+    },
+    {
+      "cause": "Evidence context is fragmented and the fixed six-chunk cutoff misses complementary facts.",
+      "evidence": "q14 ClusterIP definition at rank8 was excluded; its adjacent NodePort/LoadBalancer chunk was rank1. Adjacent-context probe corrected definitions."
+    },
+    {
+      "cause": "Generator misses conditions and required facts even with relevant evidence present.",
+      "evidence": "q08 Parallel evidence at rank5 was present but omitted; prompt-only probe still fails. q16 cites client DNS for a backend routing assertion."
+    },
+    {
+      "cause": "Exact quote validation proves provenance, not semantic entailment.",
+      "evidence": "Original q14 quotes were authentic but ClusterIP definition was incorrect; q05 rejected after two nonmatching quote attempts."
+    },
+    {
+      "cause": "Aggregate faithfulness obscures missing answers and missing required facts.",
+      "evidence": "Faithfulness denominator is assertions made; correctness includes missing reference facts/zero-scored unanswered cases. q13 original gave six background assertions while omitting selector matching."
+    },
+    {
+      "cause": "Evaluation needs adjudication and stronger generalization checks.",
+      "evidence": "Gold spans are non-exhaustive; q05 already had valid alternative evidence. Some scopes are ambiguous. Real corpus has292 chunks versus82 in synthetic20-document corpus; synthetic scores did not establish generalization."
+    }
+  ],
+  "ruled_out": [
+    "No context removed by model-budget trimming in any of22 baseline cases.",
+    "No provider failures in the baseline.",
+    "Same14B model correctly answers q13/q14 after evidence changes; model capacity is not the sole cause."
+  ],
+  "probes": [
+    {
+      "id": "q05",
+      "artifact": "artifacts/real-world/stage1/investigation-002/probe-q05-atomic.json",
+      "status": "answered",
+      "change": "Atomic-claim/contiguous-quote prompt addendum; original retrieved evidence.",
+      "finding": "Quote validation succeeds, but answer only discusses ordering/update requirements; stable identity/storage and contrast remain omitted.",
+      "required_fact_coverage": "partial; not a complete fix"
+    },
+    {
+      "id": "q08",
+      "artifact": "artifacts/real-world/stage1/investigation-002/probe-q08-atomic.json",
+      "status": "answered",
+      "change": "Same prompt addendum and original retrieved evidence.",
+      "finding": "Still omits Parallel scaling and adds a data-safety rationale not established by its quotes.",
+      "required_fact_coverage": "incomplete; prompt-only patch unsuccessful"
+    },
+    {
+      "id": "q13",
+      "artifact": "artifacts/real-world/stage1/investigation-002/probe-q13-balanced20.json",
+      "status": "answered",
+      "change": "Balanced candidate selection only; original prompt/model/context limits.",
+      "finding": "Now explicitly answers selector/Pod-label matching and EndpointSlice maintenance; still adds unnecessary background.",
+      "required_fact_coverage": "covered by provisional agent inspection"
+    },
+    {
+      "id": "q14",
+      "artifact": "artifacts/real-world/stage1/investigation-002/probe-q14-neighbor.json",
+      "status": "answered",
+      "change": "Include immediate neighbors of the first retrieved chunk; same prompt/model/six-chunk cap.",
+      "finding": "Now correctly separates ClusterIP, NodePort and LoadBalancer definitions.",
+      "required_fact_coverage": "all three covered by provisional agent inspection"
+    }
+  ],
+  "metric_metadata_erratum": {
+    "original_preserved": true,
+    "issue": "Inherited rubric prose incorrectly mentions15 answerable/20 total cases and certificates.",
+    "actual_denominators": "Correctness20 supported-as-labelled user cases; abstention22 including two controls. Scorer uses actual cases, not rubric prose.",
+    "metrics_changed": false
+  },
+  "recommended_sequence": [
+    "Adjudicate scope and alternate evidence separately; preserve original baseline/labels.",
+    "Compare balanced fusion and branch-preserving candidate selection on separate development questions; track evidence coverage and latency. Wider pool alone is insufficient.",
+    "Retrieve coherent paragraphs/list groups and bounded neighboring/parent context, retaining source spans; include article title/heading path in embedding/reranking representations.",
+    "Test evidence-first answer composition with explicit question coverage and condition checks; retain strict quote validation. Calibrate semantic verification against reviewed cases before trusting it.",
+    "Use new user questions for final held-out verification after development. Keep local14B and firstfive documents for now."
+  ],
+  "limitations": [
+    "Observed-set counterfactual replay uses cached pair scores; not a fresh retrieval benchmark.",
+    "Four selected live generation probes are mechanism checks, not new aggregate answer metrics.",
+    "Provisional agent inspection, not independent human gold.",
+    "Candidate/path changes are diagnostic only and have not been promoted into default profiles."
+  ],
+  "verification": {
+    "baseline_hashes_unchanged": true,
+    "baseline_replay_matches": true,
+    "software_tests": {
+      "passed": 182,
+      "skipped": 2,
+      "failed": 0
+    },
+    "static_checks": "Ruff/format/whitespace passed; final check repeated after metadata edit."
+  }
+}

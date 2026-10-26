@@ -1,0 +1,597 @@
+{
+  "provenance": "Source-reviewed expectations authored by primary agent from frozen articles before fresh model outputs; not independent human gold. User questions are fresh wording; topics overlap development.",
+  "cases": [
+    {
+      "id": "fresh-q01",
+      "query": "Topic: Deployments\nQuestion: Why might a Deployment show all replicas as desired but fewer replicas as available?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Desired replicas is the requested target, not proof of availability.",
+        "Availability requires readiness and any configured minimum-ready interval."
+      ],
+      "fact_patterns": [
+        [
+          "desired|replica"
+        ],
+        [
+          "ready|availab"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "DESIRED displays the desired number of replicas of the application, which you define "
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": ".spec.minReadySeconds is an optional field that specifies the minimum number of secon"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q02",
+      "query": "Topic: Deployments\nQuestion: What happens if a Deployment's readiness probes keep failing during an update?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Readiness probe failures can prevent rollout completion.",
+        "A progress deadline can report stalled rollout progress.",
+        "A stalled Deployment is reported; automatic rollback is not established."
+      ],
+      "fact_patterns": [
+        [
+          "readiness|stuck"
+        ],
+        [
+          "deadline|ProgressDeadline"
+        ],
+        [
+          "no action|report"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever com"
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "Readiness probe failures"
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": ".spec.progressDeadlineSeconds denotes the number of seconds the Deployment controller"
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "Kubernetes takes no action on a stalled Deployment other than to report a status cond"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q03",
+      "query": "Topic: Deployments\nQuestion: How can I pause an application rollout while investigating an issue?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Use rollout pause or the paused field to pause a Deployment."
+      ],
+      "fact_patterns": [
+        [
+          "rollout pause|spec.paused"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "kubectl rollout pause deployment/nginx-deployment"
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": ".spec.paused is an optional boolean field for pausing and resuming a Deployment."
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q04",
+      "query": "Topic: Deployments\nQuestion: What is the difference between changing a Deployment's replica count and changing its pod template?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Pod-template changes trigger a rollout; replica-count scaling does not."
+      ],
+      "fact_patterns": [
+        [
+          "template"
+        ],
+        [
+          "do not trigger a rollout|does not trigger"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "A Deployment's rollout is triggered if and only if the Deployment's Pod template (tha"
+        },
+        {
+          "document_id": "kubernetes-1-deployment",
+          "text": "Other updates, such as scaling the Deployment, do not trigger a rollout."
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q05",
+      "query": "Topic: StatefulSets\nQuestion: Why might a StatefulSet be unable to start its second replica?",
+      "expected_status": "answered",
+      "required_facts": [
+        "OrderedReady is the default pod-management policy.",
+        "A subsequent replica can wait for its predecessor to be Running and Ready."
+      ],
+      "fact_patterns": [
+        [
+          "OrderedReady"
+        ],
+        [
+          "predecessor|sequential|web-0"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "OrderedReady pod management is the default for StatefulSets."
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "Before a scaling operation is applied to a Pod, all of its predecessors must be Runni"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q06",
+      "query": "Topic: StatefulSets\nQuestion: What happens to a StatefulSet's persistent volume claims when the StatefulSet is deleted?",
+      "expected_status": "answered",
+      "required_facts": [
+        "The default retention policy retains PVCs.",
+        "The whenDeleted Delete policy can instead delete template PVCs after their Pods."
+      ],
+      "fact_patterns": [
+        [
+          "Retain|not deleted"
+        ],
+        [
+          "whenDeleted|Delete"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "Retain (default): PVCs from the volumeClaimTemplate are not affected when their Pod i"
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "With the whenDeleted policy all PVCs from the volumeClaimTemplate are deleted after t"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q07",
+      "query": "Topic: StatefulSets\nQuestion: Why would a database application need stable network identities for individual pods?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Stable identity persists across rescheduling for applications requiring individual identifiers.",
+        "A headless Service supplies the stable per-Pod network naming/domain."
+      ],
+      "fact_patterns": [
+        [
+          "identity|identifier"
+        ],
+        [
+          "Headless|hostname|DNS|domain"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "This is useful for managing applications that need persistent storage or a stable, un"
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "The identity sticks to the Pod, regardless of which node it's (re)scheduled on."
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "A StatefulSet can use a Headless Service to control the domain of its Pods."
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "The article supports stable identity/DNS rationale; no database-specific consensus/replication protocol claims."
+    },
+    {
+      "id": "fresh-q08",
+      "query": "Topic: StatefulSets\nQuestion: What is the practical difference between OrderedReady and Parallel pod management?",
+      "expected_status": "answered",
+      "required_facts": [
+        "OrderedReady uses ordered readiness-dependent creation/termination.",
+        "Parallel permits launching or terminating Pods without waiting for the others."
+      ],
+      "fact_patterns": [
+        [
+          "OrderedReady|sequential"
+        ],
+        [
+          "Parallel"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "OrderedReady pod management is the default for StatefulSets."
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "Before a scaling operation is applied to a Pod, all of its predecessors must be Runni"
+        },
+        {
+          "document_id": "kubernetes-2-statefulset",
+          "text": "Parallel pod management tells the StatefulSet controller to launch or terminate all P"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q09",
+      "query": "Topic: DaemonSets\nQuestion: Why might a DaemonSet have fewer ready pods than the number of nodes in the cluster?",
+      "expected_status": "answered",
+      "required_facts": [
+        "All cluster nodes need not be eligible; selectors/affinity can restrict placement."
+      ],
+      "fact_patterns": [
+        [
+          "eligible|nodeSelector|affinity"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "If you specify a .spec.template.spec.nodeSelector, then the DaemonSet controller will"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "Possible documented placement explanations, not a diagnosis of the actual cluster ready count."
+    },
+    {
+      "id": "fresh-q10",
+      "query": "Topic: DaemonSets\nQuestion: What happens if I change the container image in a DaemonSet?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Replacement is governed by updateStrategy; rolling updates are supported."
+      ],
+      "fact_patterns": [
+        [
+          "updateStrategy"
+        ],
+        [
+          "rolling update"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "If any Pods need replacing the DaemonSet replaces them according to its updateStrateg"
+        },
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "You can perform a rolling update on a DaemonSet."
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "Do not invent a default or guarantee immediate replacement independent of updateStrategy."
+    },
+    {
+      "id": "fresh-q11",
+      "query": "Topic: DaemonSets\nQuestion: Can a DaemonSet run multiple pods on the same node?\nScope: Normal steady-state behavior of one DaemonSet",
+      "expected_status": "answered",
+      "required_facts": [
+        "For the clarified normal steady state, one DaemonSet targets a Pod copy on each eligible node."
+      ],
+      "fact_patterns": [
+        [
+          "copy|each eligible|each node"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "The DaemonSet controller creates a Pod for each eligible node"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "User clarified normal steady state; no claim about transient rolling-update overlap."
+    },
+    {
+      "id": "fresh-q12",
+      "query": "Topic: DaemonSets\nQuestion: How do node selectors and tolerations affect DaemonSet scheduling?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Node selectors/affinity restrict eligible nodes.",
+        "DaemonSets add default tolerations and allow custom Pod-template tolerations."
+      ],
+      "fact_patterns": [
+        [
+          "nodeSelector|affinity"
+        ],
+        [
+          "toleration"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "If you specify a .spec.template.spec.nodeSelector, then the DaemonSet controller will"
+        },
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "The DaemonSet controller automatically adds a set of tolerations to DaemonSet Pods:"
+        },
+        {
+          "document_id": "kubernetes-3-daemonset",
+          "text": "You can add your own tolerations to the Pods of a DaemonSet as well, by defining thes"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q13",
+      "query": "Topic: Services\nQuestion: Why might a Kubernetes Service exist but have no ready endpoints?",
+      "expected_status": "answered",
+      "required_facts": [
+        "A Service needs matching backing Pods or configured endpoints; its object alone does not establish endpoints."
+      ],
+      "fact_patterns": [
+        [
+          "selector|EndpointSlice"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "The set of Pods targeted by a Service is usually determined by a selector that you de"
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "Because this Service has no selector, the corresponding EndpointSlice objects are not"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "Documented matching/configuration possibilities; not a diagnosis of actual Pod readiness."
+    },
+    {
+      "id": "fresh-q14",
+      "query": "Topic: Services\nQuestion: What happens if a Service's targetPort doesn't match the port used by the application?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Service traffic is mapped to its targetPort; the configured destination must correspond to the application port."
+      ],
+      "fact_patterns": [
+        [
+          "targetPort"
+        ],
+        [
+          "port"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "A Service can map any incoming port to a targetPort."
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "Port definitions in Pods have names, and you can reference these names in the targetP"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "Mapping consequences follow from targetPort; no unsupported claim about a specific timeout/refusal error."
+    },
+    {
+      "id": "fresh-q15",
+      "query": "Topic: Services\nQuestion: How does a headless Service differ from a normal ClusterIP Service?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Headless Services have no allocated cluster IP or platform proxy/load balancing.",
+        "They expose individual endpoint addresses through DNS so clients can choose Pods directly."
+      ],
+      "fact_patterns": [
+        [
+          "not allocated|None"
+        ],
+        [
+          "DNS|directly|endpoint IP"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "For headless Services, a cluster IP is not allocated, kube-proxy does not handle thes"
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "A headless Service allows a client to connect to whichever Pod it prefers, directly."
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q16",
+      "query": "Topic: Services\nQuestion: Can a Service continue routing traffic while its backing pods are being replaced?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Service abstraction decouples clients from changing Pods and EndpointSlices track changes."
+      ],
+      "fact_patterns": [
+        [
+          "Service|abstraction"
+        ],
+        [
+          "EndpointSlice|change"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "While the actual Pods that compose the backend set may change, the frontend clients s"
+        },
+        {
+          "document_id": "kubernetes-4-service",
+          "text": "Kubernetes updates the EndpointSlices for a Service whenever the set of Pods in a Ser"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "No zero-downtime guarantee if no ready backend exists."
+    },
+    {
+      "id": "fresh-q17",
+      "query": "Topic: Ingress\nQuestion: Why might an Ingress route traffic to the wrong backend application?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Host/path matching and backend Service/port mappings determine routing."
+      ],
+      "fact_patterns": [
+        [
+          "host|path"
+        ],
+        [
+          "backend|port"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "Both the host and path must match the content of an incoming request before the load "
+        },
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "A backend is a combination of Service and port names as described in the Service doc"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q18",
+      "query": "Topic: Ingress\nQuestion: What is the difference between TLS termination at an Ingress controller and TLS inside application pods?",
+      "expected_status": "answered",
+      "required_facts": [
+        "Documented Ingress TLS termination ends client TLS at the ingress point, with plaintext onward to Service/Pods; Pod-side TLS is not automatically supplied."
+      ],
+      "fact_patterns": [
+        [
+          "TLS termination|ingress point"
+        ],
+        [
+          "plaintext"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "assumes TLS termination at the ingress point (traffic to the Service and its Pods is "
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "The reference assumes plaintext beyond ingress termination; no claim of automatically configured application TLS."
+    },
+    {
+      "id": "fresh-q19",
+      "query": "Topic: Ingress\nQuestion: How does an Ingress controller decide which rule to apply when multiple paths match?",
+      "expected_status": "answered",
+      "required_facts": [
+        "The longest matching path takes precedence.",
+        "At equal matching length, Exact takes precedence over Prefix."
+      ],
+      "fact_patterns": [
+        [
+          "longest"
+        ],
+        [
+          "exact.*prefix|Exact"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "precedence will be given first to the longest matching path."
+        },
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "If two paths are still equally matched, precedence will be given to paths with an exa"
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "General documented behavior; do not infer actual live-cluster state."
+    },
+    {
+      "id": "fresh-q20",
+      "query": "Topic: Ingress\nQuestion: Why might an Ingress work inside the cluster but fail for users outside it?",
+      "expected_status": "answered",
+      "required_facts": [
+        "External publication requires an Ingress controller and its exposure/load-balancer implementation.",
+        "Incoming external host/path must match the routing rules."
+      ],
+      "fact_patterns": [
+        [
+          "Ingress controller|load balancer"
+        ],
+        [
+          "host|path"
+        ]
+      ],
+      "source_evidence": [
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "You must have an Ingress controller to satisfy an Ingress. Only creating an Ingress r"
+        },
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "The Ingress controller provisions an implementation-specific load balancer that satis"
+        },
+        {
+          "document_id": "kubernetes-5-ingress",
+          "text": "Both the host and path must match the content of an incoming request before the load "
+        }
+      ],
+      "group": "fresh-user-supplied",
+      "scope_note": "Limit to documented external exposure and routing checks; no definitive actual firewall/DNS diagnosis."
+    },
+    {
+      "id": "reused-control-01",
+      "query": "What is the actual external IP address of the LoadBalancer Service currently running in my cluster?",
+      "expected_status": "insufficient_evidence",
+      "fact_patterns": [],
+      "source_evidence": [],
+      "group": "reused-agent-control",
+      "scope_note": "Supplemental control, not part of the twenty user-supplied questions; static official docs do not establish live cluster values."
+    },
+    {
+      "id": "reused-control-02",
+      "query": "Which Ingress controller is currently installed in my cluster?",
+      "expected_status": "insufficient_evidence",
+      "fact_patterns": [],
+      "source_evidence": [],
+      "group": "reused-agent-control",
+      "scope_note": "Supplemental control, not part of the twenty user-supplied questions; static official docs do not establish live cluster values."
+    }
+  ]
+}

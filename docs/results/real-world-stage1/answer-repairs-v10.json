@@ -1,0 +1,184 @@
+{
+  "version": "real-stage1-answer-repairs-v10",
+  "scope": {
+    "documents": 5,
+    "unique_cases": 43,
+    "original_supported": 20,
+    "second_supported": 20,
+    "shared_unsupported_controls": 2,
+    "separate_user_clarification": 1,
+    "evaluation": "Observed development regression; cached initial chunk ranking, fresh bounded evidence search and actual local 14B generations, followed by deterministic section completion replay. No held-out or production claim."
+  },
+  "profile": "config/answer-real-stage1-v10.yaml",
+  "provider": "ollama",
+  "model": "qwen3:14b",
+  "model_digest": "bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8",
+  "groups": {
+    "original_twenty": {
+      "supported_questions": 20,
+      "shared_controls": 2,
+      "reviewed_answer_metrics": {
+        "faithfulness": 1.0,
+        "faithfulness_counts": {
+          "supported": 520,
+          "total": 520
+        },
+        "answer_correctness": 1.0,
+        "citation_accuracy": 1.0,
+        "citation_accuracy_counts": {
+          "supported": 92,
+          "total": 92
+        },
+        "abstention_accuracy": 1.0,
+        "unsupported_abstention_recall": 1.0,
+        "false_abstentions": 0,
+        "judge_errors": [],
+        "semantic_scoring_complete": true
+      },
+      "canonical_chunk_ranking": {
+        "hit@1": 0.45,
+        "hit@3": 0.7,
+        "recall@5": 0.65,
+        "mrr": 0.5996794871794872,
+        "ndcg@10": 0.6200096110622433
+      },
+      "ranking_changed": false
+    },
+    "second_twenty": {
+      "supported_questions": 20,
+      "shared_controls": 2,
+      "reviewed_answer_metrics": {
+        "faithfulness": 1.0,
+        "faithfulness_counts": {
+          "supported": 516,
+          "total": 516
+        },
+        "answer_correctness": 0.9733333333333333,
+        "citation_accuracy": 1.0,
+        "citation_accuracy_counts": {
+          "supported": 94,
+          "total": 94
+        },
+        "abstention_accuracy": 1.0,
+        "unsupported_abstention_recall": 1.0,
+        "false_abstentions": 0,
+        "judge_errors": [],
+        "semantic_scoring_complete": true
+      },
+      "canonical_chunk_ranking": {
+        "hit@1": 0.4,
+        "hit@3": 0.7,
+        "recall@5": 0.5833333333333333,
+        "mrr": 0.5549242424242424,
+        "ndcg@10": 0.570595914287445
+      },
+      "ranking_changed": false
+    }
+  },
+  "paired_second_set_before": {
+    "faithfulness": 0.997275204359673,
+    "faithfulness_counts": {
+      "supported": 366,
+      "total": 367
+    },
+    "answer_correctness": 0.798,
+    "citation_accuracy": 0.9895833333333334,
+    "citation_accuracy_counts": {
+      "supported": 95,
+      "total": 96
+    },
+    "abstention_accuracy": 0.8636363636363636,
+    "unsupported_abstention_recall": 1.0,
+    "false_abstentions": 1,
+    "judge_errors": [],
+    "semantic_scoring_complete": true
+  },
+  "all_unique_cases": {
+    "faithfulness": 1.0,
+    "faithfulness_counts": {
+      "supported": 1072,
+      "total": 1072
+    },
+    "answer_correctness": 0.9869918699186992,
+    "citation_accuracy": 1.0,
+    "citation_accuracy_counts": {
+      "supported": 191,
+      "total": 191
+    },
+    "abstention_accuracy": 1.0,
+    "unsupported_abstention_recall": 1.0,
+    "false_abstentions": 0,
+    "judge_errors": [],
+    "semantic_scoring_complete": true
+  },
+  "runtime": {
+    "unrecovered_errors": 0,
+    "invalid_responses": 0,
+    "recorded_reasoning_recoveries": [
+      {
+        "id": "fresh-q12",
+        "initial_error_type": "OllamaTruncated",
+        "initial_error": "Ollama exhausted its token budget; truncated answers are rejected",
+        "initial_elapsed_ms": 115655.39191599237,
+        "initial_num_predict": 2048,
+        "fallback_num_predict": 512,
+        "requests": 2
+      },
+      {
+        "id": "fresh-q20",
+        "initial_error_type": "OllamaTruncated",
+        "initial_error": "Ollama exhausted its token budget; truncated answers are rejected",
+        "initial_elapsed_ms": 119236.2886669871,
+        "initial_num_predict": 2048,
+        "fallback_num_predict": 512,
+        "requests": 2
+      }
+    ],
+    "generation_ms_p50": 72058.32658399595,
+    "generation_ms_p95": 121046.75305901618,
+    "timing_scope": "Parent cached retrieval and actual model generation reused; only section_context_ms is newly measured."
+  },
+  "software_checks": {
+    "pytest_passed": 251,
+    "pytest_skipped": 2,
+    "pytest_command": "HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false ERAG_MODEL_TESTS=1 .venv/bin/pytest -q",
+    "ruff": "passed",
+    "format": "passed",
+    "git_diff_check": "passed"
+  },
+  "preservation": {
+    "model_run_finished_with_successful_postflight_before_source_integration": true,
+    "archived_model_source_hashes_verified": true,
+    "frozen_noncode_input_hashes_verified": true,
+    "original_labels_and_thresholds_unchanged": true,
+    "all_selected_assertions_retained_by_same_source_version_supersets": true
+  },
+  "known_semantic_gaps": [
+    {
+      "id": "fresh-q02",
+      "missing": "Explicit no-automatic-corrective-action/rollback limit."
+    },
+    {
+      "id": "fresh-q20",
+      "missing": "Explicit incoming Ingress host/path matching; general routing terminology and ExternalName errors are insufficient."
+    }
+  ],
+  "limitations": [
+    "Primary-agent review of development questions; provisional rather than independent human validation.",
+    "Extractive source copying makes faithfulness/citation scores close to source fidelity; these do not measure synthesis, concision or relevance of extra background.",
+    "Two unsupported controls are reused between cohorts; they are not four independent negatives.",
+    "Exact witness coverage is separately measured and can miss semantically equivalent selected passages.",
+    "Canonical first-chunk ranking remains below both the original targets and the later discussed targets. No stage acceptance or expansion."
+  ],
+  "artifacts": {
+    "raw_model_answers": "artifacts/real-world/stage1/v9-regression-001/answers.json",
+    "model_source_archive": "artifacts/real-world/stage1/v9-regression-001/source.json.gz",
+    "completed_answers": "artifacts/real-world/stage1/v10-section-replay-001/answers.json",
+    "semantic_annotations": "artifacts/real-world/stage1/v10-section-replay-001/agent-review-v1.json",
+    "reviewed_metrics": "artifacts/real-world/stage1/v10-section-replay-001/reviewed-metrics.json",
+    "evidence_alignment": "artifacts/real-world/stage1/v10-section-replay-001/evidence-alignment.json",
+    "completion_source_archive": "artifacts/real-world/stage1/v10-section-replay-001/completion-source.json.gz",
+    "completion_build": "artifacts/real-world/stage1/v10-section-replay-001/completion-build.json"
+  },
+  "reproduce_section_completion": ".venv/bin/python scripts/replay_section_context.py --answers artifacts/real-world/stage1/v9-regression-001/answers.json --cases artifacts/real-world/stage1/v9-regression-001/cases.json --snapshot artifacts/real-world/stage1/index-v2/manifest.json --answer-config config/answer-real-stage1-v10.yaml --output artifacts/new-section-completion/answers.json"
+}

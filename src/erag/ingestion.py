@@ -1,6 +1,7 @@
 """Validated plain-text ingestion; explicit approved document stages are enforced."""
 
 import hashlib
+import json
 from pathlib import Path
 
 from .types import Document
@@ -43,6 +44,17 @@ STAGE_13_IDS = STAGE_12_IDS | frozenset(
 )
 
 
+REAL_STAGE1_IDS = frozenset(
+    {
+        "kubernetes-1-deployment",
+        "kubernetes-2-statefulset",
+        "kubernetes-3-daemonset",
+        "kubernetes-4-service",
+        "kubernetes-5-ingress",
+    }
+)
+
+
 def approved_ids(stage: str):
     if stage == "1.1":
         return APPROVED_IDS
@@ -50,6 +62,8 @@ def approved_ids(stage: str):
         return STAGE_12_IDS
     if stage == "1.3":
         return STAGE_13_IDS
+    if stage == "real-1":
+        return REAL_STAGE1_IDS
     raise ValueError("unapproved document stage")
 
 
@@ -61,6 +75,12 @@ def ingest(directory: str | Path, stage: str = "1.1") -> list[Document]:
         raise ValueError(
             f"Stage {stage} requires exactly the {len(expected)} approved document IDs"
         )
+    provenance = {}
+    if stage == "real-1":
+        manifest = json.loads((root.parent / "acquisition.json").read_text())
+        provenance = {d["id"]: d for d in manifest["documents"]}
+        if manifest["status"] != "corpus_frozen" or set(provenance) != expected:
+            raise ValueError("real corpus requires a complete verified acquisition manifest")
     documents, seen = [], set()
     for p in files:
         if p.is_symlink() or not p.is_file():
@@ -75,5 +95,13 @@ def ingest(directory: str | Path, stage: str = "1.1") -> list[Document]:
         if normalized in seen:
             raise ValueError(f"duplicate document content: {p}")
         seen.add(normalized)
-        documents.append(Document(p.stem, p.name, version, text))
+        if stage == "real-1":
+            meta = provenance[p.stem]
+            if meta["text_sha256"] != version or meta["http_status"] != 200:
+                raise ValueError("real source differs from frozen verified acquisition")
+            documents.append(
+                Document(p.stem, meta["final_url"], version, text, "real-world-stage1-v1")
+            )
+        else:
+            documents.append(Document(p.stem, p.name, version, text))
     return documents

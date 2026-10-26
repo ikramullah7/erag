@@ -1,0 +1,11 @@
+{
+  "status": "Questions/expected facts frozen before model outputs; this records hashes, not retrospective label edits.",
+  "inputs": {
+    "data/real-world/stage1/user-questions-v1.json": "a15e33fbdfd6b0111af2a5b62217cfd3859ba280c2852b78df8866ec9354c4c9",
+    "data/real-world/stage1/answer-evaluation-v1.json": "10e05cc735677f457478ee436bb7adc92441e6ec1c0ba2d405f544683d5fa779",
+    "data/real-world/stage1/answer-semantic-references-v1.json": "bd5742c865d8a2bd07982588bcd49b9c25d508c4bab0fcd9f2cf4a9dd6855070",
+    "data/real-world/stage1/heldout.json": "4670acad9f7f04f76a0b25915279d3dec867468bca2c8667e46be4d307db5d1a"
+  },
+  "questions": "20 user-supplied unchanged; 2 agent-authored unsupported controls",
+  "source_metadata": "artifacts/real-world/stage1/acquisition-003/acquisition.json"
+}

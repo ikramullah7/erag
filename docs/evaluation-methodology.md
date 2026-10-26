@@ -85,3 +85,22 @@ The model comparison supplies identical retrieved evidence to both models. Repor
 median/p95 separately; cached retrieval timings are not fresh end-to-end measurements. Local
 hardware, warm-up/model loading and runtime versions affect results. A 20-case development
 check is insufficient to claim production readiness or approve the next document stage.
+
+
+Real-five repair regression v10: original 20, second 20, two shared unsupported controls and one
+separately versioned user clarification total43 unique cases. Freeze clarified restart-policy /
+ReplicaSet requirements before generation; preserve original q02. New evaluations of observed
+questions are development checks. Recorded canonical initial rankings, fresh bounded fact search
+and actual local 14B generations are distinct from the subsequent model-free section replay.
+
+Completion must preserve every original cited assertion in a same-document/version superset.
+Its model_source_ids bind expanded_context to pre-completion sources; actual saved catalog
+binds model_visible; final selected_quotes may include post-generation sections. Never credit
+post-generation context as model input. Exact witness recognition is not semantic equivalence.
+
+Primary-agent answer annotations remain provisional. Sentence/row decomposition includes
+extra factual background; long tables group adjacent rows within the existing judgment schema.
+Missing required facts are penalized despite truthful extra content. Extractive copying makes
+faithfulness/citation scores close to source fidelity and does not measure useful synthesis,
+concision or question relevance. Group scores reuse the same two negative controls; they do not
+constitute four independent negatives. No new acceptance thresholds or held-out claims apply.

@@ -1,0 +1,1224 @@
+{
+  "version": "real-stage1-reviewed-baseline-v1",
+  "review_kind": "agent-reviewed",
+  "reviewer": "Primary coding agent, source review; provisional labels pending human adjudication",
+  "answer_input_sha256": "cec922ab62d06d5b8cb95b6ae4f19a302fadd3630e4454dd9540e91ff3cbf3a7",
+  "reference_sha256": "bd5742c865d8a2bd07982588bcd49b9c25d508c4bab0fcd9f2cf4a9dd6855070",
+  "rubric": {
+    "faithfulness": "Supported atomic factual assertions / all factual assertions; use retrieved evidence only.",
+    "answer_correctness": "Mean per-answer factual-precision/required-fact-recall F1 across the 15 answerable cases; unsupported factual certainty is unverified, not correct.",
+    "citation_accuracy": "Citations supporting the entire associated claim in their own excerpt context AND matching original-source provenance / all citations.",
+    "abstention_accuracy": "Correct answered/insufficient-evidence decisions across all 20 cases, including false-abstention checks.",
+    "atomic_decomposition": "Keep entity/value/condition relations intact; split separately asserted conjuncts. Retain extra supported advice as factual assertions; it cannot replace required facts.",
+    "qualifiers": "Distinguish requested/configured certificate validity from actual issued validity. Case 04 is conservatively marked unsupported/unknown, not a wrong numeric value."
+  },
+  "cases": [
+    {
+      "id": "q01",
+      "query": "What happens to running applications if a Kubernetes Deployment is deleted?",
+      "answer_claims": [],
+      "required_facts": [
+        "By default deleting a Deployment also deletes its running Pods and can cause downtime."
+      ],
+      "judgment": null,
+      "review_note": "Answerable deletion/default-cascade evidence exists in the corpus; the model abstained with the retrieved context. The labeled deletion span was absent from the twenty candidates."
+    },
+    {
+      "id": "q02",
+      "query": "How does Kubernetes handle a failed application pod in a Deployment?",
+      "answer_claims": [],
+      "required_facts": [
+        "Pod replacement is controlled by the Deployment's ReplicaSet; deleted Pods receive a replacement."
+      ],
+      "judgment": null,
+      "review_note": "Source scope is partly ambiguous: the article establishes Always restartPolicy and immediate ReplicaSet replacement for deletion, rather than every possible application-failure cause. The frozen reference expects that documented basic explanation; model abstention scores zero under this provisional scope."
+    },
+    {
+      "id": "q03",
+      "query": "Can I roll back a Deployment after a bad application update?",
+      "answer_claims": [
+        "Yes, you can roll back a Deployment after a bad application update."
+      ],
+      "required_facts": [
+        "A Deployment can be rolled back to a retained earlier revision."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "Yes, you can roll back a Deployment after a bad application update.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The excerpts explicitly discuss rollback of unstable/failed Deployments and demonstrate rollout undo; the answer states capability, not unlimited history availability."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The excerpts explicitly discuss rollback of unstable/failed Deployments and demonstrate rollout undo; the answer states capability, not unlimited history availability."
+              },
+              {
+                "citation_index": 1,
+                "support": "supported",
+                "reason": "The excerpts explicitly discuss rollback of unstable/failed Deployments and demonstrate rollout undo; the answer states capability, not unlimited history availability."
+              },
+              {
+                "citation_index": 2,
+                "support": "supported",
+                "reason": "The excerpts explicitly discuss rollback of unstable/failed Deployments and demonstrate rollout undo; the answer states capability, not unlimited history availability."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "The affirmative rollback capability is supported by retained-revision descriptions and examples."
+          }
+        ]
+      },
+      "review_note": "Every returned claim, quote in its source context and required fact was checked against the frozen official corpus; review is agent-authored, not human gold adjudication."
+    },
+    {
+      "id": "q04",
+      "query": "How can I update my application without causing downtime?",
+      "answer_claims": [],
+      "required_facts": [
+        "Use a RollingUpdate strategy to replace Pods gradually while retaining availability."
+      ],
+      "judgment": null,
+      "review_note": "The question is interpreted as conceptual update guidance, not a guaranteed measured application outage result. RollingUpdate/controlled-replacement evidence exists but its selected spans were absent from the candidates."
+    },
+    {
+      "id": "q05",
+      "query": "When should I use a StatefulSet instead of a Deployment?",
+      "answer_claims": [],
+      "required_facts": [
+        "Use StatefulSet when stable Pod identity/storage or ordered deployment/scaling is needed, unlike interchangeable stateless replicas."
+      ],
+      "judgment": null,
+      "review_note": "The generator and bounded retry failed exact quote validation; no factual answer was exposed. Correctness and abstention decision are unsuccessful; faithfulness/citation ratios exclude non-returned factual claims."
+    },
+    {
+      "id": "q06",
+      "query": "If a StatefulSet pod crashes, will it keep the same identity?",
+      "answer_claims": [
+        "If a StatefulSet pod crashes, it will keep the same identity."
+      ],
+      "required_facts": [
+        "StatefulSet identity remains stable across Pod replacement or rescheduling."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "If a StatefulSet pod crashes, it will keep the same identity.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "Both quoted passages explicitly retain stable Pod identifiers across replacement/rescheduling; same identity does not mean the identical live Pod object persists."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "Both quoted passages explicitly retain stable Pod identifiers across replacement/rescheduling; same identity does not mean the identical live Pod object persists."
+              },
+              {
+                "citation_index": 1,
+                "support": "supported",
+                "reason": "Both quoted passages explicitly retain stable Pod identifiers across replacement/rescheduling; same identity does not mean the identical live Pod object persists."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "The answer preserves stable identity across the failure/replacement scenario."
+          }
+        ]
+      },
+      "review_note": "Every returned claim, quote in its source context and required fact was checked against the frozen official corpus; review is agent-authored, not human gold adjudication."
+    },
+    {
+      "id": "q07",
+      "query": "Does each StatefulSet pod get its own persistent storage?",
+      "answer_claims": [
+        "Each StatefulSet pod gets its own persistent storage."
+      ],
+      "required_facts": [
+        "With volumeClaimTemplates each Pod receives its own PVC for each template, providing stable storage."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "Each StatefulSet pod gets its own persistent storage.",
+                "faithfulness": "unsupported",
+                "correctness": "unknown",
+                "reason": "The source qualifies storage allocation by configured VolumeClaimTemplate entries; unconditional automatic persistent storage for every StatefulSet Pod is not established."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "unsupported",
+                "reason": "The source qualifies storage allocation by configured VolumeClaimTemplate entries; unconditional automatic persistent storage for every StatefulSet Pod is not established."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": false,
+            "reason": "The answer omits the configured/provisioned volumeClaimTemplates condition."
+          }
+        ]
+      },
+      "review_note": "Do not replace the source condition with an unconditional yes: per-template PVC allocation is documented, automatic storage for every possible StatefulSet is not."
+    },
+    {
+      "id": "q08",
+      "query": "Can StatefulSet pods be scaled down in any order?",
+      "answer_claims": [
+        "StatefulSet pods are terminated in reverse order, from {N-1..0} when scaling down.",
+        "Before a Pod is terminated, all of its successors must be completely shutdown.",
+        "StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is deleted.",
+        "To achieve ordered and graceful termination of the pods in the StatefulSet, it is possible to scale the StatefulSet down to 0 prior to deletion.",
+        "The whenScaled policy must delete PVCs only when a Pod is scaled down, and not when a Pod is deleted for another reason.",
+        "The default for policies is Retain, matching the StatefulSet behavior before this new feature."
+      ],
+      "required_facts": [
+        "Default StatefulSet scale-down follows reverse ordinal ordering.",
+        "Parallel Pod management permits parallel scaling termination instead of waiting in order."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "StatefulSet pods are terminated in reverse order, from {N-1..0} when scaling down.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ]
+          },
+          {
+            "claim_index": 1,
+            "atomic_facts": [
+              {
+                "text": "Before a Pod is terminated, all of its successors must be completely shutdown.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ]
+          },
+          {
+            "claim_index": 2,
+            "atomic_facts": [
+              {
+                "text": "StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is deleted.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ]
+          },
+          {
+            "claim_index": 3,
+            "atomic_facts": [
+              {
+                "text": "To achieve ordered and graceful termination of the pods in the StatefulSet, it is possible to scale the StatefulSet down to 0 prior to deletion.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ]
+          },
+          {
+            "claim_index": 4,
+            "atomic_facts": [
+              {
+                "text": "The whenScaled policy must delete PVCs only when a Pod is scaled down, and not when a Pod is deleted for another reason.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ]
+          },
+          {
+            "claim_index": 5,
+            "atomic_facts": [
+              {
+                "text": "The default for policies is Retain, matching the StatefulSet behavior before this new feature.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The quoted OrderedReady/deployment-scaling guarantee or PVC policy appears in the provided excerpt; the missing Parallel policy is assessed separately as incomplete reference coverage."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "The reverse-ordinal behavior is stated."
+          },
+          {
+            "fact_index": 1,
+            "covered": false,
+            "reason": "Parallel pod management is not mentioned, although it is the documented scaling exception."
+          }
+        ]
+      },
+      "review_note": "All quoted assertions reflect retrieved default-order/PVC passages, so they are credited for source faithfulness. The answer does not address Parallel pod management and over-focuses on unrelated deletion/PVC policies; completeness is partial. Default-order scope interpretation is reviewable."
+    },
+    {
+      "id": "q09",
+      "query": "How can I run a monitoring agent on every Kubernetes node?",
+      "answer_claims": [
+        "To run a monitoring agent on every Kubernetes node, you can use a DaemonSet. A DaemonSet ensures that all (or some) Nodes run a copy of a Pod.",
+        "A typical use of a DaemonSet is to run a node monitoring daemon on every node.",
+        "A DaemonSet can be configured to run on all nodes in the cluster."
+      ],
+      "required_facts": [
+        "Use a DaemonSet to place a monitoring-agent Pod on every eligible node."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "Use a DaemonSet for a node monitoring agent.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The retrieved introduction defines DaemonSet coverage for all or selected eligible nodes."
+              },
+              {
+                "text": "DaemonSets place copies of a Pod on all or selected eligible nodes.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The retrieved introduction defines DaemonSet coverage for all or selected eligible nodes."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The retrieved introduction defines DaemonSet coverage for all or selected eligible nodes."
+              }
+            ]
+          },
+          {
+            "claim_index": 1,
+            "atomic_facts": [
+              {
+                "text": "A typical use of a DaemonSet is to run a node monitoring daemon on every node.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The same introduction explicitly lists node monitoring daemons as a use case."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The same introduction explicitly lists node monitoring daemons as a use case."
+              }
+            ]
+          },
+          {
+            "claim_index": 2,
+            "atomic_facts": [
+              {
+                "text": "A DaemonSet can be configured to run on all nodes in the cluster.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The quoted simple-case description explicitly covers all nodes."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The quoted simple-case description explicitly covers all nodes."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "The answer explicitly recommends a DaemonSet with the relevant per-node behavior."
+          }
+        ]
+      },
+      "review_note": "Every returned claim, quote in its source context and required fact was checked against the frozen official corpus; review is agent-authored, not human gold adjudication."
+    },
+    {
+      "id": "q10",
+      "query": "What happens when I add another node to a cluster that uses a DaemonSet?",
+      "answer_claims": [
+        "When a node is added to the cluster, the DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them."
+      ],
+      "required_facts": [
+        "The DaemonSet adds Pods on newly added eligible nodes."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "When a node is added to the cluster, the DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The DaemonSet introduction explicitly says Pods are added as nodes join. The all/some qualifier preserves eligible-node scope."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The DaemonSet introduction explicitly says Pods are added as nodes join. The all/some qualifier preserves eligible-node scope."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "The answer states new-node Pod creation."
+          }
+        ]
+      },
+      "review_note": "Every returned claim, quote in its source context and required fact was checked against the frozen official corpus; review is agent-authored, not human gold adjudication."
+    },
+    {
+      "id": "q11",
+      "query": "How can I stop a DaemonSet from running on certain nodes?",
+      "answer_claims": [
+        "To stop a DaemonSet from running on certain nodes, you can use node affinity by specifying the .spec.template.spec.affinity.nodeAffinity field in the DaemonSet definition.",
+        "You can also use tolerations to control where DaemonSet pods are scheduled. The DaemonSet controller automatically adds a set of tolerations to DaemonSet pods.",
+        "You can add your own tolerations to the Pods of a DaemonSet as well, by defining these in the Pod template of the DaemonSet."
+      ],
+      "required_facts": [
+        "Restrict eligible nodes with a nodeSelector or node affinity."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "To stop a DaemonSet from running on certain nodes, you can use node affinity by specifying the .spec.template.spec.affinity.nodeAffinity field in the DaemonSet definition.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The cited node-affinity paragraph explicitly evaluates node eligibility from the original affinity configuration."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The cited node-affinity paragraph explicitly evaluates node eligibility from the original affinity configuration."
+              }
+            ]
+          },
+          {
+            "claim_index": 1,
+            "atomic_facts": [
+              {
+                "text": "Tolerations influence DaemonSet scheduling eligibility.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The toleration excerpt explicitly enables scheduling onto unschedulable nodes; interpret control as eligibility/permission, not a stand-alone node-exclusion guarantee."
+              },
+              {
+                "text": "The DaemonSet controller automatically adds tolerations.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The toleration excerpt explicitly enables scheduling onto unschedulable nodes; interpret control as eligibility/permission, not a stand-alone node-exclusion guarantee."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The toleration excerpt explicitly enables scheduling onto unschedulable nodes; interpret control as eligibility/permission, not a stand-alone node-exclusion guarantee."
+              }
+            ]
+          },
+          {
+            "claim_index": 2,
+            "atomic_facts": [
+              {
+                "text": "You can add your own tolerations to the Pods of a DaemonSet as well, by defining these in the Pod template of the DaemonSet.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The source explicitly permits adding custom tolerations to the Pod template."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The source explicitly permits adding custom tolerations to the Pod template."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "Claim 0 supplies node affinity as the exclusion/eligibility mechanism."
+          }
+        ]
+      },
+      "review_note": "The node-affinity answer is supported. Tolerations are additional eligibility/permission information, not a standalone guarantee to exclude selected nodes; the broad scheduling-control wording is interpreted accordingly."
+    },
+    {
+      "id": "q12",
+      "query": "What happens to DaemonSet pods when their nodes become unavailable?",
+      "answer_claims": [
+        "DaemonSet pods can be scheduled onto nodes that are unreachable from the node controller.",
+        "DaemonSet pods will not be evicted when their nodes become unavailable."
+      ],
+      "required_facts": [
+        "DaemonSet Pods tolerate not-ready/unreachable NoExecute taints and are not evicted merely for those conditions."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "DaemonSet pods can be scheduled onto nodes that are unreachable from the node controller.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The unreachable-node NoExecute toleration row explicitly permits this placement."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The unreachable-node NoExecute toleration row explicitly permits this placement."
+              }
+            ]
+          },
+          {
+            "claim_index": 1,
+            "atomic_facts": [
+              {
+                "text": "DaemonSet pods will not be evicted when their nodes become unavailable.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "In context of the preceding unreachable-node claim, the row explicitly states non-eviction. This is not interpreted as immunity to node removal or all eviction causes."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "In context of the preceding unreachable-node claim, the row explicitly states non-eviction. This is not interpreted as immunity to node removal or all eviction causes."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "The answer describes the unavailable/unreachable non-eviction behavior; removed-node garbage collection remains a distinct case."
+          }
+        ]
+      },
+      "review_note": "Every returned claim, quote in its source context and required fact was checked against the frozen official corpus; review is agent-authored, not human gold adjudication."
+    },
+    {
+      "id": "q13",
+      "query": "How do Kubernetes Services find the correct application pods?",
+      "answer_claims": [
+        "Kubernetes Services provide a way to expose a network application running as one or more Pods in your cluster.",
+        "Kubernetes Services help frontends find backends by abstracting the set of Pods providing functionality.",
+        "Kubernetes Services use EndpointSlices to track the set of Pods in a Service and update them when the set of Pods changes.",
+        "Kubernetes provides a DNS service that allows Pods to resolve Services by their DNS name.",
+        "Kubernetes Services allow non-native applications to use a network port or load balancer to connect to backend Pods.",
+        "Kubernetes Services support DNS SRV records for named ports, allowing discovery of port numbers and IP addresses."
+      ],
+      "required_facts": [
+        "A Service normally uses its selector to match Pod labels."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "Kubernetes Services provide a way to expose a network application running as one or more Pods in your cluster.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The Service introduction explicitly defines network exposure of a Pod-backed application."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The Service introduction explicitly defines network exposure of a Pod-backed application."
+              }
+            ]
+          },
+          {
+            "claim_index": 1,
+            "atomic_facts": [
+              {
+                "text": "Kubernetes Services help frontends find backends by abstracting the set of Pods providing functionality.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The supplied introduction presents Services as the solution to changing-backend discovery; the selected quote itself is only the problem question."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "unsupported",
+                "reason": "The authentic quote does not establish the entire associated claim; only related/partial evidence is cited."
+              }
+            ]
+          },
+          {
+            "claim_index": 2,
+            "atomic_facts": [
+              {
+                "text": "Kubernetes Services use EndpointSlices to track the set of Pods in a Service and update them when the set of Pods changes.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The excerpt explicitly updates EndpointSlices when the Service Pod set changes."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The excerpt explicitly updates EndpointSlices when the Service Pod set changes."
+              }
+            ]
+          },
+          {
+            "claim_index": 3,
+            "atomic_facts": [
+              {
+                "text": "Kubernetes provides a DNS service that allows Pods to resolve Services by their DNS name.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The DNS excerpt explicitly creates records for Services; its own context says Pods can resolve Service names."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The DNS excerpt explicitly creates records for Services; its own context says Pods can resolve Service names."
+              }
+            ]
+          },
+          {
+            "claim_index": 4,
+            "atomic_facts": [
+              {
+                "text": "Kubernetes Services allow non-native applications to use a network port or load balancer to connect to backend Pods.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The source explicitly describes ports/load balancers between non-native applications and backends."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The source explicitly describes ports/load balancers between non-native applications and backends."
+              }
+            ]
+          },
+          {
+            "claim_index": 5,
+            "atomic_facts": [
+              {
+                "text": "Services support SRV records for named ports.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The same supplied DNS excerpt explicitly describes an SRV query discovering port and IP; named-port context supplies the details."
+              },
+              {
+                "text": "An SRV query can discover the documented port/IP information.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The same supplied DNS excerpt explicitly describes an SRV query discovering port and IP; named-port context supplies the details."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The same supplied DNS excerpt explicitly describes an SRV query discovering port and IP; named-port context supplies the details."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": false,
+            "reason": "None of the six claims states the selector/Pod-label matching mechanism requested by the reference."
+          }
+        ]
+      },
+      "review_note": "Mostly source-supported background, but the central selector/label-match explanation is absent. One citation quotes a question rather than the answer; unrelated but correct extra details do not replace the missing mechanism."
+    },
+    {
+      "id": "q14",
+      "query": "What's the difference between ClusterIP, NodePort and LoadBalancer?",
+      "answer_claims": [
+        "ClusterIP is a type of Service that exposes the Service on each Node's IP at a static port.",
+        "NodePort is a type of Service that exposes the Service on each Node's IP at a static port.",
+        "LoadBalancer is a type of Service that exposes the Service externally using an external load balancer.",
+        "LoadBalancer provisions a load balancer for your Service on cloud providers which support external load balancers.",
+        "Ingress is used to expose HTTP and HTTPS routes from outside the cluster to services within the cluster.",
+        "LoadBalancer is an alternative to Ingress for exposing a Service."
+      ],
+      "required_facts": [
+        "ClusterIP exposes a cluster-internal IP.",
+        "NodePort exposes a static port on node IPs.",
+        "LoadBalancer exposes the Service through an external load balancer."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "ClusterIP is a type of Service that exposes the Service on each Node's IP at a static port.",
+                "faithfulness": "contradicted",
+                "correctness": "incorrect",
+                "reason": "The claim assigns NodePort behavior to ClusterIP, contrary to the Service-type definitions in the supplied corpus."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "contradicted",
+                "reason": "The claim assigns NodePort behavior to ClusterIP, contrary to the Service-type definitions in the supplied corpus."
+              }
+            ]
+          },
+          {
+            "claim_index": 1,
+            "atomic_facts": [
+              {
+                "text": "NodePort is a type of Service that exposes the Service on each Node's IP at a static port.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ]
+          },
+          {
+            "claim_index": 2,
+            "atomic_facts": [
+              {
+                "text": "LoadBalancer is a type of Service that exposes the Service externally using an external load balancer.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ]
+          },
+          {
+            "claim_index": 3,
+            "atomic_facts": [
+              {
+                "text": "LoadBalancer provisions a load balancer for your Service on cloud providers which support external load balancers.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ]
+          },
+          {
+            "claim_index": 4,
+            "atomic_facts": [
+              {
+                "text": "Ingress is used to expose HTTP and HTTPS routes from outside the cluster to services within the cluster.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ]
+          },
+          {
+            "claim_index": 5,
+            "atomic_facts": [
+              {
+                "text": "LoadBalancer is an alternative to Ingress for exposing a Service.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The cited Service/Ingress definition explicitly supports this networking property."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": false,
+            "reason": "Claim 0 confuses ClusterIP with NodePort."
+          },
+          {
+            "fact_index": 1,
+            "covered": true,
+            "reason": "Claim 1 correctly describes NodePort."
+          },
+          {
+            "fact_index": 2,
+            "covered": true,
+            "reason": "Claims 2 and 3 correctly describe LoadBalancer."
+          }
+        ]
+      },
+      "review_note": "Clear factual relation error: an authentic NodePort quote does not support claiming ClusterIP exposes a static node port. Additional correct LoadBalancer/Ingress facts do not repair the wrong ClusterIP definition."
+    },
+    {
+      "id": "q15",
+      "query": "If a pod's IP address changes, will its Service still work?",
+      "answer_claims": [
+        "If a pod's IP address changes, its Service will still work because the Service uses the cluster IP address, not the Pod's IP address."
+      ],
+      "required_facts": [
+        "Service abstraction remains usable as backend Pods change, with endpoint updates tracking the Pod set."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "The Service abstraction can remain usable as backend Pod IPs change.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "Stable virtual addressing is documented, but the combined explanation omits backend endpoint updates and overstates not using Pod IPs."
+              },
+              {
+                "text": "The Service works because it uses the cluster IP rather than the Pod IP for its operation.",
+                "faithfulness": "unsupported",
+                "correctness": "unknown",
+                "reason": "A frontend virtual-IP interpretation is possible, but the source does not establish that forwarding avoids backend Pod IPs. The literal implementation claim is unverified."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "unsupported",
+                "reason": "The authentic quote does not establish the entire associated claim; only related/partial evidence is cited."
+              },
+              {
+                "citation_index": 1,
+                "support": "unsupported",
+                "reason": "The authentic quote does not establish the entire associated claim; only related/partial evidence is cited."
+              },
+              {
+                "citation_index": 2,
+                "support": "unsupported",
+                "reason": "The authentic quote does not establish the entire associated claim; only related/partial evidence is cited."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": false,
+            "reason": "The unchanged compound reference includes endpoint updates tracking the Pod set, which the answer does not state."
+          }
+        ]
+      },
+      "review_note": "The yes/continuity conclusion is broadly right. The causal cluster-IP-versus-Pod-IP wording is imprecise and each citation supports only a component, not the whole explanation. The strict compound reference additionally requires endpoint updates; interpreting this as a frontend-only address explanation could change adjudication. No reference was edited after outputs."
+    },
+    {
+      "id": "q16",
+      "query": "Can a Kubernetes Service route traffic to pods in another namespace?",
+      "answer_claims": [
+        "A Kubernetes Service can route traffic to pods in another namespace."
+      ],
+      "required_facts": [
+        "Services without selectors can point to a Service in another namespace using configured endpoints or DNS indirection."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "A Kubernetes Service can route traffic to pods in another namespace.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The supplied Services-without-selectors excerpt allows cross-namespace indirection, so the broad capability is supported; the chosen DNS quote establishes cross-namespace clients, not backend routing."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "unsupported",
+                "reason": "The authentic quote does not establish the entire associated claim; only related/partial evidence is cited."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": false,
+            "reason": "The answer omits selector-free endpoint/DNS indirection and its distinction from automatic selector matching."
+          }
+        ]
+      },
+      "review_note": "The broad yes is possible, but the selected quote concerns clients in other namespaces. The reference requires the selector-free routing qualification. This is incomplete guidance, not proof that standard selectors automatically select cross-namespace Pods."
+    },
+    {
+      "id": "q17",
+      "query": "What's the difference between an Ingress and a LoadBalancer Service?",
+      "answer_claims": [
+        "An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. A LoadBalancer Service exposes the Service externally using an external load balancer."
+      ],
+      "required_facts": [
+        "Ingress routes HTTP/HTTPS using routing rules to Services.",
+        "LoadBalancer Service exposes a Service using an external load balancer."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "Ingress can supply externally reachable URLs.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The combined statement contains supported Ingress features and a supported LoadBalancer definition, but each individual citation supports only its own half."
+              },
+              {
+                "text": "Ingress can load balance web traffic.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The combined statement contains supported Ingress features and a supported LoadBalancer definition, but each individual citation supports only its own half."
+              },
+              {
+                "text": "Ingress can terminate SSL/TLS.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The combined statement contains supported Ingress features and a supported LoadBalancer definition, but each individual citation supports only its own half."
+              },
+              {
+                "text": "Ingress can provide name-based virtual hosting.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The combined statement contains supported Ingress features and a supported LoadBalancer definition, but each individual citation supports only its own half."
+              },
+              {
+                "text": "LoadBalancer Services expose a Service through an external load balancer.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The combined statement contains supported Ingress features and a supported LoadBalancer definition, but each individual citation supports only its own half."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "unsupported",
+                "reason": "The authentic quote does not establish the entire associated claim; only related/partial evidence is cited."
+              },
+              {
+                "citation_index": 1,
+                "support": "unsupported",
+                "reason": "The authentic quote does not establish the entire associated claim; only related/partial evidence is cited."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "The Ingress URL/TLS/name-hosting features express the web-routing distinction in this comparison."
+          },
+          {
+            "fact_index": 1,
+            "covered": true,
+            "reason": "The final clause correctly describes LoadBalancer exposure."
+          }
+        ]
+      },
+      "review_note": "Correct combined comparison, but whole-claim citation precision fails for both links: neither quoted source supports all Ingress and LoadBalancer clauses by itself. Atomic claims with their own evidence would avoid this grouping problem."
+    },
+    {
+      "id": "q18",
+      "query": "Can one Ingress expose multiple applications using different URL paths?",
+      "answer_claims": [
+        "An Ingress can expose multiple applications using different URL paths.",
+        "An Ingress allows routing traffic to different Services based on the HTTP URI being requested."
+      ],
+      "required_facts": [
+        "One Ingress can route different HTTP URI paths to different backend Services."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "An Ingress can expose multiple applications using different URL paths.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "Fanout explicitly routes different HTTP URIs to different Services."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "Fanout explicitly routes different HTTP URIs to different Services."
+              }
+            ]
+          },
+          {
+            "claim_index": 1,
+            "atomic_facts": [
+              {
+                "text": "An Ingress allows routing traffic to different Services based on the HTTP URI being requested.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "URI-based Service fanout is supported by the same excerpt, but the chosen load-balancer-count quote does not establish that routing claim."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "unsupported",
+                "reason": "The authentic quote does not establish the entire associated claim; only related/partial evidence is cited."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "The answer correctly states path/URI-based multi-Service fanout."
+          }
+        ]
+      },
+      "review_note": "Every returned claim, quote in its source context and required fact was checked against the frozen official corpus; review is agent-authored, not human gold adjudication."
+    },
+    {
+      "id": "q19",
+      "query": "Does creating an Ingress automatically make my application accessible?",
+      "answer_claims": [
+        "Creating an Ingress resource alone does not make your application accessible.",
+        "An Ingress controller is required to make an application accessible through an Ingress.",
+        "An Ingress is used to expose HTTP and HTTPS routes from outside the cluster to services within the cluster."
+      ],
+      "required_facts": [
+        "Creating an Ingress resource alone has no effect; an Ingress controller is required."
+      ],
+      "judgment": {
+        "claims": [
+          {
+            "claim_index": 0,
+            "atomic_facts": [
+              {
+                "text": "Creating an Ingress resource alone does not make your application accessible.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The source explicitly says only creating an Ingress has no effect."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The source explicitly says only creating an Ingress has no effect."
+              }
+            ]
+          },
+          {
+            "claim_index": 1,
+            "atomic_facts": [
+              {
+                "text": "An Ingress controller is required to make an application accessible through an Ingress.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The source explicitly requires an Ingress controller."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The source explicitly requires an Ingress controller."
+              }
+            ]
+          },
+          {
+            "claim_index": 2,
+            "atomic_facts": [
+              {
+                "text": "An Ingress is used to expose HTTP and HTTPS routes from outside the cluster to services within the cluster.",
+                "faithfulness": "supported",
+                "correctness": "correct",
+                "reason": "The introduction explicitly states HTTP/HTTPS route exposure."
+              }
+            ],
+            "citations": [
+              {
+                "citation_index": 0,
+                "support": "supported",
+                "reason": "The introduction explicitly states HTTP/HTTPS route exposure."
+              }
+            ]
+          }
+        ],
+        "required_facts": [
+          {
+            "fact_index": 0,
+            "covered": true,
+            "reason": "Claims 0 and 1 correctly reject automatic accessibility from the resource alone."
+          }
+        ]
+      },
+      "review_note": "Every returned claim, quote in its source context and required fact was checked against the frozen official corpus; review is agent-authored, not human gold adjudication."
+    },
+    {
+      "id": "q20",
+      "query": "What should I check if my Ingress returns a 404 error?",
+      "answer_claims": [],
+      "required_facts": [
+        "Check host/path matching and the backend Service/port routing configuration.",
+        "Unmatched-request/default-backend handling depends on the Ingress controller; do not infer a definitive live 404 cause."
+      ],
+      "judgment": null,
+      "review_note": "Frozen reference expects qualified host/path/backend/default-controller checks, not a confirmed 404 cause. The article never explicitly documents 404 diagnosis, so a conservative abstention is reviewable in human adjudication. No label changed after model outputs."
+    },
+    {
+      "id": "control-01",
+      "query": "What is the actual external IP address of the LoadBalancer Service currently running in my cluster?",
+      "answer_claims": [],
+      "required_facts": [],
+      "judgment": null,
+      "review_note": "Static official examples do not establish a currently running cluster's external IP or installed controller; the abstention is correct. This is an agent-authored control, separate from the user questions."
+    },
+    {
+      "id": "control-02",
+      "query": "Which Ingress controller is currently installed in my cluster?",
+      "answer_claims": [],
+      "required_facts": [],
+      "judgment": null,
+      "review_note": "Static official examples do not establish a currently running cluster's external IP or installed controller; the abstention is correct. This is an agent-authored control, separate from the user questions."
+    }
+  ],
+  "independent_human_validation": false
+}

@@ -3,10 +3,11 @@
 import json
 import re
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Protocol
 
 from .answer_config import AnswerConfig
+from .context import expand_context, mark_code_fences
 from .diagnostics import event
 
 PROMPT_VERSION = "grounded-claims-v2"
@@ -208,12 +209,32 @@ def answer_question(
         raise ValueError("question must be nonempty and at most 4000 characters")
     use_rerank = engine.cfg.rerank if rerank is None else rerank
     retrieval = engine.search(question, mode, use_rerank, top_k=engine.cfg.candidates)
+    evidence_started = time.perf_counter()
+    evidence_search = "ranked_chunk_context"
+    rescue_sources = []
+    if cfg.document_fact_search:
+        from .document_evidence import search_document_facts
+
+        rescue = search_document_facts(question, retrieval, engine.snapshot, engine.reranker, cfg)
+        rescue_sources = pack_sources(rescue, replace(cfg, context_chunks=cfg.fact_candidates))
+        for i, source in enumerate(rescue_sources, 1):
+            source["source_id"] = f"D{i}"
+        rescue_sources = mark_code_fences(rescue_sources, engine.snapshot)
+        evidence_search = "ranked_chunk_primary_with_document_fact_review"
+    if cfg.context_neighbors:
+        retrieval = expand_context(
+            retrieval, engine.snapshot, cfg.context_neighbors, cfg.context_max_words
+        )
     sources = pack_sources(retrieval, cfg)
+    if cfg.evidence_selection and hasattr(engine, "snapshot"):
+        sources = mark_code_fences(sources, engine.snapshot)
     base = {
         "question": question,
         "prompt_version": PROMPT_VERSION,
         "sources": sources,
         "retrieval": {k: retrieval[k] for k in ("mode", "reranked", "timings")},
+        "evidence_search": evidence_search,
+        "evidence_search_ms": (time.perf_counter() - evidence_started) * 1000,
     }
     if not sources:
         return {
@@ -225,6 +246,24 @@ def answer_question(
             "usage": {},
             "elapsed_ms": (time.perf_counter() - started) * 1000,
         }
+    if cfg.evidence_selection:
+        from .evidence_answer import select_answer
+
+        result = select_answer(
+            generator,
+            cfg,
+            question,
+            sources,
+            base,
+            getattr(engine, "reranker", None),
+            rescue_sources,
+        )
+        if cfg.section_context_completion:
+            from .section_context import complete_sections
+
+            result = complete_sections(result, engine.snapshot)
+        result["elapsed_ms"] = (time.perf_counter() - started) * 1000
+        return result
     # UTF-8 bytes conservatively upper-bound byte-tokenizer input tokens. Reserve
     # room for the chat template and output; keep whole chunks rather than truncating.
     while True:

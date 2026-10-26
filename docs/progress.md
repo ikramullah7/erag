@@ -1,3 +1,198 @@
+# Current result: five-document answer repairs completed as a development regression
+
+Profile: `config/answer-real-stage1-v10.yaml`; pinned local Qwen3 14B, same five articles,
+corpus and canonical chunks. Both observed question sets are development data. Original labels,
+references, thresholds and baseline outputs remain unchanged. The user clarified Pod failure:
+test restartPolicy Always separately from ReplicaSet replacement in an additional versioned case.
+
+Bounded document-fact rescue, hierarchical headings, section/lexical coverage, preserved primary
+facts, prefix reuse, joint input budgets, explicit failure traces and bounded same-model reasoning
+recovery are implemented. Question-last selection fixes the false abstention observed in a probe.
+Complete short Markdown policy sections and bounded whole paragraphs retain qualifiers and
+alternatives. This last step is deterministic, source-version checked, lossless and opt-in.
+
+Actual 43-case local-model regression completed with unchanged inputs/postflight success before
+completion integration. Two initial token-budget exhaustions recovered via recorded non-thinking
+requests on the same pin; zero final provider/invalid errors. Section completion replayed those
+actual selections without new model calls; an integration test proves its flag preserves the
+model messages/schema. All original selected assertions remain in same-version source supersets.
+
+Provisional primary-agent scores on second 20+two shared controls: faithfulness 100%, correctness
+97.33%, citations 100%, decisions 100%; before: 99.73/79.80/98.96/86.36%. Original 20 correctness 100%;
+additional clarified case passes both source-supported requirements. Remaining second-set gaps:
+fresh-q02 lacks explicit no-automatic-rollback limit; fresh-q20 lacks explicit incoming host/path
+matching. Exact-witness missing spans remain separate from semantic equivalence. Source copying
+inflates fidelity and extra background can remain verbose/irrelevant. No independent validation.
+
+251 tests passed,2 optional skipped; Ruff, formatting and whitespace passed. Initial ranking is
+unchanged: second-set Hit@1 40%, Hit@3 70%, Recall@5 58.33%, MRR .5549, nDCG@10 .5706.
+No stage acceptance or additional documents. Next: human review/new frozen questions and separate
+retrieval improvement. Machine results/reproduction: `docs/results/real-world-stage1/answer-repairs-v10.json`.
+Failed/interrupted experiments remain in their original artifact directories. No narrative report.
+
+---
+
+# Current result: evaluation alignment and fresh five-document check completed
+
+The existing retrieval/answer pipeline and local 14B configs match the source archive created
+before the20 new user question wordings arrived. Topic headers and q11 steady-state scope were
+frozen before model outputs, together with source-checked provisional labels. No tuning,
+source expansion, model change or retries followed this check. Original labels/results remain.
+
+Implemented versioned, unadopted development alternatives; raw chunk ranking stays separate
+from required-fact coverage of expanded context, exact model-visible catalog and final quotes.
+Equivalent witnesses are ORed, complementary spans ANDed, and missing timeout traces remain
+unmeasured with conservative recall available. This is source-witness recognition, not entailment.
+
+Fresh raw ranking: Hit@1 40%, Hit@3 70%, Recall@5 58.33%, MRR .5549, nDCG@10 .5706.
+Provisional primary-agent answer review: faithfulness 99.73%, correctness 79.80%, citations 98.96%,
+decision accuracy 86.36% (19/22). Two local180-second timeouts and one false abstention count as
+failures. Both reused unsupported controls declined correctly. Expected-fact checks16/20; no
+quality acceptance. Fresh wording/concept overlap and provisional labels limit independence.
+
+Concrete gaps: q01 context lacks readiness witness; q05 default OrderedReady text is present
+in expanded context but filtered from the model catalog; q12 omits custom tolerations despite
+source support. The development q05 top chunk is valid but unlabelled in v1; q14 expansion
+restores the third Service definition; q13 receives label-matching evidence but omits it.
+
+225 tests passed,2 optional skipped. Ruff/format/whitespace passed and all frozen hashes remain
+unchanged. Machine results/reproduction/artifact links:
+`docs/results/real-world-stage1/evaluation-alignment-v1.json`. No narrative report created.
+
+---
+
+# Previous result: repaired first-five real profile and Codex provider switch verified
+
+Active configs: `config/real-stage1-v2.yaml` and `config/answer-real-stage1-v2.yaml`. Change only
+`provider: ollama` to `provider: codex` in the answer config to select the installed CLI; local 14B
+remains default. A live constant-JSON Codex transport smoke passed without document content.
+The real-question evaluation used only local 14B. No new model/package/service was installed.
+
+Implemented balanced/deeper fusion, heading-aware representations, neighboring exact source spans,
+condition/table-aware source-fact selection, source-position-aware code-fence parsing, and bounded
+additive coverage. A discovered fence inversion had hidden the selector-free cross-namespace text.
+A slow thinking-review run timed out; its failed artifacts remain. The final review is bounded and
+non-thinking on the same local model, while primary reasoning stays enabled. No cloud fallback.
+
+Final development run:20/20 expected-fact checks,2/2 unsupported controls, zero invalid/provider
+errors,100% quote provenance. Provisional agent review: faithfulness 100%, correctness95%, citation
+accuracy100%, abstention accuracy100%. Extractive source copying materially changes interpretation
+of fidelity metrics. q13 still omits explicit Pod-label matching under the strict semantic reference;
+regex success is not semantic correctness. Local generation median47.06s/p95111.83s for both passes,
+with cached retrieval; answers can be verbose. Independent human review/new held-out questions remain.
+
+Selected-evidence-span ranking improved Hit@1 25→45%, Hit@3 55→70%, Recall@5 47.5→65%, MRR
+.4233→.5997 and nDCG@10 .4463→.6200, but all original ranking targets still fail. Labels are not
+an exhaustive relevance pool. Do not declare stage/production acceptance from the passing answer
+pattern gate. Firstfive only; no expansion to ten. Original baselines, thresholds, corpus and
+canonical chunks unchanged. All synthetic indexes still validate (30/52/82 chunks).
+
+215 tests passed,2 optional skipped. Ruff/format/whitespace passed. A fresh real-index CLI smoke
+also recovered the selector-free backend-namespace evidence. Machine metrics, known limitations,
+local artifact links and reproduction commands: `docs/results/real-world-stage1/improvements-v2.json`.
+No narrative stage report was created.
+
+---
+
+# Current work: first-five real-document failure investigation completed
+
+User requested diagnosis and improvement options. Preserved the original baseline and profiles.
+`docs/results/real-world-stage1/investigation-v1.json` records cached candidate ablations and
+four fresh local 14B mechanism probes; reproduce via `scripts/diagnose_real_stage1.py` with a new
+output directory (`--generate` adds local model calls). This observed set is development data now.
+
+Confirmed all22 hybrid candidate pools equal BM25 because3:1 RRF weighting plus depth20 excludes
+vector-only candidates. Balanced20 replay improves selected-span Hit@1 25→35%, Recall@5
+47.5→55%, MRR .4233→.5179; still far below acceptance. Union40 broadens evidence coverage but
+Recall@5 is50%, showing that more candidates alone is insufficient. All22 original model contexts
+kept six chunks; token-budget trimming did not cause these misses.
+
+Same14B with balanced evidence now answers selector matching (q13); immediate neighboring
+context restores correct Service-type definitions (q14). Prompt-only atomic/quote instructions
+make q05 structurally valid but incomplete and still fail Parallel coverage (q08). No aggregate
+answer improvement or acceptance claimed. Semantic coverage and citation support remain gaps.
+Found stale inherited rubric prose (15/20 cases/certificates) in frozen annotations; actual scorer
+uses20 answerable/22 total. Recorded erratum without changing original labels/metrics.
+
+182 tests passed,2 skipped; static checks pass. Next: separate development questions, coherent
+context/heading representation, evidence-first generation/coverage verification and label/scope
+adjudication, then fresh user questions. Stay at five articles; no extra model/service/dependency.
+
+---
+
+# Current result: first real-document pilot measured; quality fails
+
+Actual selected folder is `data/real-world/stage1/`, not `stage-1/`. It contains a 30-URL manifest
+and explicit instructions to start with five and stop before expanding without approval. Only
+IDs 1–5 were fetched. All official Kubernetes final URLs/headings and HTTP 200 statuses verified;
+DaemonSet/Service singular headings versus plural manifest titles explicitly recorded. Raw source
+hashes, retrieval UTC, feature-version mentions and rolling/unversioned product metadata retained.
+
+Initial extraction truncated at examples; rejected before indexing. Div-container extraction
+fixed optional HTML tag handling; code indentation/definition lists/tables preserved. Five pages,
+292 chunks. Full publisher copies retained locally under ignored artifacts, not bundled in public
+result summaries. Frozen acquisition: `artifacts/real-world/stage1/acquisition-003`.
+
+User supplied twenty questions; strings unchanged. Two agent-authored unsupported live-cluster
+controls explicitly separate. The initial input mode was standalone questions; supplied topic
+headings were not prepended (especially relevant to q04). Source-grounded expected facts and
+selected evidence anchors were prepared before outputs, not generated from RAG answers. They
+are provisional agent labels, not independent human gold. All six retrieval strategies and 14B
+answers executed with the fixed existing profile. No tuning or source/label/threshold changes.
+
+Strict frozen evidence-span ranking: Hit@1 25%, Hit@3 55%, Recall@5 47.5%, MRR .4233,
+nDCG@10 .4463; all configured targets fail. Document-level Hit@1 90%. Evidence spans are selected
+anchors, not exhaustive human judgments: valid alternatives can be unlabelled. Do not treat
+these as definitive true-relevance accuracy without adjudication. Some labelled evidence never
+entered the twenty-candidate pool; other facets were retrieved but omitted/misbound by generation.
+
+Mechanical answer checks: 12/20 fact-pattern cases, two correct unsupported-control abstentions,
+one invalid response (q05), no provider errors. Four supported-as-labelled questions declined.
+Source-reviewed provisional metrics: faithfulness 43/46 (93.48%), correctness mean F1 52.04%,
+citation support 34/44 (77.27%), answer/abstain decisions 17/22 (77.27%). Correct quote provenance
+is 100% among answered cases but does not establish semantic support. Clear example: q14 maps
+NodePort behavior to ClusterIP. q08 omits Parallel scaling, q13 omits selector matching, and
+several citations support only part of an otherwise correct combined description. Scope for
+q02/q04/q15/q20 and exhaustive chunk relevance need human review; original labels remain intact.
+
+Fresh real CLI smoke passed for Ingress-controller necessity. All stored synthetic stages validate
+(30/52/82 chunks); synthetic files/labels/thresholds unchanged. Verification: 182 tests passed,
+two optional checks skipped, real cached provider tests executed. Extraction, manifest/hash and
+reviewed-baseline regressions added. No new package/model/service installed. Initial frozen local
+outputs and source/code copies: `artifacts/real-world/stage1`; metadata/metrics/comparison/test
+summaries: `docs/results/real-world-stage1`. No narrative stage report created.
+
+Next work: human label/scope adjudication, then evidence candidate/context retrieval and atomic
+citation binding on separate development questions. Preserve this initial failure; current user
+questions are now observed regression data. Remain at five official documents. Do not claim
+acceptance or expand to ten without explicit approval.
+
+---
+
+## Historical work log
+
+# Current work: real-document validation — inputs needed
+
+User authorized testing real documents with independently phrased questions. Workspace inspection
+found synthetic fixtures/project documentation, not a selected real enterprise corpus. Requested
+a local folder or document URLs from the user. No real-document evaluation has run; do not reuse
+synthetic scores as real-world results or generate questions and label them independent.
+
+Prepared `real_validation.py`, `scripts/prepare_real_validation.py` and input guidance/empty
+question template under `data/real-validation`. The preparation tool freezes selected source and
+question hashes, rejects invalid/duplicate files and placeholder questions, caps the pilot at
+twenty sources and refuses overwriting manifests. It prepares metadata only, with status
+`prepared_not_indexed`; synthetic-stage guards/profiles/results are unchanged. Four preparation
+unit tests passed. No model calls, downloads, dependencies or external services added.
+
+Next input: user-selected documents (folder/URLs/exports) and ideally 10–20 natural questions
+from the user/team, supplied before observing model outputs. After format/source selection,
+prepare a separately bound corpus/index, freeze reviewed expected facts before inference, run
+14B and measure the same ranking and reviewed-answer metrics. Question authorship is recorded,
+not automatically authenticated. This separate pilot does not authorize the fifty-document stage.
+
+---
+
 # Current result: Phase 1.3 implementation and evaluation complete
 
 Twenty approved documents and 82 chunks. All ten prior source bytes and 52 chunk IDs retained.

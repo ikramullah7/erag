@@ -14,6 +14,7 @@ from .answering import answer_question
 from .config import load_config
 from .diagnostics import configure_logging, event
 from .evaluation import evaluate, format_target_table, quality_gate
+from .generators import create_generator
 from .models import CrossEncoderReranker, SentenceEmbedder
 from .ollama import OllamaGenerator
 from .pipeline import Engine, atomic_json, build_index
@@ -158,7 +159,7 @@ def main() -> int:
             if args.command == "evaluate-answers":
                 report = evaluate_answers(
                     engine,
-                    OllamaGenerator(answer_cfg),
+                    create_generator(answer_cfg),
                     answer_cfg,
                     args.cases or str(Path(cfg.dataset) / "answer-evaluation-v1.json"),
                     args.output,
@@ -170,7 +171,7 @@ def main() -> int:
             elif args.command == "answer":
                 result = answer_question(
                     engine,
-                    OllamaGenerator(answer_cfg),
+                    create_generator(answer_cfg),
                     answer_cfg,
                     args.question,
                     args.mode,
