@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-27",
+  "fixed": "Structured provider_error produced blank stdout and exit0. It now displays a diagnostic and exits2.",
+  "provider_config": "config/answer-real-stage1-codex.yaml",
+  "binary_resolution": "Explicit verified VS Code executable; minimal-PATH resolution checked.",
+  "original_terminal_cause": "Unconfirmed; original response diagnostics were not captured. Terminal PATH is a possible difference.",
+  "live_retry": {
+    "question": "My Ingress returns 503 errors. What should I check?",
+    "status": "answered",
+    "provider": "codex",
+    "generation_ms": 18557.500333030475,
+    "application_elapsed_ms": 36064.86491698888,
+    "result": "artifacts/real-world/stage1/codex-503-live-001/answer.json"
+  },
+  "tests": {
+    "full_passed": 253,
+    "optional_skipped": 2,
+    "provider_cli_after_config_change": 20,
+    "ruff": "passed",
+    "format": "passed",
+    "whitespace": "passed"
+  }
+}

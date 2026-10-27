@@ -50,7 +50,12 @@ def main() -> int:
         "answer", help="Answer from the configured document stage with source citations"
     )
     answer.add_argument("question")
-    answer.add_argument("--answer-config", default="config/answer.yaml")
+    answer.add_argument("--answer-config", default="config/answer-real-stage1-codex.yaml")
+    answer.add_argument(
+        "--detail",
+        action="store_true",
+        help="Show full selected evidence instead of a brief answer",
+    )
     answer.add_argument("--mode", choices=["bm25", "vector", "hybrid"])
     answer.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None)
     answer.add_argument(
@@ -117,6 +122,8 @@ def main() -> int:
             if args.command in {"answer", "evaluate-answers"}
             else None
         )
+        if args.command == "answer" and args.detail:
+            answer_cfg = replace(answer_cfg, brief_answers=False)
         config_path = args.config or (
             answer_cfg.retrieval_config if answer_cfg else "config/default.yaml"
         )
@@ -179,6 +186,16 @@ def main() -> int:
                 )
                 if args.json:
                     print(json.dumps(result, indent=2, allow_nan=False))
+                elif result["status"] in {"provider_error", "invalid_response"}:
+                    detail = (
+                        result.get("error")
+                        or result.get("validation_error")
+                        or result.get("answer")
+                    )
+                    print(
+                        f"Answer failed ({result['status']}): {detail or 'No valid response returned.'}",
+                        file=sys.stderr,
+                    )
                 else:
                     print(result["answer"])
                     cited = {
@@ -191,7 +208,7 @@ def main() -> int:
                                 print(
                                     f"[{source['source_id']}] {source['chunk']['source']} — {source['chunk']['heading']}"
                                 )
-                return 2 if result["status"] == "invalid_response" else 0
+                return 2 if result["status"] in {"invalid_response", "provider_error"} else 0
             elif args.command == "search":
                 print(
                     json.dumps(

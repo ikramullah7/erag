@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-27",
+  "provider": "codex",
+  "profile": "config/answer-real-stage1-codex.yaml",
+  "cli_default_updated": true,
+  "codex_cli_version": "0.164.0-alpha.11.1",
+  "requested_model": null,
+  "model_selection": "Installed CLI default; resolved model not captured by this adapter.",
+  "question": "I'm deploying PostgreSQL with persistent storage. Should I use a Deployment or StatefulSet, and why?",
+  "live_exit_code": 0,
+  "live_status": "answered",
+  "document_count": 5,
+  "cited_documents": [
+    "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+    "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+  ],
+  "tests_passed": 18,
+  "comparison": "Single live smoke only; no controlled latency or aggregate Codex quality evaluation. Local 14B benchmark profiles and results preserved."
+}

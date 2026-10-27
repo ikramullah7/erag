@@ -262,6 +262,10 @@ def answer_question(
             from .section_context import complete_sections
 
             result = complete_sections(result, engine.snapshot)
+        if cfg.brief_answers:
+            from .brief_answer import synthesize_brief_answer
+
+            result = synthesize_brief_answer(result, generator, cfg)
         result["elapsed_ms"] = (time.perf_counter() - started) * 1000
         return result
     # UTF-8 bytes conservatively upper-bound byte-tokenizer input tokens. Reserve

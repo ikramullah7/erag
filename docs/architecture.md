@@ -287,3 +287,14 @@ Original model claims/source IDs/catalog remain saved. New SC sources are post-g
 context, excluded from expanded/model-visible coverage. The step has no query/reference/model
 inputs and no effect on model prompts. CPU replay of recorded generations is explicit, preserves
 parent hashes and validates every source citation and original-assertion superset.
+
+
+Brief synthesis follows validated evidence selection and section completion. It sees only the
+source excerpts associated with selected evidence, the original question and a strict cited-claim
+schema. At most3 claims and the configured word limit are enforced without truncation. Every
+quote is rebound to original document/version offsets. A separate same-provider review checks
+claim support, requested-part completeness and focus. One rejected semantic candidate may be
+revised once, then reviewed again; malformed output, invented quotes and changed models fail
+closed. Full evidence remains in separate JSON fields and is available through --detail.
+Same-source citation markers are deduplicated for display while individual exact quotes remain.
+The review is an operational check, not calibrated independent evaluation or a quality score.

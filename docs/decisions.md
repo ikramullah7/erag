@@ -292,3 +292,27 @@ quotes. This is a bounded source-only renderer, not query/reference-conditioned 
 Record model-visible versus post-generation sources separately. Reuse actual recorded selections
 for this deterministic step and disclose that reuse; verify identical model inputs under the flag.
 Do not claim fresh end-to-end timing, independent validation or a passing initial-ranking gate.
+
+
+2026-10-27: User requested Codex answer generation. Use a dedicated Codex profile as the answer
+CLI default, preserving the exact local v10 profile for reproducible benchmarks. Both profiles
+share the same five-document retrieval and source validation. Explicit evaluation profiles and
+historical local scores are unchanged. A real PostgreSQL question passed with Codex; do not
+infer aggregate quality or a latency improvement from one smoke test.
+
+
+2026-10-27, blank CLI response: structured provider failures must never print a blank successful
+answer. Keep JSON diagnostics intact, show plain errors on stderr and return2 for provider and
+validation failures. Pin the existing verified Codex executable in the runtime profile to remove
+terminal PATH ambiguity; do not change CLI isolation or introduce a fallback provider. A live
+503 question passed, but the user's earlier provider cause was not recorded and remains unknown.
+
+
+2026-10-27: User authorized brief output. Make brief cited synthesis default in the active
+Codex profile, preserving historical local/extractive configs. Do not shorten by cutting text
+or hiding missing qualifications. Retain full evidence separately and offer --detail. Hard-bound
+claim count and words; review factual support, completeness and relevance before exposing claims.
+A single semantic revision is allowed, with rejected diagnostics preserved; there is no fallback
+to long output after failure. Live ClusterIP answer is41 words, PVC-retention answer29 words
+and preserves default Retain plus the whenDeleted Delete exception. Earlier source-copying
+metrics are not applicable to new synthesis; broad evaluation remains separate.

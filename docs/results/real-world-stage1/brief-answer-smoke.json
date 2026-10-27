@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-27",
+  "profile": "config/answer-real-stage1-codex.yaml",
+  "mode": "brief_cited_synthesis",
+  "word_limit": 100,
+  "max_claims": 3,
+  "detail_flag": "--detail",
+  "evidence_json_fields": [
+    "sources",
+    "evidence_answer",
+    "evidence_claims",
+    "brief_evidence"
+  ],
+  "semantic_revision_limit": 1,
+  "checks": [
+    {
+      "case": "clusterip-brief",
+      "question": "What is the difference between ClusterIP and NodePort?",
+      "status": "answered",
+      "words": 41,
+      "claims": 2,
+      "review": {
+        "claims_supported": [
+          true,
+          true
+        ],
+        "complete": true,
+        "focused": true
+      },
+      "answer": "ClusterIP exposes a Service on a cluster-internal IP, making it reachable only within the cluster; it is the default Service type. [D25]\nNodePort exposes a Service on each node's IP at a static port and also sets up a cluster IP address. [D1]",
+      "generation_ms": 37224.5628759847,
+      "brief_ms": 13303.51091598277,
+      "artifact": "artifacts/real-world/stage1/brief-answer-v1/clusterip-brief.json"
+    },
+    {
+      "case": "pvc-retention-brief",
+      "question": "Are a StatefulSet's persistent volume claims always deleted when I delete the StatefulSet?",
+      "status": "answered",
+      "words": 29,
+      "claims": 1,
+      "review": {
+        "claims_supported": [
+          true
+        ],
+        "complete": true,
+        "focused": true
+      },
+      "answer": "No. Retain is the default, so PVCs remain when their Pods are deleted. With whenDeleted set to Delete, PVCs from the volumeClaimTemplate are deleted after their Pods are deleted. [D10] [D10]",
+      "generation_ms": 29132.629541971255,
+      "brief_ms": 15625.364832987543,
+      "artifact": "artifacts/real-world/stage1/brief-answer-v1/pvc-retention-brief.json"
+    }
+  ],
+  "rejected_initial_attempt": "artifacts/real-world/stage1/brief-answer-v1/clusterip-initial-rejected.json",
+  "citation_display": "Same-source markers deduplicated after live capture; all original exact quotes retained.",
+  "software": {
+    "passed": 268,
+    "skipped_optional": 2,
+    "ruff": "passed",
+    "format": "passed",
+    "whitespace": "passed",
+    "legacy_section_replay_cases": 43,
+    "legacy_replay_model_calls": 0
+  },
+  "limitations": [
+    "Two live smoke examples, not an aggregate quality evaluation.",
+    "Support/completeness/focus review uses the same provider and is not independent validation.",
+    "Earlier local/extractive quality scores do not measure this brief Codex mode.",
+    "Synthesis plus review add provider calls; one semantic revision can add two more."
+  ],
+  "source_snapshot": "artifacts/real-world/stage1/brief-answer-v1/source.json.gz"
+}

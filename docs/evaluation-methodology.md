@@ -104,3 +104,13 @@ Missing required facts are penalized despite truthful extra content. Extractive 
 faithfulness/citation scores close to source fidelity and does not measure useful synthesis,
 concision or question relevance. Group scores reuse the same two negative controls; they do not
 constitute four independent negatives. No new acceptance thresholds or held-out claims apply.
+
+
+Brief answer checks (Codex active profile) additionally enforce a word budget and a same-provider
+support/coverage/focus verdict. Required parts are judged against the question, not every background
+fact in the selected excerpts. Reject omitted conditions or repeated/unrelated content; retain
+one failed semantic attempt if revised. Exact quote provenance remains a separate deterministic
+check. Unit coverage exercises missing qualifications, unsupported facts, malformed verdicts,
+word overflow, model changes, review failures, bounded revision and evidence inspection. Two
+live smoke cases do not replace a fresh question/reference benchmark or establish new aggregate
+accuracy. Historical extractive local14B scores remain historical.

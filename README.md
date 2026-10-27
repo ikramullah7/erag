@@ -1,19 +1,41 @@
-## Corrected real-document development profile
+## Brief answers by default
 
-Use the same five frozen Kubernetes articles with the improved retrieval/context and extractive
-source-fact answer mode:
+The active Codex profile writes a direct cited answer, aiming for 40–80 words with a hard
+100-word limit. It checks support, requested-part completeness and relevance; one bounded
+revision is allowed if the semantic review rejects a candidate. Failed checks produce an
+explicit error rather than a long fallback answer. The review uses the same provider and is
+not an independent quality benchmark. This adds synthesis/review calls to the existing pipeline.
 
 ```sh
-uv run erag answer "What is the difference between ClusterIP, NodePort and LoadBalancer?" --answer-config config/answer-real-stage1-v10.yaml
+HF_HUB_OFFLINE=1 uv run erag answer "What is the difference between ClusterIP and NodePort?"
+# Inspect the full selected evidence instead:
+HF_HUB_OFFLINE=1 uv run erag answer "What is the difference between ClusterIP and NodePort?" --detail
 ```
 
-Switch the answer provider by changing **one field** in `config/answer-real-stage1-v10.yaml`:
+`--json` retains final claims, exact supporting quotes, full sources, `evidence_answer`,
+`evidence_claims` and brief-review diagnostics. Change `brief_max_words` in the active profile
+(range 30–200) or set `brief_answers: false` for full selected excerpts. Historical local benchmark
+profiles remain unchanged. Old extractive-answer scores do not measure this new synthesis mode.
+
+## Active real-document answer profile
+
+Use the same five frozen Kubernetes articles with the improved retrieval/context and extractive
+source-fact answer mode. Codex is now the default answer provider:
+
+```sh
+uv run erag answer "What is the difference between ClusterIP, NodePort and LoadBalancer?"
+```
+
+Switch the active answer provider by changing **one field** in `config/answer-real-stage1-codex.yaml`:
 
 ```yaml
-provider: ollama  # local pinned Qwen3 14B; change to codex to use Codex CLI
+provider: codex  # change to ollama to use the pinned local Qwen3 14B
 ```
 
 `provider: codex` uses the installed, signed-in Codex CLI and sends the selected evidence to Codex.
+The active profile sets `codex_binary` to the verified VS Code-bundled executable on this machine,
+so terminal PATH does not determine the executable. Update that path if the installation moves.
+Provider/validation failures print an error and return a nonzero exit code; `--json` retains details.
 It uses the CLI default model unless `codex_model` is explicitly set. The `model` and
 `model_digest` fields retain the local Ollama settings so switching back requires only the flag.
 Retrieval, fact selection, source offsets and citation validation remain shared. Provider errors
@@ -21,10 +43,14 @@ fail explicitly; there is no automatic cloud fallback. Codex runs in an ephemera
 working directory with read-only sandboxing, shell/search disabled and user configuration ignored;
 its answer is rejected if tool activity occurs. The current app's conversation is not reused.
 
-The optional adapter has subprocess/selection tests and passed a live dummy-JSON transport smoke
-test. No document content was sent to Codex; document evaluations remain local 14B. Official interface: https://developers.openai.com/codex/noninteractive/ .
+The adapter has subprocess/selection tests and an earlier dummy-JSON transport smoke. A live
+PostgreSQL/StatefulSet question also passed through Codex on 2026-10-27 with retrieved document
+excerpts. Historical benchmark scores below remain local 14B results; Codex has only this live
+smoke, not a full quality or latency comparison. Official interface: https://developers.openai.com/codex/noninteractive/ .
 
-Latest repair profile: same pinned local Qwen3 14B and five articles. A 43-case development
+The preserved local benchmark profile is `config/answer-real-stage1-v10.yaml`; select it explicitly with `--answer-config` to reproduce local runs. `erag answer` defaults to `config/answer-real-stage1-codex.yaml`; evaluation defaults remain explicit/separate.
+
+Latest local repair profile: same pinned local Qwen3 14B and five articles. A 43-case development
 regression uses actual local generations, followed by deterministic bounded section completion
 with no additional model calls. Source selection searches the top two retrieved documents;
 section/lexical diversity preserves distant rules, and complete short policy sections retain

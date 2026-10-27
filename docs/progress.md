@@ -1,3 +1,61 @@
+# Brief cited answers implemented (2026-10-27)
+
+Active Codex profile: brief_answers true, brief_max_words100. Final output is synthesized from
+selected source evidence rather than printed excerpt blocks. It aims for40–80 words, permits
+shorter simple answers and enforces a hard100-word cap / maximum3 claims. Exact citations and
+same-provider support/completeness/focus review are required. One bounded semantic revision is
+recorded; invalid/unsupported results fail visibly. Full evidence remains in JSON and --detail.
+
+Live ClusterIP/NodePort smoke:41 words,2 claims, no LoadBalancer background. A first attempt was
+rejected by support review and preserved; a later run passed. Live PVC-retention smoke:29 words,
+explicit default Retain and configured whenDeleted Delete exception. Compact source markers
+are deduplicated while exact quotes remain inspectable. These are smoke checks, not a new Codex
+benchmark. Old source-copying quality percentages do not measure brief synthesis. No ranking,
+source documents, model dependencies or thresholds changed. Extra synthesis/review calls affect
+latency. Artifacts/source snapshot: artifacts/real-world/stage1/brief-answer-v1/.
+
+The legacy43-case model-free section-completion replay still passes after filling newly added
+config defaults, preserving reproducibility of old evaluations. Full software suite and live
+smoke outcomes are recorded in docs/results/real-world-stage1/brief-answer-smoke.json.
+
+---
+
+# CLI silent-failure fix (2026-10-27)
+
+User terminal requests returned only retrieval logs and exit0. Found that structured
+provider_error results had an empty answer and the answer CLI returned success. Provider
+failures now carry a readable message; plain CLI reports provider/validation errors on stderr
+and returns2, while --json preserves the structured result and also returns2. Successful
+answers and insufficient-evidence decisions retain their normal behavior.
+
+Live retry of the Ingress503 question answered via Codex with valid evidence:36.06s application
+time,18.56s generation. Saved at artifacts/real-world/stage1/codex-503-live-001/answer.json.
+The original terminal error was not captured, so its exact provider cause remains unconfirmed.
+The verified CLI is bundled in the VS Code extension; the active config now explicitly points
+to it rather than depending on terminal PATH. Minimal-PATH executable resolution passed.
+
+253 tests passed,2 optional skipped; after the executable config update,20 provider/CLI tests
+passed. Ruff/format/whitespace passed. User can retry the same command and see explicit errors
+if their CLI sign-in or connectivity differs. No aggregate Codex-quality claim.
+
+---
+
+# Active provider: Codex (2026-10-27)
+
+User authorized switching answer generation to Codex. `erag answer` now defaults to
+`config/answer-real-stage1-codex.yaml`, a copy of the latest five-document profile with
+`provider: codex`. The local v10 profile and benchmark archives remain unchanged; use its
+explicit --answer-config path for local comparisons. Evaluation defaults remain unchanged.
+
+The PostgreSQL/Deployment-or-StatefulSet live question passed through the installed Codex CLI
+with retrieved excerpts and validated citations. 18 provider/CLI tests passed; Ruff/format/
+whitespace passed. Existing numerical quality scores remain local 14B development measurements;
+there is no full Codex quality or controlled latency comparison yet. No new dependency/model
+or document stage was introduced. Change the active profile's provider flag back to ollama
+for local generation.
+
+---
+
 # Current result: five-document answer repairs completed as a development regression
 
 Profile: `config/answer-real-stage1-v10.yaml`; pinned local Qwen3 14B, same five articles,

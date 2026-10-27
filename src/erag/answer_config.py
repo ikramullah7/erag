@@ -39,6 +39,8 @@ class AnswerConfig:
     fact_lexical_coverage: bool = False
     reasoning_fallback: bool = False
     section_context_completion: bool = False
+    brief_answers: bool = False
+    brief_max_words: int = 100
 
     def __post_init__(self):
         if not isinstance(self.provider, str) or self.provider not in {"ollama", "codex"}:
@@ -65,6 +67,12 @@ class AnswerConfig:
             raise ValueError("section_context_completion must be boolean")
         if self.section_context_completion and not self.evidence_selection:
             raise ValueError("section context completion requires extractive evidence selection")
+        if type(self.brief_answers) is not bool:
+            raise ValueError("brief_answers must be boolean")
+        if self.brief_answers and not self.evidence_selection:
+            raise ValueError("brief answers require evidence selection")
+        if type(self.brief_max_words) is not int or not 30 <= self.brief_max_words <= 200:
+            raise ValueError("brief_max_words must be from 30 through 200")
         if self.document_fact_search and not (
             self.evidence_selection and self.fact_candidates and self.coverage_check
         ):

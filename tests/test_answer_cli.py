@@ -19,6 +19,7 @@ from erag.config import load_config
         ("answered", 0),
         ("insufficient_evidence", 0),
         ("invalid_response", 2),
+        ("provider_error", 2),
     ],
 )
 def test_answer_cli_uses_answer_profile_and_exposes_status(
@@ -37,13 +38,18 @@ def test_answer_cli_uses_answer_profile_and_exposes_status(
         cli, "QdrantStore", lambda **kw: SimpleNamespace(close=lambda: closed.append(True))
     )
     monkeypatch.setattr(cli, "Engine", lambda *args: object())
-    monkeypatch.setattr(cli, "OllamaGenerator", lambda config: object())
     result = {"status": status, "answer": "A validated answer", "claims": [], "sources": []}
-    monkeypatch.setattr(cli, "answer_question", lambda *args: result)
+
+    def answer(engine, generator, settings, *args):
+        assert isinstance(generator, CodexGenerator)
+        assert settings.provider == "codex"
+        return result
+
+    monkeypatch.setattr(cli, "answer_question", answer)
     monkeypatch.setattr(sys, "argv", ["erag", "answer", "Question?", "--json"])
     assert cli.main() == expected
     assert json.loads(capsys.readouterr().out)["status"] == status
-    assert paths == [load_answer_config("config/answer.yaml").retrieval_config]
+    assert paths == [load_answer_config("config/answer-real-stage1-codex.yaml").retrieval_config]
     assert closed == [True]
 
 
@@ -64,6 +70,51 @@ def test_answer_cli_provider_failure_is_nonzero_and_closes_store(monkeypatch, ca
     monkeypatch.setattr(sys, "argv", ["erag", "answer", "Question?"])
     assert cli.main() == 1
     assert capsys.readouterr().out == "" and closed == [True]
+
+
+def test_answer_cli_reports_structured_provider_failure_in_plain_mode(monkeypatch, capsys):
+    cfg = replace(load_config("config/default.yaml"), mode="bm25", rerank=False)
+    closed = []
+    monkeypatch.setattr(cli, "load_config", lambda path: cfg)
+    monkeypatch.setattr(
+        cli, "QdrantStore", lambda **kw: SimpleNamespace(close=lambda: closed.append(True))
+    )
+    monkeypatch.setattr(cli, "Engine", lambda *args: object())
+    monkeypatch.setattr(
+        cli,
+        "answer_question",
+        lambda *args: {
+            "status": "provider_error",
+            "answer": "",
+            "error": "Codex answer failed",
+            "claims": [],
+            "sources": [],
+        },
+    )
+    monkeypatch.setattr(sys, "argv", ["erag", "answer", "Question?"])
+    assert cli.main() == 2
+    output = capsys.readouterr()
+    assert output.out == "" and "Codex answer failed" in output.err
+    assert "provider_error" in output.err and closed == [True]
+
+
+@pytest.mark.parametrize("flags,brief", [([], True), (["--detail"], False)])
+def test_answer_cli_defaults_to_brief_with_explicit_evidence_view(
+    monkeypatch, capsys, flags, brief
+):
+    cfg = replace(load_config("config/default.yaml"), mode="bm25", rerank=False)
+    monkeypatch.setattr(cli, "load_config", lambda path: cfg)
+    monkeypatch.setattr(cli, "QdrantStore", lambda **kw: SimpleNamespace(close=lambda: None))
+    monkeypatch.setattr(cli, "Engine", lambda *args: object())
+
+    def answer(engine, generator, settings, *args):
+        assert settings.brief_answers is brief
+        return {"status": "answered", "answer": "Source-backed answer", "claims": [], "sources": []}
+
+    monkeypatch.setattr(cli, "answer_question", answer)
+    monkeypatch.setattr(sys, "argv", ["erag", "answer", "Question?", *flags])
+    assert cli.main() == 0
+    assert "Source-backed answer" in capsys.readouterr().out
 
 
 def test_answer_cli_routes_codex_flag_through_shared_answer_pipeline(monkeypatch, capsys):

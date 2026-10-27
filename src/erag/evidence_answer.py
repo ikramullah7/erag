@@ -496,7 +496,7 @@ def selection_failure(base, catalog, error, phase, started):
         "catalog": catalog,
         "status": "provider_error",
         "claims": [],
-        "answer": "",
+        "answer": f"Answer generation failed during {phase}: {error}",
         "error": str(error),
         "provider_error_phase": phase,
         "failed_generation_ms": failed_ms,

@@ -8,7 +8,7 @@ from copy import deepcopy
 from dataclasses import asdict
 from pathlib import Path
 
-from erag.answer_config import load_answer_config
+from erag.answer_config import AnswerConfig, load_answer_config
 from erag.answer_evaluation import summarize_answer_rows
 from erag.answer_metrics import citation_provenance
 from erag.config import digest
@@ -30,7 +30,7 @@ def main():
     cfg = load_answer_config(args.answer_config)
     if not cfg.section_context_completion:
         raise ValueError("replay requires section_context_completion")
-    old = {**source["config"], "section_context_completion": True}
+    old = {**asdict(AnswerConfig(**source["config"])), "section_context_completion": True}
     if old != asdict(cfg):
         raise ValueError("only the deterministic completion flag may change")
     if source["dataset_hash"] != hashlib.sha256(args.cases.read_bytes()).hexdigest():
